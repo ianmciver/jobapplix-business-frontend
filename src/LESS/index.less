@@ -2,6 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+
 html,
 body,
 div,
@@ -126,50 +127,22 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 a {
   text-decoration: none;
   font-size: inherit;
   color: inherit;
 }
-@font-face {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 300;
-  src: local("Montserrat Light"), local("Montserrat-Light"),
-    url(https://fonts.gstatic.com/s/montserrat/v12/JTURjIg1_i6t8kCHKm45_cJD3gnD-w.ttf)
-      format("truetype");
-}
-@font-face {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 400;
-  src: local("Montserrat Regular"), local("Montserrat-Regular"),
-    url(https://fonts.gstatic.com/s/montserrat/v12/JTUSjIg1_i6t8kCHKm459Wlhzg.ttf)
-      format("truetype");
-}
-@font-face {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 700;
-  src: local("Montserrat Bold"), local("Montserrat-Bold"),
-    url(https://fonts.gstatic.com/s/montserrat/v12/JTURjIg1_i6t8kCHKm45_dJE3gnD-w.ttf)
-      format("truetype");
-}
+// ----- RESET ABOVE ---- //
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,700");
+
 html {
   font-size: 62.5%;
 }
+
 html,
 body {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
-}
-
-#App {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-#content {
-  flex: 1 0 auto;
 }
