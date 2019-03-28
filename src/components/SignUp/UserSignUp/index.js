@@ -20,6 +20,7 @@ function UserSignUp(props) {
   const [passMatch, setPassMatch] = useState(true);
   const [passLength, setPassLength] = useState(true);
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (password !== confirmPassword) {
@@ -62,10 +63,10 @@ function UserSignUp(props) {
     props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(() => {
-        return props.firebase.doGetCurrentUserIdToken();
+        props.createUser(email, name, title, props.next);
       })
-      .then(token => {
-        props.createUser(email, name, title, token, props.next);
+      .catch(err => {
+        setError(err.message);
       });
   };
 
@@ -107,18 +108,15 @@ function UserSignUp(props) {
         type="password"
         match={passMatch}
       />
-      {passMatch ? (
-        <span className="no-match" />
-      ) : (
+      {passMatch ? null : (
         <span className="no-match">Passwords do not match</span>
       )}
-      {passLength ? (
-        <span className="no-match" />
-      ) : (
+      {passLength ? null : (
         <span className="no-match">
           Password must be at least 6 characters long.
         </span>
       )}
+      {error ? <span className="no-match">{error}</span> : null}
       {/* <NextButton disabled={buttonDisabled} onClick={props.next}> */}
       <NextButton disabled={buttonDisabled} onClick={createFirebaseUser}>
         NEXT STEP

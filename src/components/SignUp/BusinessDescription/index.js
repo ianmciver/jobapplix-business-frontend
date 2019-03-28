@@ -1,10 +1,17 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 
 import { TextArea } from "./styles";
 import { NextButton } from "../SignUpContainer/styles";
+import { createBusinessWithDescription } from "../../../actions/businessActions";
 
-export default function BusinessPayment(props) {
+function BusinessPayment(props) {
   const [desc, setDesc] = useState("");
+
+  const submitDescription = e => {
+    props.createBusinessWithDescription(desc, props.next);
+  };
+
   return (
     <>
       <h1 className="headline">DESCRIPTION</h1>
@@ -18,7 +25,12 @@ export default function BusinessPayment(props) {
         value={desc}
         onChange={e => setDesc(e.target.value)}
       />
-      <NextButton onClick={props.next}>NEXT</NextButton>
+      <NextButton onClick={submitDescription}>NEXT</NextButton>
     </>
   );
 }
+
+export default connect(
+  null,
+  { createBusinessWithDescription }
+)(BusinessPayment);

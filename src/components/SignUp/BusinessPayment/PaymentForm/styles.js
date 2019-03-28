@@ -8,8 +8,6 @@ import {
   textDark
 } from "../../../../constants/colors";
 
-import { TextInput } from "../../../../styles/forms";
-
 export const SubType = styled.div`
   width: 100%;
   border: 2px solid ${borderGrey};
@@ -22,6 +20,7 @@ export const SubType = styled.div`
   font-weight: 700;
   text-transform: uppercase;
   padding: 15px 0;
+  cursor: pointer;
 `;
 
 export const FormContainer = styled.div`
@@ -41,7 +40,10 @@ export const HalfInputContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const HalfWidthInput = styled(TextInput)`
+export const HalfWidthInput = styled.div`
+  margin: 0 0 20px;
+  border-bottom: 1px solid ${borderGrey};
+  padding-bottom: 5px;
   width: 45%;
 `;
 

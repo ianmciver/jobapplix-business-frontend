@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
 
 import UserSignUp from "../UserSignUp";
@@ -11,11 +11,14 @@ import SignUpComplete from "../SignUpComplete";
 import { Container } from "./styles";
 
 export default function SignUpContainer(props) {
-  const [step, setStep] = useState(1);
-
   const nextScreen = () => {
-    setStep(step + 1);
-    props.history.push(`/signup/${step}`);
+    let location = props.location.pathname.split("/");
+    let step = location[location.length - 1];
+    if (step === "signup") {
+      props.history.push("/signup/1");
+    } else {
+      props.history.push(`/signup/${Number(step) + 1}`);
+    }
   };
 
   return (
@@ -31,11 +34,11 @@ export default function SignUpContainer(props) {
       />
       <Route
         path="/signup/2"
-        render={props => <BusinessPayment next={nextScreen} />}
+        render={props => <BusinessDescription next={nextScreen} />}
       />
       <Route
         path="/signup/3"
-        render={props => <BusinessDescription next={nextScreen} />}
+        render={props => <BusinessPayment next={nextScreen} />}
       />
       <Route
         path="/signup/4"
@@ -43,7 +46,7 @@ export default function SignUpContainer(props) {
       />
       <Route
         path="/signup/5"
-        render={props => <SignUpComplete next={nextScreen} />}
+        render={props => <SignUpComplete next={nextScreen} {...props} />}
       />
     </Container>
   );

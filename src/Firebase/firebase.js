@@ -1,5 +1,5 @@
-import firebaseApp from 'firebase/app';
-import 'firebase/auth';
+import firebaseApp from "firebase/app";
+import "firebase/auth";
 
 const config = {
   apiKey: "AIzaSyAc1RCtc9aPmEruAcN7aroX-KN-DIqIO8o",
@@ -11,19 +11,22 @@ const config = {
 };
 
 class Firebase {
-  constructor(){
-    firebaseApp.initializeApp(config)
+  constructor() {
+    firebaseApp.initializeApp(config);
 
     this.auth = firebaseApp.auth();
   }
 
   doCreateUserWithEmailAndPassword = (email, password) => {
-    return this.auth.createUserWithEmailAndPassword(email, password)
-  }
+    return this.auth
+      .setPersistence(firebaseApp.auth.Auth.Persistence.LOCAL)
+      .then(() => this.auth.createUserWithEmailAndPassword(email, password))
+      .catch(err => console.log("Firebase error:", err));
+  };
 
   doSignInWithEmailAndPassword = (email, password) => {
     return this.auth.signInWithEmailAndPassword(email, password);
-  }
+  };
 
   doSignOut = () => this.auth.signOut();
 
@@ -31,9 +34,15 @@ class Firebase {
 
   doPasswordUpdate = password => {
     return this.auth.currentUser.updatePassword(password);
-  }
+  };
 
-  doGetCurrentUserIdToken = () => this.auth.currentUser.getIdToken();
+  doGetCurrentUserIdToken = () => {
+    if (this.auth.currentUser) {
+      return this.auth.currentUser.getIdToken();
+    } else {
+      return null;
+    }
+  };
 }
 
-export default Firebase
+export default Firebase;

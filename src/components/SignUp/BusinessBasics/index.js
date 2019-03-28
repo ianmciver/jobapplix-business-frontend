@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 
 import { TextInput } from "../../../styles/forms";
 import { NextButton } from "../SignUpContainer/styles";
 
-export default function BusinessBasics(props) {
+import {
+  createBusinessBasics,
+  checkUrlForAvailability
+} from "../../../actions/businessActions";
+
+function BusinessBasics(props) {
   const [businessName, setBusinessName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -21,14 +27,32 @@ export default function BusinessBasics(props) {
     }
   }, [businessName, url, urlAvailable]);
 
-  useEffect(() => {
-    //axios call to server
-    if (true) {
-      setUrlAvailable(true);
-    } else {
-      setUrlAvailable(false);
-    }
-  }, [url]);
+  const validateUrl = () => {
+    checkUrlForAvailability(url)
+      .then(res => {
+        if (res.data.url) {
+          setUrlAvailable(true);
+        } else {
+          setUrlAvailable(false);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const buttonClickHandler = () => {
+    props.createBusinessBasics(
+      businessName,
+      email,
+      address,
+      phone,
+      website,
+      url
+    );
+
+    props.next();
+  };
 
   return (
     <>
@@ -47,6 +71,20 @@ export default function BusinessBasics(props) {
         value={businessName}
         onChange={e => setBusinessName(e.target.value)}
       />
+      <TextInput
+        placeholder="JOBAPPLIX URL*"
+        value={url}
+        onChange={e => setUrl(e.target.value)}
+        onBlur={validateUrl}
+      />
+      {urlAvailable ? (
+        <span>
+          Your business's JobApplix page will be found at:{" "}
+          <span className="step">{`https://${url}.jobapplix.com`}</span>
+        </span>
+      ) : (
+        <span className="no-match">Sorry, that URL has already been taken</span>
+      )}
       <TextInput
         placeholder="BUSINESS EMAIL"
         value={email}
@@ -67,18 +105,14 @@ export default function BusinessBasics(props) {
         value={website}
         onChange={e => setWebsite(e.target.value)}
       />
-      <TextInput
-        placeholder="JOBAPPLIX URL*"
-        value={url}
-        onChange={e => setUrl(e.target.value)}
-      />
-      <span>
-        Your business's JobApplix page will be found at:{" "}
-        <span className="step">{`https://${url}.jobapplix.com`}</span>
-      </span>
-      <NextButton onClick={props.next} disabled={buttonDisabled}>
+      <NextButton onClick={buttonClickHandler} disabled={buttonDisabled}>
         NEXT STEP
       </NextButton>
     </>
   );
 }
+
+export default connect(
+  null,
+  { createBusinessBasics }
+)(BusinessBasics);

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Elements } from "react-stripe-elements";
 
 import PaymentOptions from "./PaymentOptions";
 import PaymentForm from "./PaymentForm";
@@ -28,7 +29,13 @@ export default function PaymentContainer(props) {
         />
       ) : null}
       {screen === "form" ? (
-        <PaymentForm subType={subType} nextScreen={props.next} />
+        <Elements>
+          <PaymentForm
+            subType={subType}
+            nextScreen={props.next}
+            setScreen={setScreen}
+          />
+        </Elements>
       ) : null}
       {modal ? <PaymentModal closeModal={() => setModal(false)} /> : null}
     </>

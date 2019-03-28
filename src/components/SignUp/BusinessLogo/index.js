@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { connect } from "react-redux";
 
 import addIcon from "../../../assets/add.svg";
 import {
@@ -11,21 +12,32 @@ import {
 } from "./styles";
 import { NextButton } from "../SignUpContainer/styles";
 
-export default function BusinessLogo(props) {
+import { uploadFileToS3 } from "../../../actions/businessActions";
+import { withFirebase } from "../../../Firebase";
+
+function BusinessLogo(props) {
   const [image, setImage] = useState("");
+  const [file, setFile] = useState(null);
   const onDrop = useCallback(acceptedFiles => {
     const reader = new FileReader();
 
-    reader.onabort = () => console.log("shit was aborted");
-    reader.onerror = () => console.log("errored out");
+    reader.onabort = () => console.log("file read was aborted");
+    reader.onerror = () => console.log("file read errored out");
     reader.onload = e => {
       setImage(reader.result);
     };
-    acceptedFiles.forEach(file => reader.readAsDataURL(file));
+    acceptedFiles.forEach(file => {
+      reader.readAsDataURL(file);
+      setFile(file);
+    });
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-  console.log(getInputProps());
+
+  const submitImage = () => {
+    props.uploadFileToS3(file, props.next);
+  };
+
   return (
     <>
       <h1 className="headline">UPLOAD YOUR LOGO</h1>
@@ -51,8 +63,15 @@ export default function BusinessLogo(props) {
       ) : (
         <AdditionalInstructions />
       )}
-      <NextButton disabled={image.length === 0}>SUBMIT AND FINISH</NextButton>
+      <NextButton disabled={image.length === 0} onClick={submitImage}>
+        SUBMIT AND FINISH
+      </NextButton>
       <SkipOption onClick={props.next}>SKIP FOR NOW >></SkipOption>
     </>
   );
 }
+
+export default connect(
+  null,
+  { uploadFileToS3 }
+)(withFirebase(BusinessLogo));

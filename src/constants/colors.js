@@ -3,6 +3,8 @@ export const backgroundBlue = "#00c2ea";
 export const backgroundDarkblue = "#01abce";
 export const backgroundDark = "#050505";
 export const backgroundLight = "#ebebeb";
+export const backgroundQuestion = "#f0efef";
+export const backgroundWhite = "#ffffff";
 
 export const backgroundGreyOpacity94 = "rgba(43, 45, 45, 0.94)";
 
@@ -20,3 +22,4 @@ export const borderBlue = "#00c2ea";
 export const borderGreen = "#1ee7e2";
 export const borderGrey = "#2b2d2d";
 export const borderRed = "#ff0000";
+export const borderQuestion = "#C9C6C6";
