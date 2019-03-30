@@ -7,7 +7,7 @@ import PaymentModal from "./PaymentModal";
 
 export default function PaymentContainer(props) {
   const [subType, setSubType] = useState("yearly");
-  const [screen, setScreen] = useState("form");
+  const [screen, setScreen] = useState("options");
   const [modal, setModal] = useState(false);
 
   return (

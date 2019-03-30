@@ -63,6 +63,7 @@ function UserSignUp(props) {
     props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(() => {
+        console.timeEnd("Firebase");
         props.createUser(email, name, title, props.next);
       })
       .catch(err => {

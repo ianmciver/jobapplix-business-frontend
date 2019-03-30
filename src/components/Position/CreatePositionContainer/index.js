@@ -8,6 +8,7 @@ import PositionDetails from "../PositionDetails";
 import PositionQuestions from "../PositionQuestions";
 import CustomQuestionsContainer from "../CustomQuestions";
 import ShiftTimes from "../ShiftTimes";
+import PositionComplete from "../PositionComplete";
 import { PositionQuestionContext } from "../PositionContext";
 
 import { questionGroups } from "../PositionQuestions/data";
@@ -43,6 +44,7 @@ export default function CreatePositionContainer(props) {
         component={CustomQuestionsContainer}
       />
       <Route path="/createposition/availability" component={ShiftTimes} />
+      <Route path="/createposition/complete" component={PositionComplete} />
     </div>
   );
 }

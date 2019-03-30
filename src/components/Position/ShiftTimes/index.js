@@ -86,7 +86,46 @@ export default function ShiftTimes(props) {
     setHourValues(format === "24hr" ? militaryHours : ampmHours);
   };
 
-  const { availability, setAvailability } = positionContext;
+  const { availability, setAvailability, createPosition } = positionContext;
+
+  const finish = async e => {
+    const standard_shift_times = option === "prebuilt";
+    const shift_one_begin = `${militaryHours[shiftOneStart.hour]}:${
+      minuteValues[shiftOneStart.minute]
+    }`;
+    const shift_one_end = `${militaryHours[shiftOneEnd.hour]}:${
+      minuteValues[shiftOneEnd.minute]
+    }`;
+    const shift_two_begin = `${militaryHours[shiftTwoStart.hour]}:${
+      minuteValues[shiftTwoStart.minute]
+    }`;
+    const shift_two_end = `${militaryHours[shiftTwoEnd.hour]}:${
+      minuteValues[shiftTwoEnd.minute]
+    }`;
+    const shift_three_begin = `${militaryHours[shiftThreeStart.hour]}:${
+      minuteValues[shiftThreeStart.minute]
+    }`;
+    const shift_three_end = `${militaryHours[shiftThreeEnd.hour]}:${
+      minuteValues[shiftThreeEnd.minute]
+    }`;
+
+    let shiftTimes = {
+      shift_one_begin,
+      shift_one_end,
+      shift_two_begin,
+      shift_two_end
+    };
+
+    if (thirdShift) {
+      shiftTimes = {
+        ...shiftTimes,
+        shift_three_begin,
+        shift_three_end
+      };
+    }
+    await createPosition(shiftTimes, standard_shift_times);
+    props.history.push("/createposition/complete");
+  };
 
   return (
     <ShiftTimesContainer>
@@ -376,9 +415,7 @@ export default function ShiftTimes(props) {
           )}
         </ShiftTimeBuilderContainer>
       )}
-      <FinishButton onClick={e => props.history.push("/dashboard")}>
-        Complete and Save Position
-      </FinishButton>
+      <FinishButton onClick={finish}>Complete and Save Position</FinishButton>
     </ShiftTimesContainer>
   );
 }

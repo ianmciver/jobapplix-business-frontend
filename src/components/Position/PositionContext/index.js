@@ -1,4 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import axios from "axios";
+
+import { connect } from "react-redux";
+
+import { API_URL } from "../../../constants/urls";
+import FirebaseContext from "../../../Firebase/context";
 
 export const PositionQuestionContext = React.createContext({
   activeQuestions: [],
@@ -17,21 +23,24 @@ export const PositionQuestionContext = React.createContext({
   setActiveQuestions: () => {},
   setRefs: () => {},
   setAvailability: () => {},
-  setShiftTimesId: () => {}
+  setShiftTimesId: () => {},
+  createShiftTimes: () => {},
+  createPosition: () => {}
 });
 
-export default function PositionContext(props) {
+function PositionContext(props) {
   const [activeQuestions, setActiveQuestions] = useState([]);
   const [positionName, setPositionName] = useState("");
   const [positionDesc, setPositionDesc] = useState("");
   const [standardQuestions, setStandardQuestions] = useState({});
   const [customQuestions, setCustomQuestions] = useState([]);
-  const [workRefs, setWorkRefs] = useState(false);
-  const [personalRefs, setPersonalRefs] = useState(false);
-  const [eduHist, setEduHist] = useState(false);
+  const [work_history, setWorkRefs] = useState(false);
+  const [personal_refs, setPersonalRefs] = useState(false);
+  const [educational_history, setEduHist] = useState(false);
   const [availability, setAvailability] = useState(false);
   const [shiftTimesId, setShiftTimesId] = useState(1);
 
+  const firebase = useContext(FirebaseContext);
   const addOrRemoveActiveQuestions = id => {
     if (typeof id === String) {
     }
@@ -53,23 +62,42 @@ export default function PositionContext(props) {
         {
           id: "work",
           question: "Previous Work History.",
-          isActive: workRefs,
-          toggle: () => setWorkRefs(!workRefs)
+          isActive: work_history,
+          toggle: () => setWorkRefs(!work_history)
         },
         {
           id: "edu",
           question: "Educational History.",
-          isActive: eduHist,
-          toggle: () => setEduHist(!eduHist)
+          isActive: educational_history,
+          toggle: () => setEduHist(!educational_history)
         },
         {
           id: "per",
           question: "Please provide three personal references.",
-          isActive: personalRefs,
-          toggle: () => setPersonalRefs(!personalRefs)
+          isActive: personal_refs,
+          toggle: () => setPersonalRefs(!personal_refs)
         }
       ]
     }
+  };
+
+  const createPosition = async (shift_times, standard_shift_times) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    return axios.post(
+      `${API_URL}/businesses/position?bid=${props.business.id}`,
+      {
+        name: positionName,
+        description: positionDesc,
+        work_history,
+        educational_history,
+        personal_refs,
+        availability,
+        shift_times,
+        standard_shift_times,
+        questions: activeQuestions,
+        token
+      }
+    );
   };
 
   const positionContext = {
@@ -88,7 +116,8 @@ export default function PositionContext(props) {
     availability,
     setAvailability,
     shiftTimesId,
-    setShiftTimesId
+    setShiftTimesId,
+    createPosition
   };
 
   return (
@@ -97,3 +126,7 @@ export default function PositionContext(props) {
     </PositionQuestionContext.Provider>
   );
 }
+
+export default connect(state => ({ business: state.business }))(
+  PositionContext
+);
