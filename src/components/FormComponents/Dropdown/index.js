@@ -17,8 +17,13 @@ export default function Dropdown(props) {
   return (
     <>
       <DropdownContainer>
-        <DropdownValue onClick={e => setOpen(!open)}>
-          {props.value}
+        <DropdownValue
+          onClick={e => {
+            console.log(open);
+            setOpen(!open);
+          }}
+        >
+          {props.ammendedValue || props.value}
         </DropdownValue>
         {open && (
           <DropdownListContainer top={props.valueIndex * 34}>
@@ -27,7 +32,7 @@ export default function Dropdown(props) {
                 return (
                   <DropdownListItem
                     onClick={optionClick(item)}
-                    selected={props.value === item.split(" ")[0]}
+                    selected={props.value === item}
                     key={index}
                   >
                     {item}

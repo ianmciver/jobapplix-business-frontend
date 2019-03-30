@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
+import { FormButton } from "../../../styles/buttons";
+import { NextButton } from "../../SignUp/SignUpContainer/styles";
+
 import {
   textDark,
   textBlue,
   backgroundLight,
   borderDark,
-  backgroundBlue
+  backgroundBlue,
+  backgroundWhite
 } from "../../../constants/colors";
 
 export const ShiftTimesContainer = styled.div`
@@ -62,7 +66,8 @@ export const SmallCheckBox = styled.div`
   width: 15px;
   height: 15px;
   border: 1px solid ${borderDark};
-  background-color: ${props => props.selected && backgroundBlue};
+  background-color: ${props =>
+    props.selected ? backgroundBlue : backgroundWhite};
   margin-right: 10px;
   cursor: pointer;
 `;
@@ -83,4 +88,8 @@ export const TimeDropdownSeparator = styled.span`
   font-size: 1.4rem;
   font-weight: 700;
   margin: 0 7px;
+`;
+
+export const FinishButton = styled(NextButton)`
+  margin: 20px 30px;
 `;

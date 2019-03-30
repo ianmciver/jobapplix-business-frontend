@@ -14,7 +14,8 @@ import {
   SmallCheckBox,
   SmallCheckBoxLabel,
   TimesDropdownContainer,
-  TimeDropdownSeparator
+  TimeDropdownSeparator,
+  FinishButton
 } from "./styles";
 
 import {
@@ -152,7 +153,8 @@ export default function ShiftTimes(props) {
           <TimesDropdownContainer>
             <div>
               <Dropdown
-                value={hourValues[shiftOneStart.hour].split(" ")[0]}
+                ammendedValue={hourValues[shiftOneStart.hour].split(" ")[0]}
+                value={hourValues[shiftOneStart.hour]}
                 options={hourValues}
                 selectItem={onSelectChange(
                   shiftOneStart,
@@ -184,7 +186,8 @@ export default function ShiftTimes(props) {
             <TimeDropdownSeparator>-</TimeDropdownSeparator>
             <div>
               <Dropdown
-                value={hourValues[shiftOneEnd.hour].split(" ")[0]}
+                ammendedValue={hourValues[shiftOneEnd.hour].split(" ")[0]}
+                value={hourValues[shiftOneEnd.hour]}
                 options={hourValues.slice(shiftOneStart.hour + 1)}
                 selectItem={onSelectChange(
                   shiftOneEnd,
@@ -192,7 +195,11 @@ export default function ShiftTimes(props) {
                   hourValues,
                   "hour"
                 )}
-                valueIndex={shiftOneEnd.hour}
+                valueIndex={
+                  shiftOneEnd.hour -
+                  (hourValues.length -
+                    hourValues.slice(shiftOneStart.hour + 1).length)
+                }
               />
               <TimeDropdownSeparator>:</TimeDropdownSeparator>
               <Dropdown
@@ -218,7 +225,8 @@ export default function ShiftTimes(props) {
           <TimesDropdownContainer>
             <div>
               <Dropdown
-                value={hourValues[shiftTwoStart.hour].split(" ")[0]}
+                ammendedValue={hourValues[shiftTwoStart.hour].split(" ")[0]}
+                value={hourValues[shiftTwoStart.hour]}
                 options={hourValues}
                 selectItem={onSelectChange(
                   shiftTwoStart,
@@ -250,7 +258,8 @@ export default function ShiftTimes(props) {
             <TimeDropdownSeparator>-</TimeDropdownSeparator>
             <div>
               <Dropdown
-                value={hourValues[shiftTwoEnd.hour].split(" ")[0]}
+                value={hourValues[shiftTwoEnd.hour]}
+                ammendedValue={hourValues[shiftTwoEnd.hour].split(" ")[0]}
                 options={hourValues.slice(shiftTwoStart.hour + 1)}
                 selectItem={onSelectChange(
                   shiftTwoEnd,
@@ -258,7 +267,11 @@ export default function ShiftTimes(props) {
                   hourValues,
                   "hour"
                 )}
-                valueIndex={shiftTwoEnd.hour}
+                valueIndex={
+                  shiftTwoEnd.hour -
+                  (hourValues.length -
+                    hourValues.slice(shiftTwoStart.hour + 1).length)
+                }
               />
               <TimeDropdownSeparator>:</TimeDropdownSeparator>
               <Dropdown
@@ -293,7 +306,10 @@ export default function ShiftTimes(props) {
               <TimesDropdownContainer>
                 <div>
                   <Dropdown
-                    value={hourValues[shiftThreeStart.hour].split(" ")[0]}
+                    ammendedValue={
+                      hourValues[shiftThreeStart.hour].split(" ")[0]
+                    }
+                    value={hourValues[shiftThreeStart.hour]}
                     options={hourValues}
                     selectItem={onSelectChange(
                       shiftThreeStart,
@@ -325,8 +341,9 @@ export default function ShiftTimes(props) {
                 <TimeDropdownSeparator>-</TimeDropdownSeparator>
                 <div>
                   <Dropdown
-                    value={hourValues[shiftThreeEnd.hour].split(" ")[0]}
-                    options={hourValues.slice(shiftThreeStart.hour + 1)}
+                    ammendedValue={hourValues[shiftThreeEnd.hour].split(" ")[0]}
+                    value={hourValues[shiftThreeEnd.hour]}
+                    options={hourValues}
                     selectItem={onSelectChange(
                       shiftThreeEnd,
                       setShiftThreeEnd,
@@ -359,6 +376,9 @@ export default function ShiftTimes(props) {
           )}
         </ShiftTimeBuilderContainer>
       )}
+      <FinishButton onClick={e => props.history.push("/dashboard")}>
+        Complete and Save Position
+      </FinishButton>
     </ShiftTimesContainer>
   );
 }

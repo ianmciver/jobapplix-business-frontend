@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import {
   borderLight,
-  backgroundQuestion,
+  backgroundWhite,
   backgroundBlue,
   textLight,
   textDark
@@ -15,7 +15,7 @@ export const DropdownContainer = styled.div`
   padding: 10px 15px;
   border: 1px solid ${borderLight};
   border-radius: 3px;
-  background-color: ${backgroundQuestion};
+  background-color: ${backgroundWhite};
   width: 51px;
 `;
 
@@ -31,7 +31,7 @@ export const DropdownListContainer = styled.div`
   top: ${props => (props.top ? `-${props.top}px` : 0)};
   left: 0;
   z-index: 9999;
-  background-color: ${backgroundQuestion};
+  background-color: ${backgroundWhite};
   border: 1px solid ${borderLight};
   border-radius: 3px;
 `;
