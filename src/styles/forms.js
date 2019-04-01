@@ -4,14 +4,15 @@ import {
   textDark,
   borderGrey,
   borderMedium,
-  borderLight
+  borderLight,
+  borderRed
 } from "../constants/colors";
 
 export const TextInput = styled.input`
   width: ${props => props.width || `100%`};
   color: ${props => props.color || textDark};
   border-width: 0px;
-  border-bottom: 1px solid ${borderGrey};
+  border-bottom: 1px solid ${props => (props.error ? borderRed : borderGrey)};
   outline: none;
   padding: 3px 0;
   font-size: 1.6rem;

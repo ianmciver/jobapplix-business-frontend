@@ -1,34 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import SignIn from "./components/SignIn";
-import CreatePositionContainer from "./components/Position/CreatePositionContainer";
-import PositionContext from "./components/Position/PositionContext";
+import DashboardContainer from "./components/Dashboard/DashboardContainer";
 import SignUpContainer from "./components/SignUp/SignUpContainer";
 
-class App extends Component {
-  render() {
-    return (
-      <div id="App">
-        <Header />
-        <div id="content">
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUpContainer} />
-          <Route
-            path="/createposition"
-            render={props => (
-              <PositionContext>
-                <CreatePositionContainer {...props} />
-              </PositionContext>
-            )}
-          />
-        </div>
-        <Footer />
+import { signin, signup, dashboard } from "./constants/routes";
+
+function App(props) {
+  return (
+    <div id="App">
+      <div id="content">
+        <Route path={signin} component={SignIn} />
+        <Route path={signup} component={SignUpContainer} />
+        <Route path={dashboard} component={DashboardContainer} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default App;

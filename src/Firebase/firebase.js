@@ -17,6 +17,12 @@ class Firebase {
     this.auth = firebaseApp.auth();
   }
 
+  doSetInitializationListener = cb => {
+    return this.auth.onAuthStateChanged(item => {
+      cb();
+    });
+  };
+
   doCreateUserWithEmailAndPassword = (email, password) => {
     return this.auth
       .setPersistence(firebaseApp.auth.Auth.Persistence.LOCAL)
@@ -25,7 +31,12 @@ class Firebase {
   };
 
   doSignInWithEmailAndPassword = (email, password) => {
-    return this.auth.signInWithEmailAndPassword(email, password);
+    return this.auth
+      .setPersistence(firebaseApp.auth.Auth.Persistence.LOCAL)
+      .then(() => {
+        this.auth.signInWithEmailAndPassword(email, password);
+      })
+      .catch(err => console.log("Firebase error:", err));
   };
 
   doSignOut = () => this.auth.signOut();

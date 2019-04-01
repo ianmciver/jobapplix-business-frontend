@@ -1,13 +1,17 @@
 import styled from "styled-components";
-import { backgroundGrey } from "../../constants/colors";
+import { backgroundGrey } from "../../../constants/colors";
 
 export const HeaderContainer = styled.div`
   background-color: ${backgroundGrey};
-  height: 30px;
+  width: 100%;
+  /* height: 30px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 27px 20px;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
 `;
 
 export const HeaderLogo = styled.img`

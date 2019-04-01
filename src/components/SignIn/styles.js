@@ -4,6 +4,7 @@ import {
   textDark,
   textLight,
   textBlue,
+  borderRed,
   backgroundBlue,
   borderGrey
 } from "../../constants/colors";
@@ -61,4 +62,11 @@ export const SignUpCTA = styled.span`
     font-weight: 700;
     cursor: pointer;
   }
+`;
+
+export const ErrorText = styled.span`
+  margin-bottom: 10px;
+  color: ${borderRed};
+  font-style: italic;
+  font-size: 1rem;
 `;
