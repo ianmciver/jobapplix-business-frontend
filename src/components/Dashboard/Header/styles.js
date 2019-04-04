@@ -1,13 +1,17 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import {
   backgroundBlue,
-  borderMedium,
   backgroundWhite,
-  backgroundBlue35percent,
+  backgroundDark,
   textLight,
   textDarkBlue
 } from "../../../constants/colors";
+
+export const HeaderContainer = styled.div`
+  position: fixed;
+  width: 100vw;
+`;
 
 export const CompanyContainer = styled.div`
   background-color: ${backgroundBlue};
@@ -26,8 +30,11 @@ export const ImageContainer = styled.div`
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  border: 1px solid ${borderMedium};
-  background-color: ${backgroundWhite};
+  border: 1px solid ${backgroundDark};
+  background-image: ${props => props.image && css`url(${props.image})`};
+  background-size: cover;
+  background-color: ${backgroundDark};
+  background-repeat: no-repeat;
   flex-shrink: 0;
   margin-right: 15px;
 `;
@@ -52,22 +59,4 @@ export const Applications = styled.h3`
 
 export const ApplicationAmount = styled.span`
   font-weight: 700;
-`;
-
-export const FeaturesGroup = styled.div`
-  background-color: ${backgroundBlue35percent};
-  display: flex;
-  justify-content: center;
-`;
-
-export const FeaturesButton = styled.span`
-  padding: 10px 15px;
-  color: ${textDarkBlue};
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  cursor: pointer;
-  &:hover {
-    background-color: ${backgroundBlue};
-    color: ${textLight};
-  }
 `;

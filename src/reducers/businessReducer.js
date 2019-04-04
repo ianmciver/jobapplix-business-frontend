@@ -16,7 +16,8 @@ const initialState = {
   canceled: false,
   parent: "",
   image_url: "",
-  customQuestions: []
+  customQuestions: [],
+  positions: []
 };
 
 export default function BusinessReducer(state = initialState, action) {

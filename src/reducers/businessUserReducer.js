@@ -8,7 +8,7 @@ const initialState = {
   name: "",
   title: "",
   imageUrl: "",
-  loading: false
+  loading: true
 };
 
 export default function BusinessUserReducer(state = initialState, action) {

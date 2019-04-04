@@ -16,6 +16,7 @@ import { TextInput } from "../../styles/forms";
 import Header from "../Header";
 import Footer from "../Footer";
 import { fetchUser } from "../../actions/businessUserActions";
+import { getBusinessSummary } from "../../actions/businessActions";
 
 function SignIn(props) {
   const [email, setEmail] = useState("");
@@ -28,8 +29,9 @@ function SignIn(props) {
     firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
-        props.fetchUser();
         props.history.push(dashboard);
+        props.fetchUser();
+        props.getBusinessSummary();
       })
       .catch(err => {
         setError("Email or Password is incorrect");
@@ -45,6 +47,7 @@ function SignIn(props) {
       return;
     }
   };
+
   return (
     <>
       <Header />
@@ -52,6 +55,7 @@ function SignIn(props) {
         <h1>SIGN IN</h1>
         <TextInput
           placeholder="EMAIL"
+          type="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
           error={!!error}
@@ -84,5 +88,5 @@ function SignIn(props) {
 
 export default connect(
   null,
-  { fetchUser }
+  { fetchUser, getBusinessSummary }
 )(SignIn);

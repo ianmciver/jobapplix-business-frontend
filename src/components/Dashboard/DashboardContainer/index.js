@@ -1,19 +1,29 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
-// import { withFirebase } from "../../../Firebase/context";
-// import { firebase } from "../../../index";
 
 import TopBar from "../TopBar";
 import CreatePositionContainer from "../Position/CreatePositionContainer";
 import PositionContext from "../Position/PositionContext";
 
 import { FirebaseContext } from "../../../Firebase";
+
 import Header from "../Header";
 import Loading from "../Loading";
-import { dashboard, createPosition } from "../../../constants/routes";
+import ApplicationsContainer from "../ApplicationsContainer";
+
+import {
+  dashboard,
+  createPosition,
+  applications
+} from "../../../constants/routes";
 import isLoggedIn from "../../../helpers/isLoggedIn";
+
 import { DashboardBody } from "./styles";
+import {
+  getBusinessSummary,
+  startLoadingScreen
+} from "../../../actions/businessActions";
 
 function DashboardContainer(props) {
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);
@@ -26,10 +36,11 @@ function DashboardContainer(props) {
     if (firebaseInitialized) {
       if (!isLoggedIn()) {
         props.history.replace("/signin");
+      } else {
+        props.getBusinessSummary();
       }
     }
   }, [firebaseInitialized]);
-
   return (
     <>
       {props.businessUser.loading ? (
@@ -47,6 +58,10 @@ function DashboardContainer(props) {
                 </PositionContext>
               )}
             />
+            <Route
+              path={`${dashboard}${applications}`}
+              component={ApplicationsContainer}
+            />
           </DashboardBody>
         </>
       )}
@@ -54,6 +69,7 @@ function DashboardContainer(props) {
   );
 }
 
-export default connect(state => ({ businessUser: state.businessUser }))(
-  DashboardContainer
-);
+export default connect(
+  state => ({ businessUser: state.businessUser }),
+  { getBusinessSummary, startLoadingScreen }
+)(DashboardContainer);

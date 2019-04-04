@@ -2,6 +2,10 @@ import axios from "axios";
 
 import { API_URL } from "../constants/urls";
 import { firebase } from "../index";
+import {
+  FETCHING_USER_DATA,
+  FETCHING_USER_DATA_COMPLETE
+} from "./businessUserActions";
 
 export const CREATE_BUSINESS_BASICS = "CREATE_BUSINESS_BASICS";
 export const UPDATE_BUSINESS = "UPDATE_BUSINESS";
@@ -82,7 +86,6 @@ export const uploadFileToS3 = (file, next) => {
         { token }
       )
       .then(res => {
-        console.log(res);
         return axios({
           method: "put",
           url: res.data.signedRequest,
@@ -91,11 +94,26 @@ export const uploadFileToS3 = (file, next) => {
         });
       })
       .then(res => {
-        console.log(res);
         next();
       })
       .catch(err => {
         console.log(err);
       });
   };
+};
+
+export const getBusinessSummary = () => {
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    axios.get(`${API_URL}/businesses/summary?token=${token}`).then(res => {
+      dispatch({ type: UPDATE_BUSINESS, payload: res.data.businesses[0] });
+      setTimeout(() => {
+        dispatch({ type: FETCHING_USER_DATA_COMPLETE });
+      }, 1500);
+    });
+  };
+};
+
+export const startLoadingScreen = () => {
+  return { type: FETCHING_USER_DATA };
 };
