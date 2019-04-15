@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import {
   borderMedium,
   borderQuestion,
-  textDark
+  textBlue,
+  textMedium
 } from "../../../../constants/colors";
 
 export const ApplicationsGroup = styled.div`
@@ -15,40 +16,27 @@ export const ApplicationsGroup = styled.div`
 export const ApplicationsGroupHead = styled.div`
   width: 100vw;
   display: flex;
+  flex-direction: column;
   border-bottom: 1px solid ${borderQuestion};
 `;
 
-export const ApplicationsGroupColumnOne = styled.div`
-  padding: 0px 0px 5px 7vw;
-  height: 35px;
-  width: 40.8%;
-  max-width: 169px;
-  display: flex;
-  align-items: flex-end;
-`;
-export const ApplicationsGroupColumnTwo = styled.div`
-  padding-bottom: 5px;
-  height: 35px;
-  width: 35.2%;
-  max-width: 145px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-`;
-export const ApplicationsGroupColumnThree = styled.div`
-  padding-bottom: 5px;
-  height: 35px;
-  width: 24%;
-  max-width: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+export const ApplicationsRowContent = styled(ApplicationsGroupHead)`
+  background-color: ${props => props.bgcolor && props.bgcolor};
 `;
 
-export const ApplicationsGroupColumnTitle = styled.span`
-  font-size: 1.4rem;
-  text-transform: uppercase;
-  color: ${textDark};
-`;
+export const ExpandAppIcon = styled.svg`
+  width: 15px;
+  height: 15px;
+  fill: ${textMedium};
+  transition: transform 300ms;
+  cursor: pointer;
+  flex-shrink: 0;
 
+  ${props =>
+    props.selected &&
+    css`
+      fill: ${textBlue};
+      transform: rotate(45deg);
+    `}
+`;
 // name: 169 40.8%, group 145.7 35.2%, details 99.36 (24%)

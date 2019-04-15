@@ -12,6 +12,12 @@ import {
   ApplicationAmount
 } from "./styles";
 function Header(props) {
+  const newApplicationsCount = props.business.applications.reduce(
+    (total, app) => {
+      return app.group === 0 ? total + 1 : total;
+    },
+    0
+  );
   return (
     <HeaderContainer>
       <CompanyContainer>
@@ -21,7 +27,8 @@ function Header(props) {
         <NameContainer>
           <CompanyName>{props.business.name}</CompanyName>
           <Applications>
-            applications received: <ApplicationAmount>10</ApplicationAmount>
+            new applications received:{" "}
+            <ApplicationAmount>{newApplicationsCount}</ApplicationAmount>
           </Applications>
         </NameContainer>
       </CompanyContainer>

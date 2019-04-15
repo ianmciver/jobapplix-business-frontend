@@ -1,31 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { TabsContainer, Tab, TabTitle } from "./styles";
 
-const groups = [
-  { id: 1000, title: "All" },
-  { id: 0, title: "New" },
-  { id: 1, title: "Hired" },
-  { id: 2, title: "High Potential" },
-  { id: 3, title: "Pile" },
-  { id: 4, title: "In Progress" },
-  { id: 5, title: "Not Hired" }
-];
-export default function ApplicationTabs(props) {
-  const [selected, setSelected] = useState(1000);
+import { ApplicationsContext } from "../ApplicationsContext";
 
+export default function ApplicationTabs(props) {
+  const applicationContext = useContext(ApplicationsContext);
   const clickHandler = id => e => {
-    setSelected(id);
+    applicationContext.setGroupSelected(id);
   };
 
   return (
     <TabsContainer>
-      {groups.map(tab => (
+      {applicationContext.groups.map(tab => (
         <Tab
           key={tab.id}
-          selected={selected === tab.id}
+          selected={applicationContext.selectedGroupId === tab.id}
           onClick={clickHandler(tab.id)}
         >
-          <TabTitle selected={selected === tab.id}>{tab.title}</TabTitle>
+          <TabTitle selected={applicationContext.selectedGroupId === tab.id}>
+            {tab.title}
+          </TabTitle>
         </Tab>
       ))}
     </TabsContainer>

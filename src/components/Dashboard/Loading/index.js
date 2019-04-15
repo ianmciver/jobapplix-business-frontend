@@ -22,15 +22,23 @@ function Loading(props) {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
+    const two = setTimeout(() => {
       setStartTwo(true);
     }, 700);
+
+    return () => {
+      clearTimeout(two);
+    };
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
+    const three = setTimeout(() => {
       setStartThree(true);
     }, 1400);
+
+    return () => {
+      clearTimeout(three);
+    };
   }, []);
 
   return (

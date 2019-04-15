@@ -1,8 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
 
+import ApplicationsProvider from "./ApplicationsContext";
 import ApplicationsTabs from "./ApplicationsTabs";
 import ApplicationsTable from "./ApplicationsTable";
+import Header from "../Header";
 import {
   ApplicationsContainer,
   ApplicationsTitle,
@@ -10,9 +11,10 @@ import {
   FeaturesGroup
 } from "./styles";
 
-function Applications(props) {
+export default function Applications() {
   return (
-    <>
+    <ApplicationsProvider>
+      <Header />
       <FeaturesGroup>
         <FeaturesButton>Filters</FeaturesButton>
         <FeaturesButton>Search</FeaturesButton>
@@ -23,8 +25,6 @@ function Applications(props) {
       </ApplicationsContainer>
       <ApplicationsTabs />
       <ApplicationsTable />
-    </>
+    </ApplicationsProvider>
   );
 }
-
-export default connect()(Applications);

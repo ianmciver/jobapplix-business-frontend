@@ -14,7 +14,7 @@ const initialState = {
 export default function BusinessUserReducer(state = initialState, action) {
   switch (action.type) {
     case UPDATE_USER:
-      return { ...state, ...action.payload };
+      return { ...state, ...action.user };
     case FETCHING_USER_DATA:
       return { ...state, loading: true };
     case FETCHING_USER_DATA_COMPLETE:

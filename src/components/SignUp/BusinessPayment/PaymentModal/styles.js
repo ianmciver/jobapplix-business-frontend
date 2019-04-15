@@ -12,7 +12,7 @@ export const Modal = styled.div`
   background-color: ${backgroundGreyOpacity94};
   position: absolute;
   top: 15vh;
-  z-index: 1000;
+  z-index: 9999;
   display: flex;
   flex-direction: column;
   align-items: center;

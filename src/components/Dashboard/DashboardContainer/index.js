@@ -2,22 +2,27 @@ import React, { useState, useEffect, useContext } from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 
-import TopBar from "../TopBar";
-import CreatePositionContainer from "../Position/CreatePositionContainer";
 import PositionContext from "../Position/PositionContext";
-
 import { FirebaseContext } from "../../../Firebase";
 
-import Header from "../Header";
-import Loading from "../Loading";
 import ApplicationsContainer from "../ApplicationsContainer";
+import CreatePositionContainer from "../Position/CreatePositionContainer";
+import PositionsList from "../PositionsList";
+
+import TopBar from "../TopBar";
+import Loading from "../Loading";
+import UserMenu from "../Menus/UserMenu";
+import BusinessMenu from "../Menus/BusinessMenu";
 
 import {
   dashboard,
   createPosition,
-  applications
+  applications,
+  positionsList
 } from "../../../constants/routes";
 import isLoggedIn from "../../../helpers/isLoggedIn";
+
+import DashboardProvider from "../DashboardContext";
 
 import { DashboardBody } from "./styles";
 import {
@@ -34,11 +39,13 @@ function DashboardContainer(props) {
 
   useEffect(() => {
     if (firebaseInitialized) {
-      if (!isLoggedIn()) {
-        props.history.replace("/signin");
-      } else {
-        props.getBusinessSummary();
-      }
+      isLoggedIn().then(loggedIn => {
+        if (loggedIn) {
+          props.getBusinessSummary();
+        } else {
+          props.history.replace("/signin");
+        }
+      });
     }
   }, [firebaseInitialized]);
   return (
@@ -46,10 +53,12 @@ function DashboardContainer(props) {
       {props.businessUser.loading ? (
         <Loading />
       ) : (
-        <>
+        <DashboardProvider>
+          <UserMenu />
+          <BusinessMenu />
           <TopBar />
           <DashboardBody>
-            <Route path={dashboard} component={Header} />
+            {/* <Route path={dashboard} component={Header} /> */}
             <Route
               path={`${dashboard}${createPosition}`}
               render={props => (
@@ -62,8 +71,12 @@ function DashboardContainer(props) {
               path={`${dashboard}${applications}`}
               component={ApplicationsContainer}
             />
+            <Route
+              path={`${dashboard}${positionsList}`}
+              component={PositionsList}
+            />
           </DashboardBody>
-        </>
+        </DashboardProvider>
       )}
     </>
   );

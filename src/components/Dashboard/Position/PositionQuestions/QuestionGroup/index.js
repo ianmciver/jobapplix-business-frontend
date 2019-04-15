@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Question from "../Question";
 import {
@@ -9,7 +9,11 @@ import {
 
 export default function QuestionGroup(props) {
   const [open, setOpen] = useState(false);
-
+  useEffect(() => {
+    if (props.title === "Basic Information") {
+      setOpen(true);
+    }
+  }, []);
   return (
     <QuestionGroupContainer>
       <TitleContainer>

@@ -7,3 +7,4 @@ export const questions = "/questions";
 export const customQuestions = "/cusquestions";
 export const complete = "/complete";
 export const applications = "/applications";
+export const positionsList = "/positionslist";

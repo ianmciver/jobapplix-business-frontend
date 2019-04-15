@@ -1,10 +1,8 @@
 import styled, { css } from "styled-components";
 
 import {
-  borderMedium,
   textUnselected,
   borderLight,
-  borderBlue,
   borderGreen,
   backgroundGreen,
   textLight

@@ -11,7 +11,7 @@ export const BuilderModalContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 9999;
   padding: 50px 0 0;
   overflow: scroll;
 `;

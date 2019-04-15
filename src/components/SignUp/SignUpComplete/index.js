@@ -3,14 +3,15 @@ import React from "react";
 import JALogo from "../../../assets/Icon100.png";
 
 import { Logo, Welcome, SubText, PositionButton } from "./styles";
+import { dashboard, createPosition } from "../../../constants/routes";
 
 export default function SignUpComplete(props) {
   const navigateToPostition = () => {
-    props.history.push("/createposition");
+    props.history.push(`${dashboard}${createPosition}`);
   };
 
   const navigateToDash = () => {
-    props.history.push("/dashboard");
+    props.history.push(dashboard);
   };
 
   return (

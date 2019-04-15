@@ -30,6 +30,38 @@ export const fetchUser = () => {
       .then(res => {
         dispatch({ type: UPDATE_USER, user: res.data.user });
       })
-      .catch();
+      .catch(err => console.log(err));
+  };
+};
+
+export const updateUserImage = file => {
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    let userImageUrl;
+    axios
+      .put(
+        `${API_URL}/businesses/user/image?file-name=${file.name}&file-type=${
+          file.type
+        }`,
+        { token }
+      )
+      .then(res => {
+        userImageUrl = res.data.image_url;
+        return axios({
+          method: "put",
+          url: res.data.signedRequest,
+          data: file,
+          headers: { "Content-Type": file.type }
+        });
+      })
+      .then(() => {
+        dispatch({
+          type: UPDATE_USER,
+          user: { image_url: userImageUrl }
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 };

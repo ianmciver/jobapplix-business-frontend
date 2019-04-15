@@ -10,7 +10,7 @@ import {
 
 export const FeaturesGroup = styled.div`
   position: fixed;
-  top: 150px;
+  top: 156px;
   width: 100vw;
   background-color: ${backgroundBlue35percent};
   display: flex;

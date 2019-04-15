@@ -1,20 +1,22 @@
 import styled, { css } from "styled-components";
 
 import {
-  backgroundBlue,
   backgroundWhite,
-  backgroundDark,
-  textLight,
-  textDarkBlue
+  textBlue,
+  textMedium,
+  borderBlue,
+  borderLight
 } from "../../../constants/colors";
 
 export const HeaderContainer = styled.div`
   position: fixed;
   width: 100vw;
+  z-index: 100;
+  border-bottom: 6px solid ${borderBlue};
 `;
 
 export const CompanyContainer = styled.div`
-  background-color: ${backgroundBlue};
+  background-color: ${backgroundWhite};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,10 +32,10 @@ export const ImageContainer = styled.div`
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  border: 1px solid ${backgroundDark};
+  border: 1px solid ${borderLight};
   background-image: ${props => props.image && css`url(${props.image})`};
   background-size: cover;
-  background-color: ${backgroundDark};
+  background-color: ${backgroundWhite};
   background-repeat: no-repeat;
   flex-shrink: 0;
   margin-right: 15px;
@@ -46,13 +48,13 @@ export const NameContainer = styled.div`
 
 export const CompanyName = styled.h1`
   text-transform: uppercase;
-  color: ${textLight};
+  color: ${textBlue};
   font-size: 2.1rem;
   margin-bottom: 5px;
 `;
 
 export const Applications = styled.h3`
-  color: ${textDarkBlue};
+  color: ${textMedium};
   text-transform: uppercase;
   font-size: 1.1rem;
 `;

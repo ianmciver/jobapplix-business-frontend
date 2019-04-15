@@ -4,11 +4,14 @@ import { API_URL } from "../constants/urls";
 import { firebase } from "../index";
 import {
   FETCHING_USER_DATA,
-  FETCHING_USER_DATA_COMPLETE
+  FETCHING_USER_DATA_COMPLETE,
+  UPDATE_USER
 } from "./businessUserActions";
 
 export const CREATE_BUSINESS_BASICS = "CREATE_BUSINESS_BASICS";
 export const UPDATE_BUSINESS = "UPDATE_BUSINESS";
+export const UPDATE_APP_GROUP = "UPDATE_APP_GROUP";
+export const UPDATE_POSITION = "UPDATE_POSITION";
 
 export const createBusinessBasics = (
   name,
@@ -105,12 +108,53 @@ export const uploadFileToS3 = (file, next) => {
 export const getBusinessSummary = () => {
   return async (dispatch, getState, API_URL) => {
     const token = await firebase.doGetCurrentUserIdToken();
-    axios.get(`${API_URL}/businesses/summary?token=${token}`).then(res => {
-      dispatch({ type: UPDATE_BUSINESS, payload: res.data.businesses[0] });
-      setTimeout(() => {
+    axios
+      .get(`${API_URL}/businesses/summary?token=${token}`)
+      .then(res => {
+        dispatch({ type: UPDATE_BUSINESS, payload: res.data.businesses[0] });
+        console.log(res.data.businesses);
+        return axios.get(`${API_URL}/businesses/user?token=${token}`);
+      })
+      .then(res => {
+        dispatch({ type: UPDATE_USER, user: res.data.user });
         dispatch({ type: FETCHING_USER_DATA_COMPLETE });
-      }, 1500);
-    });
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+export const updateApplicationGroup = (appid, group) => {
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    const { id } = getState().business;
+    dispatch({ type: UPDATE_APP_GROUP, appid, group });
+    try {
+      await axios.put(`${API_URL}/applications/group?bid=${id}`, {
+        appid,
+        group,
+        token
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const updatePosition = (position_id, updatedFields) => {
+  console.log(updatedFields);
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    const { id } = getState().business;
+    try {
+      await axios.put(`${API_URL}/businesses/position?bid=${id}`, {
+        ...updatedFields,
+        position_id,
+        token
+      });
+      dispatch({ type: UPDATE_POSITION, position_id, updatedFields });
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
