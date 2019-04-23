@@ -7,6 +7,7 @@ export default function Chevron(props) {
       width={props.width}
       height={props.height}
       viewBox="0 0 13.304 22.365"
+      onClick={props.onClick && props.onClick}
     >
       <path
         d="M1817.158,2473.672l-10.122,10.122,8.435,8.436,1.687,1.687"

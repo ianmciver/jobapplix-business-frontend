@@ -4,26 +4,20 @@ import axios from "axios";
 
 import { PositionQuestionContext } from "../PositionContext";
 import { API_URL } from "../../../../constants/urls";
-import {
-  createPosition,
-  availability,
-  dashboard
-} from "../../../../constants/routes";
 
-import { InstructionSpan, ContinueButton } from "./styles";
+import { InstructionSpan, DividerLine } from "./styles";
 
 import ExistingCustomQuestions from "./ExistingCustomQuestions";
 import CustomQuestionBuilder from "./CustomQuestionBuilder";
-import BuilderModal from "./BuilderModal";
 
 function CustomQuestionsContainer(props) {
   const positionContext = useContext(PositionQuestionContext);
-  const [modal, setModal] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const getCustomQuestions = async () => {
     try {
       const response = await axios.get(
-        `${API_URL}/businesses/customquestions?bid=1`
+        `${API_URL}/businesses/customquestions?bid=${props.business.id}`
       );
       positionContext.setCustomQuestions(response.data.customQuestions);
     } catch (err) {
@@ -36,7 +30,7 @@ function CustomQuestionsContainer(props) {
   }, []);
 
   const toggleModal = () => {
-    setModal(!modal);
+    setOpen(!open);
   };
 
   return (
@@ -44,24 +38,12 @@ function CustomQuestionsContainer(props) {
       <InstructionSpan>
         In this section you will be able to add and create custom questions for
         your application. You will see a list of custom questions you have
-        created previously below. To include a question from this list, simply
-        click on the check box and it will be included on your applicaiton.
+        created previously below. To add a question from this list, simply click
+        on the CREATE NEW QUESTION button to open the custom question editor.
       </InstructionSpan>
-      <InstructionSpan>
-        To create a new custom question simply click the button and follow the
-        instructions.
-      </InstructionSpan>
-      <ExistingCustomQuestions toggleModal={toggleModal} />
-      <BuilderModal open={modal}>
-        <CustomQuestionBuilder toggleModal={toggleModal} {...props} />
-      </BuilderModal>
-      <ContinueButton
-        onClick={() =>
-          props.history.push(`${dashboard}${createPosition}${availability}`)
-        }
-      >
-        Save and Continue
-      </ContinueButton>
+      <DividerLine />
+      <ExistingCustomQuestions toggleModal={toggleModal} open={open} />
+      {open && <CustomQuestionBuilder toggleModal={toggleModal} {...props} />}
     </>
   );
 }

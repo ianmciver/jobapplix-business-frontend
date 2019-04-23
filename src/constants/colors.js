@@ -17,10 +17,13 @@ export const textBlue = "#00c2ea";
 export const textDarkBlue = "#09829b";
 export const textGreen = "#1ee7e2";
 export const textUnselected = "#a8a7a7";
+export const positionBuilderText = "#283538";
+export const textChoicePlaceholder = "#acb5b5";
 export const chevronDropDown = "#626262";
 
 export const borderDark = "#050505";
 export const borderMedium = "#707070";
+export const borderMedium69 = "#70707069";
 export const borderLight = "#a8a7a7";
 export const borderWhite = "#ffffff";
 export const borderBlue = "#00c2ea";

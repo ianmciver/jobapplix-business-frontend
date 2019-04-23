@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Question from "../Question";
 import {
@@ -9,15 +9,10 @@ import {
 
 export default function QuestionGroup(props) {
   const [open, setOpen] = useState(false);
-  useEffect(() => {
-    if (props.title === "Basic Information") {
-      setOpen(true);
-    }
-  }, []);
   return (
     <QuestionGroupContainer>
       <TitleContainer>
-        <QuestionTitle>{props.title}</QuestionTitle>
+        <QuestionTitle open={open}>{props.title}</QuestionTitle>
         <svg
           viewBox="0 0 24 24"
           onClick={() => setOpen(!open)}
@@ -27,10 +22,12 @@ export default function QuestionGroup(props) {
         </svg>
       </TitleContainer>
       {open
-        ? props.questions.map(question => {
+        ? props.questions &&
+          props.questions.map(question => {
             return <Question key={question.id} question={question} />;
           })
         : null}
+      {open ? props.render && props.render() : null}
     </QuestionGroupContainer>
   );
 }

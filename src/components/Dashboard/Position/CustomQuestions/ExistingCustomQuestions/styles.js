@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
 import {
-  backgroundLight,
-  backgroundWhite,
-  borderBlue,
-  backgroundBlue,
-  textBlue,
+  borderGrey,
+  backgroundGrey,
   textLight,
   textDark
 } from "../../../../../constants/colors";
@@ -13,7 +10,6 @@ import { NextButton } from "../../../../SignUp/SignUpContainer/styles";
 
 export const ExistingQuestionsContainer = styled.div`
   width: 100vw;
-  background-color: ${backgroundLight};
   display: flex;
   flex-direction: column;
   padding: 30px;
@@ -26,17 +22,17 @@ export const ExistingQuestionsContainer = styled.div`
   }
 
   span {
-    font-style: italic;
+    font-size: 1.1rem;
   }
 `;
 
 export const AddCustomButton = styled(NextButton)`
-  border-color: ${borderBlue};
-  color: ${textBlue};
-  background-color: ${backgroundWhite};
+  border-color: ${borderGrey};
+  color: ${textDark};
+  background-color: transparent;
   margin-top: 20px;
   &:hover {
-    background-color: ${backgroundBlue};
+    background-color: ${backgroundGrey};
     color: ${textLight};
   }
 `;

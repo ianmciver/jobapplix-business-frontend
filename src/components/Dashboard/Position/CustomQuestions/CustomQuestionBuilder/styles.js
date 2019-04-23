@@ -1,61 +1,99 @@
 import styled from "styled-components";
 
 import {
-  textBlue,
   textLight,
-  borderBlue,
+  textDark,
+  textMedium,
+  textChoicePlaceholder,
+  borderMedium,
+  borderMedium69,
   borderRed,
-  backgroundBlue
+  borderGrey
 } from "../../../../../constants/colors";
 import { TextArea, TextInput } from "../../../../../styles/forms";
 import { NextButton } from "../../../../SignUp/SignUpContainer/styles";
 
 export const CustomQuestionBuilderContainer = styled.div`
   width: 100vw;
-  padding: 20px 30px;
+  padding: 0 30px;
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
 `;
 
-export const BuilderTitle = styled.h2`
-  font-size: 2rem;
-  font-weight: 700;
-  color: ${textBlue};
-  margin-bottom: 10px;
-`;
-
-export const BuilderInstructions = styled.p`
-  font-size: 1.1rem;
+export const BuilderSectionTitle = styled.h2`
+  font-size: 1.4rem;
+  color: ${textDark};
+  margin-bottom: 5px;
 `;
 
 export const BuilderSection = styled.div`
   width: 100%;
-  margin: 20px 0 10px;
+  margin: 10px 0 10px;
 `;
 
-export const BuilderSectionInstructions = styled.span`
+export const BuilderSectionInstructions = styled.p`
   font-size: 1.1rem;
   font-style: italic;
+  margin-bottom: 5px;
 `;
 
 export const BuilderTextInput = styled(TextInput)`
   margin-bottom: 3px;
+  background-color: transparent;
+  border: none;
+
+  &::placeholder {
+    font-size: 1.4rem;
+    color: ${textChoicePlaceholder};
+  }
+
+  &:focus {
+    border: none;
+  }
 `;
 
 export const BuilderTextArea = styled(TextArea)`
-  padding: 0 5px;
+  padding: 7px;
   margin-bottom: 3px;
+  height: 188px;
+  width: 280px;
+  border-color: ${borderMedium69};
+  background-color: transparent;
+  outline: none;
+
+  &:focus {
+    border-color: ${borderMedium};
+  }
 `;
 
 export const AddChoiceButton = styled(NextButton)`
-  margin-top: 10px;
+  margin: 10px 0 0 20px;
+  border: none;
+  padding-left: 0;
+
+  &:hover {
+    background-color: transparent;
+    color: ${textDark};
+  }
+  svg {
+    fill: ${textMedium};
+    width: 11px;
+    height: 11px;
+  }
+
+  span {
+    padding-left: 10px;
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
 `;
 
 export const OptionContainer = styled.div`
   display: flex;
-  align-items: flex-end;
-  margin-bottom: 5px;
+  align-items: center;
+  margin: 0 20px 5px;
+  border-bottom: 1px solid ${borderGrey};
 `;
 
 export const OptionCancelContainer = styled.div`
@@ -64,7 +102,7 @@ export const OptionCancelContainer = styled.div`
   transform: rotate(45deg);
   margin-left: 10px;
   svg {
-    fill: ${textBlue};
+    fill: ${textMedium};
   }
 `;
 
@@ -73,11 +111,11 @@ export const ButtonsGroup = styled.div`
 `;
 
 export const AddButton = styled(NextButton)`
-  border-color: ${borderBlue};
-  color: ${textBlue};
+  border-color: ${borderGrey};
+  color: ${borderGrey};
   margin: 0 20px 30px 0;
   &:hover {
-    background-color: ${backgroundBlue};
+    background-color: ${borderGrey};
     color: ${textLight};
   }
 `;

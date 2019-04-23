@@ -45,7 +45,7 @@ class Firebase {
     return this.auth.currentUser.updatePassword(password);
   };
 
-  doGetCurrentUserIdToken = () => {
+  doGetCurrentUserIdToken = async () => {
     if (this.auth.currentUser) {
       return this.auth.currentUser.getIdToken();
     } else {

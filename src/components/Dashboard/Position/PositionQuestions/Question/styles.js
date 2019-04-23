@@ -6,7 +6,6 @@ export const QuestionContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   margin: 10px 0;
 `;
 
@@ -28,8 +27,15 @@ export const QuestionCheckBox = styled.div`
   }
 `;
 
-export const QuestionText = styled.span`
+export const QuestionTextContainer = styled.div``;
+export const QuestionText = styled.p`
   font-size: 1.2rem;
   line-height: 1.5rem;
   color: ${textDark};
+  margin-bottom: 3px;
+`;
+
+export const SubQuestionText = styled.p`
+  font-size: 1.1rem;
+  font-style: italic;
 `;

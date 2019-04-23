@@ -1,7 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import {
   backgroundQuestion,
+  backgroundWhite,
   borderQuestion,
   textMedium,
   textBlue
@@ -9,16 +10,15 @@ import {
 
 export const QuestionGroupContainer = styled.div`
   width: 100vw;
-  border-top: 1px solid ${borderQuestion};
-  border-bottom: 1px solid ${borderQuestion};
-  background-color: ${backgroundQuestion};
+  /* border-bottom: 1px solid ${borderQuestion}; */
+  background-color: ${backgroundWhite};
   padding: 15px 30px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 10px 0;
-  &:first-of-type {
-    margin: 25px 0 10px;
+
+  &:nth-of-type(even) {
+    background-color: ${backgroundQuestion};
   }
 
   svg {
@@ -45,7 +45,12 @@ export const TitleContainer = styled.div`
 
 export const QuestionTitle = styled.span`
   text-transform: uppercase;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  ${props =>
+    props.open &&
+    css`
+      color: ${textBlue};
+    `}
 `;
 
 export const OpenSvg = styled.svg`

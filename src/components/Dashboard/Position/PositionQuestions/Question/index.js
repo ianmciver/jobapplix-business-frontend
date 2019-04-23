@@ -1,6 +1,11 @@
 import React, { useContext } from "react";
 
-import { QuestionContainer, QuestionCheckBox, QuestionText } from "./styles";
+import {
+  QuestionContainer,
+  QuestionCheckBox,
+  QuestionText,
+  SubQuestionText
+} from "./styles";
 import { PositionQuestionContext } from "../../PositionContext";
 import CheckBoxCheck from "../../../../../assets/checkboxCheck";
 
@@ -17,7 +22,12 @@ export default function Question(props) {
       <QuestionCheckBox onClick={() => clickHandler(props.question.id)}>
         {isActive ? <CheckBoxCheck /> : null}
       </QuestionCheckBox>
-      <QuestionText>{props.question.question}</QuestionText>
+      <div>
+        <QuestionText>{props.question.question}</QuestionText>
+        {props.question.sub_question && (
+          <SubQuestionText>{props.question.sub_question}</SubQuestionText>
+        )}
+      </div>
     </QuestionContainer>
   );
 }

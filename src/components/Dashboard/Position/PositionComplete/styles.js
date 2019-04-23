@@ -17,7 +17,7 @@ export const PositionCompleteContainer = styled.div`
 
 export const Logo = styled.img`
   width: 70px;
-  margin-bottom: 20px;
+  margin: 55px 0 20px;
 `;
 
 export const Welcome = styled.h1`

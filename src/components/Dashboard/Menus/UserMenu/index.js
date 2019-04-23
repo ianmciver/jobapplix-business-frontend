@@ -30,7 +30,6 @@ import { textBlue } from "../../../../constants/colors";
 import FirebaseContext from "../../../../Firebase/context";
 
 function UserMenu(props) {
-  const [image, setImage] = useState("");
   const [file, setFile] = useState(null);
 
   const onDrop = useCallback(acceptedFiles => {
@@ -38,9 +37,6 @@ function UserMenu(props) {
 
     reader.onabort = () => console.log("file read was aborted");
     reader.onerror = () => console.log("file read errored out");
-    reader.onload = e => {
-      setImage(reader.result);
-    };
     acceptedFiles.forEach(file => {
       reader.readAsDataURL(file);
       setFile(file);

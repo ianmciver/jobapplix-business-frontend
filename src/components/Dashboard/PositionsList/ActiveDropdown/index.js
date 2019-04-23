@@ -4,7 +4,6 @@ import Chevron from "../../../../assets/Chevron";
 import { chevronDropDown } from "../../../../constants/colors";
 
 import { updatePosition } from "../../../../actions/businessActions";
-
 import {
   DropDownContainer,
   ClosedDropdownContainer,

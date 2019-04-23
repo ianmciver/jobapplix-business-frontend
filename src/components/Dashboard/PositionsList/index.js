@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import ActiveDropdown from "./ActiveDropdown";
+
+import { dashboard, updatePosition } from "../../../constants/routes";
 
 import {
   PositionsListContainer,
@@ -9,11 +12,11 @@ import {
   PositionsListDescription,
   PositionTable,
   PositionContainer,
-  PositionName
+  PositionName,
+  UpdateLink
 } from "./styles";
 
 function PositionsList(props) {
-  console.log(props.business.positions);
   return (
     <PositionsListContainer>
       <PositionsListTitle>Positions</PositionsListTitle>
@@ -29,6 +32,9 @@ function PositionsList(props) {
           return (
             <PositionContainer key={pos.id}>
               <PositionName>{pos.name}</PositionName>
+              <Link to={`${dashboard}${updatePosition}/${pos.id}`}>
+                <UpdateLink>Update</UpdateLink>
+              </Link>
               <ActiveDropdown active={pos.active} positionId={pos.id} />
             </PositionContainer>
           );

@@ -1,11 +1,6 @@
 import React, { useContext } from "react";
 
 import { PositionQuestionContext } from "../PositionContext";
-import {
-  createPosition,
-  questions,
-  dashboard
-} from "../../../../constants/routes";
 
 import {
   DetailsContainer,
@@ -20,29 +15,26 @@ import {
 
 export default function PositionDetails(props) {
   const navigateNext = () => {
-    props.history.push(`${dashboard}${createPosition}${questions}`);
+    props.history.push(props.nextScreen);
+  };
+
+  const navigateCancel = () => {
+    props.history.push(props.cancelUpdate);
   };
 
   let positionContext = useContext(PositionQuestionContext);
   return (
     <DetailsContainer>
-      <Intro>
-        The next few steps will guide you through creating an open position and
-        allow you to create a custom application for that position.
-      </Intro>
-      <Instructions>Give your position a title</Instructions>
-      <SubInstructions>
-        This will be appear on your business page.
-      </SubInstructions>
+      <Intro>{props.instructionText}</Intro>
       <PositionNameInput
-        placeholder="Position Name"
+        placeholder="POSITION TITLE (eg: Server - Nights)"
         value={positionContext.positionName}
         onChange={e => positionContext.setPositionName(e.target.value)}
       />
       <SubInstructionsItalics>
-        Example: "Server - Weekends"
+        This will appear on your business page.
       </SubInstructionsItalics>
-      <Instructions>Describe your position</Instructions>
+      <Instructions>Describe your position:</Instructions>
       <SubInstructions>
         Give a good description of your position. You want prospective
         applicants to know exactly what they are applying for.
@@ -52,7 +44,17 @@ export default function PositionDetails(props) {
         value={positionContext.positionDesc}
         onChange={e => positionContext.setPositionDesc(e.target.value)}
       />
-      <PositionNextButton onClick={navigateNext}>CONTINUE</PositionNextButton>
+      <PositionNextButton
+        disabled={positionContext.positionName === ""}
+        onClick={navigateNext}
+      >
+        CONTINUE
+      </PositionNextButton>
+      {props.cancel && (
+        <PositionNextButton onClick={navigateCancel} cancel>
+          CANCEL UPDATE
+        </PositionNextButton>
+      )}
     </DetailsContainer>
   );
 }

@@ -9,8 +9,7 @@ import { PositionQuestionContext } from "../../PositionContext";
 
 import {
   CustomQuestionBuilderContainer,
-  BuilderTitle,
-  BuilderInstructions,
+  BuilderSectionTitle,
   BuilderSection,
   BuilderSectionInstructions,
   BuilderTextInput,
@@ -32,13 +31,12 @@ import {
 import CheckBoxCheck from "../../../../../assets/checkboxCheck";
 
 function CustomQuestionBuilder(props) {
-  const [name, setName] = useState(""); //name of the question
   const [question, setQuestion] = useState(""); // The question itself
   const [subQuestion, setSubQuestion] = useState(""); // The second part, followup, or the sub question
   const [isRequired, setIsRequired] = useState(false); // is the question required
   const [type, setType] = useState(""); // type of question, true or fale (bool), text (text), multi (multi)
   const [subType, setSubType] = useState(""); // type of the subquestion
-  const [options, setOptions] = useState([""]);
+  const [options, setOptions] = useState(["", "", ""]);
 
   const firebase = useContext(FirebaseContext);
   const positionContext = useContext(PositionQuestionContext);
@@ -62,7 +60,6 @@ function CustomQuestionBuilder(props) {
 
   const createCustomQuestion = async () => {
     const newQuestion = {
-      name,
       question,
       sub_question: subQuestion,
       is_required: isRequired,
@@ -93,45 +90,33 @@ function CustomQuestionBuilder(props) {
 
   return (
     <CustomQuestionBuilderContainer>
-      <BuilderTitle>Custom Question Builder</BuilderTitle>
-      <BuilderInstructions>Instructions Here</BuilderInstructions>
       <BuilderSection>
-        <BuilderTextInput
-          onChange={e => setName(e.target.value)}
-          value={name}
-          placeholder="Question Name"
-          height={"30px"}
-        />
+        <BuilderSectionTitle>Question Text:</BuilderSectionTitle>
         <BuilderSectionInstructions>
-          Name you question. This will only be used internally.*
+          This is what your applicant will see.
         </BuilderSectionInstructions>
-      </BuilderSection>
-      <BuilderSection>
         <BuilderTextArea
           onChange={e => setQuestion(e.target.value)}
           value={question}
           placeholder="Question Text"
           height={"50px"}
         />
-        <BuilderSectionInstructions>
-          Write a question you would like to ask your applicant.*
-        </BuilderSectionInstructions>
       </BuilderSection>
       <BuilderSection>
-        <BuilderSectionInstructions>
-          What type of question is this?*
-        </BuilderSectionInstructions>
+        <BuilderSectionTitle>
+          What type of question is this?
+        </BuilderSectionTitle>
         <QuestionContainer>
           <QuestionCheckBox onClick={e => setType("bool")}>
             {type === "bool" ? <CheckBoxCheck /> : null}
           </QuestionCheckBox>
-          <QuestionText>Yes or No</QuestionText>
+          <QuestionText>Yes/No</QuestionText>
         </QuestionContainer>
         <QuestionContainer>
           <QuestionCheckBox onClick={e => setType("text")}>
             {type === "text" ? <CheckBoxCheck /> : null}
           </QuestionCheckBox>
-          <QuestionText>Open Text</QuestionText>
+          <QuestionText>Open Answer</QuestionText>
         </QuestionContainer>
         <QuestionContainer>
           <QuestionCheckBox onClick={e => setType("multi")}>
@@ -142,14 +127,14 @@ function CustomQuestionBuilder(props) {
         {type === "multi" ? (
           <>
             <BuilderSectionInstructions>
-              Please provide the choices.
+              If Multiple Choice, please provide the choices.
             </BuilderSectionInstructions>
             {options.map((option, index) => (
               <OptionContainer key={index}>
                 <BuilderTextInput
                   onChange={e => setOption(e.target.value, index)}
                   value={option}
-                  placeholder="Multiple Choice Option"
+                  placeholder="Multiple choice response"
                 />
                 <OptionCancelContainer onClick={() => deleteOption(index)}>
                   <CheckBoxCheck />
@@ -157,41 +142,42 @@ function CustomQuestionBuilder(props) {
               </OptionContainer>
             ))}
             <AddChoiceButton onClick={addOption}>
-              Add Another Choice
+              <CheckBoxCheck /> <span>Add Another Choice</span>
             </AddChoiceButton>
           </>
         ) : null}
       </BuilderSection>
       <BuilderSection>
-        <BuilderTextInput
+        <BuilderSectionTitle>
+          Is there a follow up question?
+        </BuilderSectionTitle>
+        <BuilderSectionTitle>Follow Up Question Text:</BuilderSectionTitle>
+        <BuilderSectionInstructions>
+          This is what your applicant will see.
+        </BuilderSectionInstructions>
+        <BuilderTextArea
           onChange={e => setSubQuestion(e.target.value)}
           value={subQuestion}
-          placeholder="Sub-Question Text"
+          placeholder="Follow Up Question Text"
         />
-        <BuilderSectionInstructions>
-          A follow-up / second part / sub-question to your original question. If
-          needed.
-        </BuilderSectionInstructions>
       </BuilderSection>
-      {subQuestion !== "" ? (
-        <BuilderSection>
-          <BuilderSectionInstructions>
-            What type of question is the subquestion?
-          </BuilderSectionInstructions>
-          <QuestionContainer>
-            <QuestionCheckBox onClick={e => setSubType("bool")}>
-              {subType === "bool" ? <CheckBoxCheck /> : null}
-            </QuestionCheckBox>
-            <QuestionText>Yes or No</QuestionText>
-          </QuestionContainer>
-          <QuestionContainer>
-            <QuestionCheckBox onClick={e => setSubType("text")}>
-              {subType === "text" ? <CheckBoxCheck /> : null}
-            </QuestionCheckBox>
-            <QuestionText>Open Text</QuestionText>
-          </QuestionContainer>
-        </BuilderSection>
-      ) : null}
+      <BuilderSection>
+        <BuilderSectionInstructions>
+          What type of question is the subquestion?
+        </BuilderSectionInstructions>
+        <QuestionContainer>
+          <QuestionCheckBox onClick={e => setSubType("bool")}>
+            {subType === "bool" ? <CheckBoxCheck /> : null}
+          </QuestionCheckBox>
+          <QuestionText>Yes or No</QuestionText>
+        </QuestionContainer>
+        <QuestionContainer>
+          <QuestionCheckBox onClick={e => setSubType("text")}>
+            {subType === "text" ? <CheckBoxCheck /> : null}
+          </QuestionCheckBox>
+          <QuestionText>Open Text</QuestionText>
+        </QuestionContainer>
+      </BuilderSection>
       <BuilderSection>
         <BuilderSectionInstructions>
           Is this question required for your application?
@@ -204,8 +190,10 @@ function CustomQuestionBuilder(props) {
         </QuestionContainer>
       </BuilderSection>
       <ButtonsGroup>
-        <AddButton onClick={createCustomQuestion}>Create Question</AddButton>
-        <CancelButton onClick={props.toggleModal}>Cancel</CancelButton>
+        <AddButton onClick={createCustomQuestion}>
+          SAVE CUSTOM QUESTION
+        </AddButton>
+        <CancelButton onClick={props.toggleModal}>Cancel Question</CancelButton>
       </ButtonsGroup>
     </CustomQuestionBuilderContainer>
   );

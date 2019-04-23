@@ -6,8 +6,6 @@ import { CreatePosHeader } from "./styles";
 
 import PositionDetails from "../PositionDetails";
 import PositionQuestions from "../PositionQuestions";
-import CustomQuestionsContainer from "../CustomQuestions";
-import ShiftTimes from "../ShiftTimes";
 import PositionComplete from "../PositionComplete";
 import { PositionQuestionContext } from "../PositionContext";
 
@@ -18,10 +16,13 @@ import {
   createPosition,
   questions,
   customQuestions,
-  availability,
   complete
 } from "../../../../constants/routes";
 
+const createPositionTextDescription =
+  "The next few steps will guide you through creating an open position and allow you to create a custom application for that position. In this step, tell us (and your applicats) about you position";
+const createPositionTextQuestions =
+  "Use this form to create a custom application for this position. If you do not see a specific question you would like to ask, you have the ability to create and add custom questions in the last section.";
 export default function CreatePositionContainer(props) {
   const positionContext = useContext(PositionQuestionContext);
   const getStandardQuestions = async () => {
@@ -41,30 +42,38 @@ export default function CreatePositionContainer(props) {
   useEffect(() => {
     getStandardQuestions();
   }, []);
-  console.log(`${dashboard}${createPosition}${questions}`);
+
   return (
     <div>
-      <CreatePosHeader>Create A Position</CreatePosHeader>
+      {props.location.pathname !==
+        `${dashboard}${createPosition}${complete}` && (
+        <CreatePosHeader>Create A Position</CreatePosHeader>
+      )}
       <Route
         path={`${dashboard}${createPosition}`}
         exact
-        component={PositionDetails}
+        render={props => (
+          <PositionDetails
+            {...props}
+            nextScreen={`${dashboard}${createPosition}${questions}`}
+            instructionText={createPositionTextDescription}
+          />
+        )}
       />
       <Route
         path={`${dashboard}${createPosition}${questions}`}
-        component={PositionQuestions}
-      />
-      <Route
-        path={`${dashboard}${createPosition}${customQuestions}`}
-        component={CustomQuestionsContainer}
-      />
-      <Route
-        path={`${dashboard}${createPosition}${availability}`}
-        component={ShiftTimes}
+        render={props => (
+          <PositionQuestions
+            {...props}
+            nextScreen={`${dashboard}${createPosition}${customQuestions}`}
+            instructionText={createPositionTextQuestions}
+            action={positionContext.createPosition}
+          />
+        )}
       />
       <Route
         path={`${dashboard}${createPosition}${complete}`}
-        component={PositionComplete}
+        render={props => <PositionComplete {...props} />}
       />
     </div>
   );

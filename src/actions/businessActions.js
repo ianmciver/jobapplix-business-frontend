@@ -112,7 +112,6 @@ export const getBusinessSummary = () => {
       .get(`${API_URL}/businesses/summary?token=${token}`)
       .then(res => {
         dispatch({ type: UPDATE_BUSINESS, payload: res.data.businesses[0] });
-        console.log(res.data.businesses);
         return axios.get(`${API_URL}/businesses/user?token=${token}`);
       })
       .then(res => {
@@ -141,17 +140,19 @@ export const updateApplicationGroup = (appid, group) => {
 };
 
 export const updatePosition = (position_id, updatedFields) => {
-  console.log(updatedFields);
   return async (dispatch, getState, API_URL) => {
     const token = await firebase.doGetCurrentUserIdToken();
     const { id } = getState().business;
     try {
-      await axios.put(`${API_URL}/businesses/position?bid=${id}`, {
-        ...updatedFields,
-        position_id,
-        token
-      });
-      dispatch({ type: UPDATE_POSITION, position_id, updatedFields });
+      let response = await axios.put(
+        `${API_URL}/businesses/position/${position_id}?bid=${id}`,
+        {
+          ...updatedFields,
+          token
+        }
+      );
+      console.log(response);
+      dispatch({ type: UPDATE_POSITION, position: response.data });
     } catch (err) {
       console.log(err);
     }

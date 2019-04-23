@@ -45,14 +45,12 @@ export default function BusinessReducer(state = initialState, action) {
       return { ...state, applications: newApps };
     case UPDATE_POSITION:
       let positionIndex = state.positions.findIndex(
-        pos => pos.id === action.position_id
+        pos => pos.id === action.position.id
       );
       let position = state.positions[positionIndex];
       position = {
         ...position,
-        questions: position.questions.map(q => ({ ...q })),
-        shift_times: { ...position.shift_times },
-        ...action.updatedFields
+        ...action.position
       };
       let newPositions = [...state.positions];
       newPositions[positionIndex] = position;

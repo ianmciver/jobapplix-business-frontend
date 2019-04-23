@@ -3,10 +3,12 @@ import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 import PositionContext from "../Position/PositionContext";
+import ShiftTimesContext from "../Position/ShiftTimesContext";
 import { FirebaseContext } from "../../../Firebase";
 
 import ApplicationsContainer from "../ApplicationsContainer";
 import CreatePositionContainer from "../Position/CreatePositionContainer";
+import UpdatePositionContainer from "../Position/UpdatePositionContainer";
 import PositionsList from "../PositionsList";
 
 import TopBar from "../TopBar";
@@ -18,7 +20,8 @@ import {
   dashboard,
   createPosition,
   applications,
-  positionsList
+  positionsList,
+  updatePosition
 } from "../../../constants/routes";
 import isLoggedIn from "../../../helpers/isLoggedIn";
 
@@ -62,9 +65,21 @@ function DashboardContainer(props) {
             <Route
               path={`${dashboard}${createPosition}`}
               render={props => (
-                <PositionContext>
-                  <CreatePositionContainer {...props} />
-                </PositionContext>
+                <ShiftTimesContext>
+                  <PositionContext>
+                    <CreatePositionContainer {...props} />
+                  </PositionContext>
+                </ShiftTimesContext>
+              )}
+            />
+            <Route
+              path={`${dashboard}${updatePosition}/:id`}
+              render={props => (
+                <ShiftTimesContext>
+                  <PositionContext>
+                    <UpdatePositionContainer {...props} />
+                  </PositionContext>
+                </ShiftTimesContext>
               )}
             />
             <Route

@@ -1,12 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 
-import {
-  dashboard,
-  createPosition,
-  complete
-} from "../../../../constants/routes";
 import CheckBoxCheck from "../../../../assets/checkboxCheck";
 import Dropdown from "../../../FormComponents/Dropdown";
+
 import {
   ShiftTimesContainer,
   Instructions,
@@ -15,12 +11,13 @@ import {
   ShiftTimeBuilderContainer,
   QuestionsContainer,
   ShiftTimeLabel,
-  SmallCheckBoxContainer,
-  SmallCheckBox,
-  SmallCheckBoxLabel,
   TimesDropdownContainer,
-  TimeDropdownSeparator,
-  FinishButton
+  TimesDropdownLabel,
+  DividerLine,
+  PresetContainer,
+  PresetTimesContainer,
+  PresetTitle,
+  ThirdShiftQuestion
 } from "./styles";
 
 import {
@@ -28,115 +25,59 @@ import {
   QuestionCheckBox,
   QuestionText
 } from "../PositionQuestions/Question/styles";
+
 import { PositionQuestionContext } from "../PositionContext";
-
-const militaryHours = [
-  "00",
-  "01",
-  "02",
-  "03",
-  "04",
-  "05",
-  "06",
-  "07",
-  "08",
-  "09",
-  "10",
-  "11",
-  "12",
-  "13",
-  "14",
-  "15",
-  "16",
-  "17",
-  "18",
-  "19",
-  "20",
-  "21",
-  "22",
-  "23"
-];
-
-const ampmHours = militaryHours.map((item, ind) => {
-  const newNum = Number(item) % 12 || 12;
-  return newNum + (ind < 12 ? " am" : " pm");
-});
-
-const minuteValues = ["00", "15", "30", "45"];
+import { ShiftTimesContext } from "../ShiftTimesContext";
 
 export default function ShiftTimes(props) {
+  const shiftTimesContext = useContext(ShiftTimesContext);
   const positionContext = useContext(PositionQuestionContext);
-  const [option, setOption] = useState("");
-  const [thirdShift, setThirdShift] = useState(false);
-  const [timeFormat, setTimeFormat] = useState("24hr");
-  const [hourValues, setHourValues] = useState(militaryHours);
-  const [shiftOneStart, setShiftOneStart] = useState({ hour: 0, minute: 0 });
-  const [shiftOneEnd, setShiftOneEnd] = useState({ hour: 1, minute: 0 });
-  const [shiftTwoStart, setShiftTwoStart] = useState({ hour: 0, minute: 0 });
-  const [shiftTwoEnd, setShiftTwoEnd] = useState({ hour: 1, minute: 0 });
-  const [shiftThreeStart, setShiftThreeStart] = useState({
-    hour: 0,
-    minute: 0
-  });
-  const [shiftThreeEnd, setShiftThreeEnd] = useState({ hour: 1, minute: 0 });
 
-  const onSelectChange = (shift, shiftCb, values, duration) => value => {
-    const index = values.indexOf(value);
-    shiftCb({ ...shift, [duration]: index });
-  };
-
-  const onTimeFormatChange = format => e => {
-    setTimeFormat(format);
-
-    setHourValues(format === "24hr" ? militaryHours : ampmHours);
-  };
-
+  const {
+    option,
+    noThirdShift,
+    setNoThirdShift,
+    shiftOneStart,
+    shiftOneStartAmPm,
+    shiftOneEnd,
+    shiftOneEndAmPm,
+    shiftTwoStart,
+    shiftTwoStartAmPm,
+    shiftTwoEnd,
+    shiftTwoEndAmPm,
+    shiftThreeStart,
+    shiftThreeStartAmPm,
+    shiftThreeEnd,
+    shiftThreeEndAmPm,
+    setOption,
+    setShiftOneStart,
+    setShiftOneStartAmPm,
+    setShiftOneEnd,
+    setShiftOneEndAmPm,
+    setShiftTwoStart,
+    setShiftTwoStartAmPm,
+    setShiftTwoEnd,
+    setShiftTwoEndAmPm,
+    setShiftThreeStart,
+    setShiftThreeStartAmPm,
+    setShiftThreeEnd,
+    setShiftThreeEndAmPm,
+    hours,
+    ampm
+  } = shiftTimesContext;
   const { availability, setAvailability } = positionContext;
 
-  const finish = async e => {
-    const standard_shift_times = option === "prebuilt";
-    const shift_one_begin = `${militaryHours[shiftOneStart.hour]}:${
-      minuteValues[shiftOneStart.minute]
-    }`;
-    const shift_one_end = `${militaryHours[shiftOneEnd.hour]}:${
-      minuteValues[shiftOneEnd.minute]
-    }`;
-    const shift_two_begin = `${militaryHours[shiftTwoStart.hour]}:${
-      minuteValues[shiftTwoStart.minute]
-    }`;
-    const shift_two_end = `${militaryHours[shiftTwoEnd.hour]}:${
-      minuteValues[shiftTwoEnd.minute]
-    }`;
-    const shift_three_begin = `${militaryHours[shiftThreeStart.hour]}:${
-      minuteValues[shiftThreeStart.minute]
-    }`;
-    const shift_three_end = `${militaryHours[shiftThreeEnd.hour]}:${
-      minuteValues[shiftThreeEnd.minute]
-    }`;
-
-    let shiftTimes = {
-      shift_one_begin,
-      shift_one_end,
-      shift_two_begin,
-      shift_two_end
-    };
-
-    if (thirdShift) {
-      shiftTimes = {
-        ...shiftTimes,
-        shift_three_begin,
-        shift_three_end
-      };
-    }
-    await positionContext.createPosition(shiftTimes, standard_shift_times);
-    props.history.push(`${dashboard}${createPosition}${complete}`);
+  const onSelectChange = shiftCb => index => {
+    shiftCb(index);
   };
 
   return (
     <ShiftTimesContainer>
       <Instructions>
-        In this (final) section you will be able to create custom shift times.
+        In this section you will be able to ask your applicants for availability
+        and customize your shift times.
       </Instructions>
+      <DividerLine />
       <QuestionsContainer>
         <QuestionContainer>
           <QuestionCheckBox onClick={e => setAvailability(!availability)}>
@@ -151,276 +92,144 @@ export default function ShiftTimes(props) {
             Would you like to use the pre-set shift times, or would you like to
             create your own?
           </SecondInstructions>
-          <SecondInstructions>
-            Pre-set times: <span>Shift 1: 6:00am - 2:00pm</span>
-            <span>Shift 2: 2:00pm - 10:00pm</span>
-          </SecondInstructions>
           <QuestionsContainer>
             <QuestionContainer>
               <QuestionCheckBox onClick={e => setOption("prebuilt")}>
                 {option === "prebuilt" && <CheckBoxCheck />}
               </QuestionCheckBox>
-              <QuestionText>Use pre-set shift times</QuestionText>
+              <QuestionText>Pre-Set Times</QuestionText>
             </QuestionContainer>
             <QuestionContainer>
               <QuestionCheckBox onClick={e => setOption("custom")}>
                 {option === "custom" && <CheckBoxCheck />}
               </QuestionCheckBox>
-              <QuestionText>Build custom shift times</QuestionText>
+              <QuestionText>Create Shift Times</QuestionText>
             </QuestionContainer>
           </QuestionsContainer>
+          <PresetContainer>
+            <PresetTitle>Pre-set shift times are:</PresetTitle>
+            <PresetTimesContainer>
+              <span>Morning: 6:00am - 2:00pm</span>
+              <span>Mid-Day: 2:00pm - 10:00pm</span>
+              <span>Evening: 10:00pm - 6:00am</span>
+            </PresetTimesContainer>
+          </PresetContainer>
         </>
       )}
       {option === "custom" && (
         <ShiftTimeBuilderContainer>
           <ShiftTimeBuilderHeader>
-            Custom Shift Time Builder
+            Custom Shift Time Builder:
           </ShiftTimeBuilderHeader>
-          <SecondInstructions>
-            Use this form to build your custom shift times.
-          </SecondInstructions>
-          <SmallCheckBoxContainer first>
-            <SmallCheckBox
-              selected={timeFormat === "24hr"}
-              onClick={onTimeFormatChange("24hr")}
-            />
-            <SmallCheckBoxLabel>24hr time format</SmallCheckBoxLabel>
-          </SmallCheckBoxContainer>
-          <SmallCheckBoxContainer>
-            <SmallCheckBox
-              selected={timeFormat === "12hr"}
-              onClick={onTimeFormatChange("12hr")}
-            />
-            <SmallCheckBoxLabel>12hr time format</SmallCheckBoxLabel>
-          </SmallCheckBoxContainer>
-          <ShiftTimeLabel>Shift 1:</ShiftTimeLabel>
+          <ShiftTimeLabel>SHIFT 1:</ShiftTimeLabel>
           <TimesDropdownContainer>
-            <div>
-              <Dropdown
-                ammendedValue={hourValues[shiftOneStart.hour].split(" ")[0]}
-                value={hourValues[shiftOneStart.hour]}
-                options={hourValues}
-                selectItem={onSelectChange(
-                  shiftOneStart,
-                  setShiftOneStart,
-                  hourValues,
-                  "hour"
-                )}
-                valueIndex={shiftOneStart.hour}
-              />
-              <TimeDropdownSeparator>:</TimeDropdownSeparator>
-              <Dropdown
-                value={minuteValues[shiftOneStart.minute]}
-                options={minuteValues}
-                selectItem={onSelectChange(
-                  shiftOneStart,
-                  setShiftOneStart,
-                  minuteValues,
-                  "minute"
-                )}
-                valueIndex={shiftOneStart.minute}
-              />
-              {timeFormat === "12hr" &&
-                (shiftOneStart.hour < 12 ? (
-                  <TimeDropdownSeparator>am</TimeDropdownSeparator>
-                ) : (
-                  <TimeDropdownSeparator>pm</TimeDropdownSeparator>
-                ))}
-            </div>
-            <TimeDropdownSeparator>-</TimeDropdownSeparator>
-            <div>
-              <Dropdown
-                ammendedValue={hourValues[shiftOneEnd.hour].split(" ")[0]}
-                value={hourValues[shiftOneEnd.hour]}
-                options={hourValues.slice(shiftOneStart.hour + 1)}
-                selectItem={onSelectChange(
-                  shiftOneEnd,
-                  setShiftOneEnd,
-                  hourValues,
-                  "hour"
-                )}
-                valueIndex={
-                  shiftOneEnd.hour -
-                  (hourValues.length -
-                    hourValues.slice(shiftOneStart.hour + 1).length)
-                }
-              />
-              <TimeDropdownSeparator>:</TimeDropdownSeparator>
-              <Dropdown
-                value={minuteValues[shiftOneEnd.minute]}
-                options={minuteValues}
-                selectItem={onSelectChange(
-                  shiftOneEnd,
-                  setShiftOneEnd,
-                  minuteValues,
-                  "minute"
-                )}
-                valueIndex={shiftOneEnd.minute}
-              />
-              {timeFormat === "12hr" &&
-                (shiftOneEnd.hour < 12 ? (
-                  <TimeDropdownSeparator>am</TimeDropdownSeparator>
-                ) : (
-                  <TimeDropdownSeparator>pm</TimeDropdownSeparator>
-                ))}
-            </div>
-          </TimesDropdownContainer>
-          <ShiftTimeLabel>Shift 2:</ShiftTimeLabel>
-          <TimesDropdownContainer>
-            <div>
-              <Dropdown
-                ammendedValue={hourValues[shiftTwoStart.hour].split(" ")[0]}
-                value={hourValues[shiftTwoStart.hour]}
-                options={hourValues}
-                selectItem={onSelectChange(
-                  shiftTwoStart,
-                  setShiftTwoStart,
-                  hourValues,
-                  "hour"
-                )}
-                valueIndex={shiftTwoStart.hour}
-              />
-              <TimeDropdownSeparator>:</TimeDropdownSeparator>
-              <Dropdown
-                value={minuteValues[shiftTwoStart.minute]}
-                options={minuteValues}
-                selectItem={onSelectChange(
-                  shiftTwoStart,
-                  setShiftTwoStart,
-                  minuteValues,
-                  "minute"
-                )}
-                valueIndex={shiftTwoStart.minute}
-              />
-              {timeFormat === "12hr" &&
-                (shiftTwoStart.hour < 12 ? (
-                  <TimeDropdownSeparator>am</TimeDropdownSeparator>
-                ) : (
-                  <TimeDropdownSeparator>pm</TimeDropdownSeparator>
-                ))}
-            </div>
-            <TimeDropdownSeparator>-</TimeDropdownSeparator>
-            <div>
-              <Dropdown
-                value={hourValues[shiftTwoEnd.hour]}
-                ammendedValue={hourValues[shiftTwoEnd.hour].split(" ")[0]}
-                options={hourValues.slice(shiftTwoStart.hour + 1)}
-                selectItem={onSelectChange(
-                  shiftTwoEnd,
-                  setShiftTwoEnd,
-                  hourValues,
-                  "hour"
-                )}
-                valueIndex={
-                  shiftTwoEnd.hour -
-                  (hourValues.length -
-                    hourValues.slice(shiftTwoStart.hour + 1).length)
-                }
-              />
-              <TimeDropdownSeparator>:</TimeDropdownSeparator>
-              <Dropdown
-                value={minuteValues[shiftTwoEnd.minute]}
-                options={minuteValues}
-                selectItem={onSelectChange(
-                  shiftTwoEnd,
-                  setShiftTwoEnd,
-                  minuteValues,
-                  "minute"
-                )}
-                valueIndex={shiftTwoEnd.minute}
-              />
-              {timeFormat === "12hr" &&
-                (shiftTwoEnd.hour < 12 ? (
-                  <TimeDropdownSeparator>am</TimeDropdownSeparator>
-                ) : (
-                  <TimeDropdownSeparator>pm</TimeDropdownSeparator>
-                ))}
-            </div>
-          </TimesDropdownContainer>
-          <SmallCheckBoxContainer first>
-            <SmallCheckBox
-              selected={thirdShift}
-              onClick={e => setThirdShift(!thirdShift)}
+            <TimesDropdownLabel>Start time:</TimesDropdownLabel>
+            <Dropdown
+              value={hours[shiftOneStart]}
+              options={hours}
+              selectItem={onSelectChange(setShiftOneStart)}
+              valueIndex={shiftOneStart}
             />
-            <SmallCheckBoxLabel>Include third shift</SmallCheckBoxLabel>
-          </SmallCheckBoxContainer>
-          {thirdShift && (
+            <Dropdown
+              value={ampm[shiftOneStartAmPm]}
+              options={ampm}
+              selectItem={onSelectChange(setShiftOneStartAmPm)}
+              valueIndex={shiftOneStartAmPm}
+            />
+          </TimesDropdownContainer>
+          <TimesDropdownContainer>
+            <TimesDropdownLabel margin={"12px"}>End time:</TimesDropdownLabel>
+            <Dropdown
+              value={hours[shiftOneEnd]}
+              options={hours}
+              selectItem={onSelectChange(setShiftOneEnd)}
+              valueIndex={shiftOneEnd}
+            />
+            <Dropdown
+              value={ampm[shiftOneEndAmPm]}
+              options={ampm}
+              selectItem={onSelectChange(setShiftOneEndAmPm)}
+              valueIndex={shiftOneEndAmPm}
+            />
+          </TimesDropdownContainer>
+          <ShiftTimeLabel>SHIFT 2:</ShiftTimeLabel>
+          <TimesDropdownContainer>
+            <TimesDropdownLabel>Start time:</TimesDropdownLabel>
+            <Dropdown
+              value={hours[shiftTwoStart]}
+              options={hours}
+              selectItem={onSelectChange(setShiftTwoStart)}
+              valueIndex={shiftTwoStart}
+            />
+            <Dropdown
+              value={ampm[shiftTwoStartAmPm]}
+              options={ampm}
+              selectItem={onSelectChange(setShiftTwoStartAmPm)}
+              valueIndex={shiftTwoStartAmPm}
+            />
+          </TimesDropdownContainer>
+          <TimesDropdownContainer>
+            <TimesDropdownLabel margin={"12px"}>End time:</TimesDropdownLabel>
+            <Dropdown
+              value={hours[shiftTwoEnd]}
+              options={hours}
+              selectItem={onSelectChange(setShiftTwoEnd)}
+              valueIndex={shiftTwoEnd}
+            />
+            <Dropdown
+              value={ampm[shiftTwoEndAmPm]}
+              options={ampm}
+              selectItem={onSelectChange(setShiftTwoEndAmPm)}
+              valueIndex={shiftTwoEndAmPm}
+            />
+          </TimesDropdownContainer>
+          <ShiftTimeLabel>Shift 3:</ShiftTimeLabel>
+          <ThirdShiftQuestion>
+            <QuestionContainer>
+              <QuestionCheckBox onClick={e => setNoThirdShift(!noThirdShift)}>
+                {noThirdShift && <CheckBoxCheck />}
+              </QuestionCheckBox>
+              <QuestionText>We don't need a third shift</QuestionText>
+            </QuestionContainer>
+          </ThirdShiftQuestion>
+          {!noThirdShift && (
             <>
-              <ShiftTimeLabel>Shift 3:</ShiftTimeLabel>
               <TimesDropdownContainer>
-                <div>
-                  <Dropdown
-                    ammendedValue={
-                      hourValues[shiftThreeStart.hour].split(" ")[0]
-                    }
-                    value={hourValues[shiftThreeStart.hour]}
-                    options={hourValues}
-                    selectItem={onSelectChange(
-                      shiftThreeStart,
-                      setShiftThreeStart,
-                      hourValues,
-                      "hour"
-                    )}
-                    valueIndex={shiftThreeStart.hour}
-                  />
-                  <TimeDropdownSeparator>:</TimeDropdownSeparator>
-                  <Dropdown
-                    value={minuteValues[shiftThreeStart.minute]}
-                    options={minuteValues}
-                    selectItem={onSelectChange(
-                      shiftThreeStart,
-                      setShiftThreeStart,
-                      minuteValues,
-                      "minute"
-                    )}
-                    valueIndex={shiftThreeStart.minute}
-                  />
-                  {timeFormat === "12hr" &&
-                    (shiftThreeStart.hour < 12 ? (
-                      <TimeDropdownSeparator>am</TimeDropdownSeparator>
-                    ) : (
-                      <TimeDropdownSeparator>pm</TimeDropdownSeparator>
-                    ))}
-                </div>
-                <TimeDropdownSeparator>-</TimeDropdownSeparator>
-                <div>
-                  <Dropdown
-                    ammendedValue={hourValues[shiftThreeEnd.hour].split(" ")[0]}
-                    value={hourValues[shiftThreeEnd.hour]}
-                    options={hourValues}
-                    selectItem={onSelectChange(
-                      shiftThreeEnd,
-                      setShiftThreeEnd,
-                      hourValues,
-                      "hour"
-                    )}
-                    valueIndex={shiftThreeEnd.hour}
-                  />
-                  <TimeDropdownSeparator>:</TimeDropdownSeparator>
-                  <Dropdown
-                    value={minuteValues[shiftThreeEnd.minute]}
-                    options={minuteValues}
-                    selectItem={onSelectChange(
-                      shiftThreeEnd,
-                      setShiftThreeEnd,
-                      minuteValues,
-                      "minute"
-                    )}
-                    valueIndex={shiftThreeEnd.minute}
-                  />
-                  {timeFormat === "12hr" &&
-                    (shiftThreeEnd.hour < 12 ? (
-                      <TimeDropdownSeparator>am</TimeDropdownSeparator>
-                    ) : (
-                      <TimeDropdownSeparator>pm</TimeDropdownSeparator>
-                    ))}
-                </div>
+                <TimesDropdownLabel>Start time:</TimesDropdownLabel>
+                <Dropdown
+                  value={hours[shiftThreeStart]}
+                  options={hours}
+                  selectItem={onSelectChange(setShiftThreeStart)}
+                  valueIndex={shiftThreeStart}
+                />
+                <Dropdown
+                  value={ampm[shiftThreeStartAmPm]}
+                  options={ampm}
+                  selectItem={onSelectChange(setShiftThreeStartAmPm)}
+                  valueIndex={shiftThreeStartAmPm}
+                />
+              </TimesDropdownContainer>
+              <TimesDropdownContainer>
+                <TimesDropdownLabel margin={"12px"}>
+                  End time:
+                </TimesDropdownLabel>
+                <Dropdown
+                  value={hours[shiftThreeEnd]}
+                  options={hours}
+                  selectItem={onSelectChange(setShiftThreeEnd)}
+                  valueIndex={shiftThreeEnd}
+                />
+                <Dropdown
+                  value={ampm[shiftThreeEndAmPm]}
+                  options={ampm}
+                  selectItem={onSelectChange(setShiftThreeEndAmPm)}
+                  valueIndex={shiftThreeEndAmPm}
+                />
               </TimesDropdownContainer>
             </>
           )}
         </ShiftTimeBuilderContainer>
       )}
-      <FinishButton onClick={finish}>Complete and Save Position</FinishButton>
     </ShiftTimesContainer>
   );
 }

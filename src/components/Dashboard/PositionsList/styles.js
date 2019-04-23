@@ -1,12 +1,6 @@
 import styled from "styled-components";
 
-import {
-  textDark,
-  borderQuestion,
-  backgroundAppTable,
-  backgroundBlue,
-  textLight
-} from "../../../constants/colors";
+import { textDark, textBlue, borderQuestion } from "../../../constants/colors";
 
 export const PositionsListContainer = styled.div`
   margin-top: 25px;
@@ -45,4 +39,11 @@ export const PositionContainer = styled.div`
 
 export const PositionName = styled.h2`
   font-size: 1.4rem;
+`;
+
+export const UpdateLink = styled.h3`
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: ${textBlue};
+  margin-right: 10px;
 `;

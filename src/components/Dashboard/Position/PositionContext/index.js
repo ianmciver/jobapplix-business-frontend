@@ -3,10 +3,16 @@ import axios from "axios";
 
 import { connect } from "react-redux";
 
+import { updatePosition } from "../../../../actions/businessActions";
+
 import { API_URL } from "../../../../constants/urls";
 import { FirebaseContext } from "../../../../Firebase";
+import { ShiftTimesContext } from "../ShiftTimesContext";
+
+import { questionGroups } from "../PositionQuestions/data";
 
 export const PositionQuestionContext = React.createContext({
+  positionId: -1,
   activeQuestions: [],
   positionName: "",
   positionDesc: "",
@@ -25,10 +31,12 @@ export const PositionQuestionContext = React.createContext({
   setAvailability: () => {},
   setShiftTimesId: () => {},
   createShiftTimes: () => {},
-  createPosition: () => {}
+  createPosition: () => {},
+  loadPosition: () => {}
 });
 
 function PositionContext(props) {
+  const [positionId, setPositionId] = useState(-1);
   const [activeQuestions, setActiveQuestions] = useState([]);
   const [positionName, setPositionName] = useState("");
   const [positionDesc, setPositionDesc] = useState("");
@@ -41,6 +49,7 @@ function PositionContext(props) {
   const [shiftTimesId, setShiftTimesId] = useState(1);
 
   const firebase = useContext(FirebaseContext);
+  const shiftTimes = useContext(ShiftTimesContext);
   const addOrRemoveActiveQuestions = id => {
     if (typeof id === String) {
     }
@@ -53,6 +62,34 @@ function PositionContext(props) {
     } else {
       setActiveQuestions([...activeQuestions, id]);
     }
+  };
+
+  const loadPosition = async position => {
+    // This will load an existing position into the context. This will allow us to update a position.
+    // Get all current active questions and load them into the activeQuestions state
+    const activeQuestions = position.questions.reduce((acc, group) => {
+      return [...acc, ...group.questions.map(q => q.id)];
+    }, []);
+    setActiveQuestions(activeQuestions);
+
+    // The rest does not need to be massaged to fit into the context.
+    setPositionName(position.name);
+    setPositionDesc(position.description);
+    setWorkRefs(position.work_history);
+    setPersonalRefs(position.personal_refs);
+    setEduHist(position.educational_history);
+    setAvailability(position.availability);
+    setPositionId(position.id);
+
+    // Get current list of standard questions and set those to the context.
+    let standardQuestions = await axios.get(
+      `${API_URL}/businesses/standardquestions`
+    );
+    standardQuestions.data.questions.forEach(question => {
+      questionGroups[question.group].questions.push(question);
+    });
+    setStandardQuestions(questionGroups);
+    shiftTimes.loadShiftTimes(position.shift_times);
   };
 
   const refsQuestions = {
@@ -81,8 +118,9 @@ function PositionContext(props) {
     }
   };
 
-  const createPosition = async (shift_times, standard_shift_times) => {
+  const createPosition = async () => {
     const token = await firebase.doGetCurrentUserIdToken();
+    const newShiftTimes = shiftTimes.createShiftTimes();
     return axios.post(
       `${API_URL}/businesses/position?bid=${props.business.id}`,
       {
@@ -92,12 +130,28 @@ function PositionContext(props) {
         educational_history,
         personal_refs,
         availability,
-        shift_times,
-        standard_shift_times,
+        shift_times: newShiftTimes,
         questions: activeQuestions,
         token
       }
     );
+  };
+
+  const updatePosition = async () => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    const newShiftTimes = shiftTimes.createShiftTimes();
+    const updatedPosition = {
+      name: positionName,
+      description: positionDesc,
+      work_history,
+      educational_history,
+      personal_refs,
+      availability,
+      shift_times: newShiftTimes,
+      questions: activeQuestions,
+      token
+    };
+    return props.updatePosition(positionId, updatedPosition);
   };
 
   const positionContext = {
@@ -117,7 +171,9 @@ function PositionContext(props) {
     setAvailability,
     shiftTimesId,
     setShiftTimesId,
-    createPosition
+    createPosition,
+    loadPosition,
+    updatePosition
   };
 
   return (
@@ -127,6 +183,7 @@ function PositionContext(props) {
   );
 }
 
-export default connect(state => ({ business: state.business }))(
-  PositionContext
-);
+export default connect(
+  state => ({ business: state.business }),
+  { updatePosition }
+)(PositionContext);

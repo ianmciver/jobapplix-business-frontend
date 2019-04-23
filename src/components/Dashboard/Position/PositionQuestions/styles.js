@@ -6,6 +6,7 @@ import {
   textLight,
   backgroundBlue,
   borderBlue,
+  borderRed,
   borderLight,
   backgroundLight
 } from "../../../../constants/colors";
@@ -17,15 +18,20 @@ export const InstructionSpan = styled.p`
   color: ${textDark};
 `;
 
+export const ItalicsSpan = styled(InstructionSpan)`
+  font-style: italic;
+`;
+
 export const PositionNextButton = styled(FormButton)`
   align-self: flex-start;
   font-weight: 700;
-  color: ${textBlue};
+  color: ${props => (props.cancel ? borderRed : textBlue)};
   padding: 7px 14px;
-  border-color: ${borderBlue};
+  border-color: ${props => (props.cancel ? borderRed : borderBlue)};
   margin: 20px 0 30px 30px;
+  display: inline-block;
   &:hover {
-    background-color: ${backgroundBlue};
+    background-color: ${props => (props.cancel ? borderRed : backgroundBlue)};
     color: ${textLight};
   }
 
@@ -34,4 +40,16 @@ export const PositionNextButton = styled(FormButton)`
     color: ${borderLight};
     background-color: ${backgroundLight};
   }
+`;
+
+export const PositionName = styled.p`
+  font-size: 1.2rem;
+  color: ${textBlue};
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
+export const StandardAppContainer = styled.div`
+  margin: 20px 30px;
 `;

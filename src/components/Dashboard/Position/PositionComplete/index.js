@@ -25,14 +25,15 @@ function PositionComplete(props) {
   return (
     <PositionCompleteContainer>
       <Logo src={JALogo} alt="Job Applix logo" />
-      <Welcome>COMPLETE!</Welcome>
+      <Welcome>NICE! LETS START HIRING!</Welcome>
       <SubText>
-        Your position has been created! You can see your application by going
+        Your position has been created! You can view your application by going
         here:{" "}
         <a
           href={`https://${props.business.url}.jobapplix.com/${
             positionContext.postitionName
           }`}
+          target="_blank_"
         >
           https://{props.business.url}.jobapplix.com/
           {positionContext.postitionName}

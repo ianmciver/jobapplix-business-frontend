@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import {
-  textBlue,
   textLight,
+  borderMedium69,
   borderMedium,
-  borderBlue,
+  borderRed,
   borderLight,
-  backgroundBlue,
+  borderGrey,
   backgroundLight
 } from "../../../../constants/colors";
 
@@ -18,49 +18,66 @@ export const DetailsContainer = styled.div`
 
 export const Intro = styled.p`
   font-size: 1.3rem;
+  padding: 10px;
   margin-bottom: 20px;
+  text-align: center;
 `;
 
 export const Instructions = styled.p`
   font-size: 1.4rem;
   margin-bottom: 5px;
-  color: ${textBlue};
 `;
 
 export const SubInstructions = styled.p`
   font-size: 1rem;
   margin-bottom: 7px;
+  line-height: 1.4;
 `;
 
 export const SubInstructionsItalics = styled(SubInstructions)`
+  font-size: 1.2rem;
   font-style: italic;
-  margin-bottom: 20px;
+  margin: 3px 0 20px;
 `;
 
 export const PositionNameInput = styled(TextInput)`
   margin-bottom: 5px;
+
+  &::placeholder {
+    font-size: 1.3rem;
+  }
 `;
 
 export const TextArea = styled.textarea`
-  box-sizing: border-box;
-  width: 100%;
-  height: 210px;
-  padding: 10px;
-  border: 2px solid ${borderMedium};
-  font-size: 1.1rem;
-  line-height: 1.6rem;
-  margin-bottom: 20px;
+  padding: 7px;
+  margin-bottom: 25px;
+  height: 188px;
+  width: 280px;
+  border-width: 2px;
+  border-color: ${borderMedium69};
+  background-color: transparent;
+  outline: none;
+
+  &:focus {
+    border-color: ${borderMedium};
+  }
 `;
 
 export const PositionNextButton = styled(FormButton)`
   align-self: flex-start;
   font-weight: 700;
-  color: ${textBlue};
+  color: ${props => (props.cancel ? borderRed : borderGrey)};
   padding: 7px 14px;
-  border-color: ${borderBlue};
+  border-color: ${props => (props.cancel ? borderRed : borderGrey)};
   margin-bottom: 30px;
+  ${props =>
+    props.cancel &&
+    css`
+      margin-left: 25px;
+    `}
+  display: inline-block;
   &:hover {
-    background-color: ${backgroundBlue};
+    background-color: ${props => (props.cancel ? borderRed : borderGrey)};
     color: ${textLight};
   }
 

@@ -4,7 +4,7 @@ export const questionGroups = {
     questions: []
   },
   position: {
-    title: "Position & Availability",
+    title: "Position Information",
     questions: []
   },
   history: {
