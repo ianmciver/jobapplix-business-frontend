@@ -4,7 +4,13 @@ import { Link } from "react-router-dom";
 
 import ActiveDropdown from "./ActiveDropdown";
 
-import { dashboard, updatePosition } from "../../../constants/routes";
+import CheckBoxCheck from "../../../assets/checkboxCheck";
+
+import {
+  dashboard,
+  updatePositionUrl,
+  createPosition
+} from "../../../constants/routes";
 
 import {
   PositionsListContainer,
@@ -13,10 +19,21 @@ import {
   PositionTable,
   PositionContainer,
   PositionName,
-  UpdateLink
+  UpdateLink,
+  CreateButton
 } from "./styles";
 
+import { updatePosition } from "../../../actions/businessActions";
+
+const options = ["Active", "Not Active"];
+
 function PositionsList(props) {
+  const selectOption = (positionId, active) => option => {
+    let activeOption = option === "Active" ? true : false;
+    if (active !== activeOption) {
+      props.updatePosition(positionId, { active: activeOption });
+    }
+  };
   return (
     <PositionsListContainer>
       <PositionsListTitle>Positions</PositionsListTitle>
@@ -27,15 +44,24 @@ function PositionsList(props) {
         custom application at any time simply by clicking the update option on
         each position.
       </PositionsListDescription>
+      <CreateButton
+        onClick={e => props.history.push(`${dashboard}${createPosition}`)}
+      >
+        <CheckBoxCheck /> <span>Create a new position</span>
+      </CreateButton>
       <PositionTable>
         {props.business.positions.map(pos => {
           return (
             <PositionContainer key={pos.id}>
               <PositionName>{pos.name}</PositionName>
-              <Link to={`${dashboard}${updatePosition}/${pos.id}`}>
+              <Link to={`${dashboard}${updatePositionUrl}/${pos.id}`}>
                 <UpdateLink>Update</UpdateLink>
               </Link>
-              <ActiveDropdown active={pos.active} positionId={pos.id} />
+              <ActiveDropdown
+                options={options}
+                value={pos.active ? "Active" : "Not Active"}
+                selectHandler={selectOption(pos.id, pos.active)}
+              />
             </PositionContainer>
           );
         })}
@@ -44,4 +70,7 @@ function PositionsList(props) {
   );
 }
 
-export default connect(state => ({ business: state.business }))(PositionsList);
+export default connect(
+  state => ({ business: state.business }),
+  { updatePosition }
+)(PositionsList);

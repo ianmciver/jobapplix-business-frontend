@@ -5,7 +5,7 @@ import { Route } from "react-router-dom";
 import {
   dashboard,
   questions,
-  updatePosition,
+  updatePositionUrl,
   positionsList
 } from "../../../../constants/routes";
 
@@ -34,12 +34,12 @@ function UpdatePositionContainer(props) {
     <>
       <UpdatePosHeader>Update Postition</UpdatePosHeader>
       <Route
-        path={`${dashboard}${updatePosition}/:id`}
+        path={`${dashboard}${updatePositionUrl}/:id`}
         exact
         render={props => (
           <PositionDetails
             {...props}
-            nextScreen={`${dashboard}${updatePosition}/${
+            nextScreen={`${dashboard}${updatePositionUrl}/${
               props.match.params.id
             }${questions}`}
             cancelUpdate={`${dashboard}${positionsList}`}
@@ -49,7 +49,7 @@ function UpdatePositionContainer(props) {
         )}
       />
       <Route
-        path={`${dashboard}${updatePosition}/:id${questions}`}
+        path={`${dashboard}${updatePositionUrl}/:id${questions}`}
         render={props => (
           <PositionQuestions
             {...props}

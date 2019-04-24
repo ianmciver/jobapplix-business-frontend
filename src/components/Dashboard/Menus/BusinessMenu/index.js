@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import {
   dashboard,
   positionsList,
-  applications
+  applications,
+  usersList
 } from "../../../../constants/routes";
 
 import {
@@ -69,24 +70,30 @@ function BusinessMenu(props) {
         </MenuChevron>
         <MenuItemTitle>Applications</MenuItemTitle>
       </MenuItem>
-      <MenuItem onClick={navigateTo(`${dashboard}${positionsList}`)}>
-        <MenuChevron>
-          <Chevron width={"20px"} height={"20px"} color={textBlue} />
-        </MenuChevron>
-        <MenuItemTitle>Positions</MenuItemTitle>
-      </MenuItem>
-      <MenuItem>
-        <MenuChevron>
-          <Chevron width={"20px"} height={"20px"} color={textBlue} />
-        </MenuChevron>
-        <MenuItemTitle>Business Users</MenuItemTitle>
-      </MenuItem>
-      <MenuItem>
-        <MenuChevron>
-          <Chevron width={"20px"} height={"20px"} color={textBlue} />
-        </MenuChevron>
-        <MenuItemTitle>Business Profile & Payments</MenuItemTitle>
-      </MenuItem>
+      {props.business.role < 13 && (
+        <>
+          <MenuItem onClick={navigateTo(`${dashboard}${positionsList}`)}>
+            <MenuChevron>
+              <Chevron width={"20px"} height={"20px"} color={textBlue} />
+            </MenuChevron>
+            <MenuItemTitle>Positions</MenuItemTitle>
+          </MenuItem>
+          <MenuItem onClick={navigateTo(`${dashboard}${usersList}`)}>
+            <MenuChevron>
+              <Chevron width={"20px"} height={"20px"} color={textBlue} />
+            </MenuChevron>
+            <MenuItemTitle>Business Users</MenuItemTitle>
+          </MenuItem>
+        </>
+      )}
+      {props.business.role < 12 && (
+        <MenuItem>
+          <MenuChevron>
+            <Chevron width={"20px"} height={"20px"} color={textBlue} />
+          </MenuChevron>
+          <MenuItemTitle>Business Profile & Payments</MenuItemTitle>
+        </MenuItem>
+      )}
     </MenuContainer>
   );
 }

@@ -2,7 +2,10 @@ import {
   CREATE_BUSINESS_BASICS,
   UPDATE_BUSINESS,
   UPDATE_APP_GROUP,
-  UPDATE_POSITION
+  UPDATE_POSITION,
+  UPDATE_USERS,
+  UPDATE_PENDING_USERS,
+  DELETE_PENDING_USER
 } from "../actions/businessActions";
 
 const initialState = {
@@ -20,7 +23,10 @@ const initialState = {
   image_url: "",
   customQuestions: [],
   positions: [],
-  applications: []
+  applications: [],
+  role: 14,
+  users: [],
+  pendingUsers: []
 };
 
 export default function BusinessReducer(state = initialState, action) {
@@ -55,6 +61,18 @@ export default function BusinessReducer(state = initialState, action) {
       let newPositions = [...state.positions];
       newPositions[positionIndex] = position;
       return { ...state, positions: newPositions };
+    case UPDATE_USERS:
+      return { ...state, users: action.users };
+    case UPDATE_PENDING_USERS:
+      return { ...state, pendingUsers: action.users };
+    case DELETE_PENDING_USER:
+      let newPendingUsers = [...state.pendingUsers];
+      let deleted = newPendingUsers.findIndex(item => item.id === action.id);
+      newPendingUsers = [
+        ...newPendingUsers.slice(0, deleted),
+        ...newPendingUsers.slice(deleted + 1)
+      ];
+      return { ...state, pendingUsers: newPendingUsers };
     default:
       return state;
   }

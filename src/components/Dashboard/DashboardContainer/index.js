@@ -10,6 +10,8 @@ import ApplicationsContainer from "../ApplicationsContainer";
 import CreatePositionContainer from "../Position/CreatePositionContainer";
 import UpdatePositionContainer from "../Position/UpdatePositionContainer";
 import PositionsList from "../PositionsList";
+import UsersList from "../UsersList";
+import InviteUser from "../InviteUser";
 
 import TopBar from "../TopBar";
 import Loading from "../Loading";
@@ -21,7 +23,9 @@ import {
   createPosition,
   applications,
   positionsList,
-  updatePosition
+  usersList,
+  updatePositionUrl,
+  inviteUserUrl
 } from "../../../constants/routes";
 import isLoggedIn from "../../../helpers/isLoggedIn";
 
@@ -61,7 +65,6 @@ function DashboardContainer(props) {
           <BusinessMenu />
           <TopBar />
           <DashboardBody>
-            {/* <Route path={dashboard} component={Header} /> */}
             <Route
               path={`${dashboard}${createPosition}`}
               render={props => (
@@ -73,7 +76,7 @@ function DashboardContainer(props) {
               )}
             />
             <Route
-              path={`${dashboard}${updatePosition}/:id`}
+              path={`${dashboard}${updatePositionUrl}/:id`}
               render={props => (
                 <ShiftTimesContext>
                   <PositionContext>
@@ -89,6 +92,11 @@ function DashboardContainer(props) {
             <Route
               path={`${dashboard}${positionsList}`}
               component={PositionsList}
+            />
+            <Route path={`${dashboard}${usersList}`} component={UsersList} />
+            <Route
+              path={`${dashboard}${inviteUserUrl}`}
+              component={InviteUser}
             />
           </DashboardBody>
         </DashboardProvider>

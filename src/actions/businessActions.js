@@ -12,6 +12,9 @@ export const CREATE_BUSINESS_BASICS = "CREATE_BUSINESS_BASICS";
 export const UPDATE_BUSINESS = "UPDATE_BUSINESS";
 export const UPDATE_APP_GROUP = "UPDATE_APP_GROUP";
 export const UPDATE_POSITION = "UPDATE_POSITION";
+export const UPDATE_USERS = "UPDATE_USERS";
+export const UPDATE_PENDING_USERS = "UPDATE_PENDING_USERS";
+export const DELETE_PENDING_USER = "DELETE_PENDING_USER";
 
 export const createBusinessBasics = (
   name,
@@ -151,8 +154,55 @@ export const updatePosition = (position_id, updatedFields) => {
           token
         }
       );
-      console.log(response);
       dispatch({ type: UPDATE_POSITION, position: response.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const getListOfBusinessUsers = () => {
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    const { id } = getState().business;
+    dispatch(startLoadingScreen());
+    try {
+      let response = await axios.get(
+        `${API_URL}/businesses/users?bid=${id}&token=${token}`
+      );
+      dispatch({ type: UPDATE_USERS, users: response.data });
+      dispatch({ type: FETCHING_USER_DATA_COMPLETE });
+    } catch (err) {
+      console.log(err);
+      dispatch({ type: FETCHING_USER_DATA_COMPLETE });
+    }
+  };
+};
+
+export const getListOfPendingUsers = () => {
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    const { id } = getState().business;
+    try {
+      let response = await axios.get(
+        `${API_URL}/businesses/pendinguser?bid=${id}&token=${token}`
+      );
+      dispatch({ type: UPDATE_PENDING_USERS, users: response.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const deletePendingUser = pendingId => {
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    const { id } = getState().business;
+    try {
+      await axios.delete(
+        `${API_URL}/businesses/pendinguser?bid=${id}&token=${token}&pendingid=${pendingId}`
+      );
+      dispatch({ type: DELETE_PENDING_USER, id: pendingId });
     } catch (err) {
       console.log(err);
     }

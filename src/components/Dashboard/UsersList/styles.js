@@ -1,34 +1,39 @@
 import styled from "styled-components";
 
-import { textDark, textBlue, borderQuestion } from "../../../constants/colors";
+import {
+  textDark,
+  textBlue,
+  borderQuestion,
+  borderRed
+} from "../../../constants/colors";
 
-export const PositionsListContainer = styled.div`
+export const UsersListContainer = styled.div`
   margin-top: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-export const PositionsListTitle = styled.h2`
+export const UsersListTitle = styled.h2`
   font-size: 1.9rem;
   color: ${textDark};
   text-transform: uppercase;
   margin-bottom: 20px;
 `;
 
-export const PositionsListDescription = styled.p`
+export const UsersListDescription = styled.p`
   font-size: 1.2rem;
   color: ${textDark};
   line-height: 1.6rem;
   margin: 0 30px;
 `;
 
-export const PositionTable = styled.div`
+export const UserTable = styled.div`
   width: 100%;
-  padding: 20px 30px;
+  padding: 10px 30px 20px;
 `;
 
-export const PositionContainer = styled.div`
+export const UserContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -37,7 +42,7 @@ export const PositionContainer = styled.div`
   padding: 10px 0;
 `;
 
-export const PositionName = styled.h2`
+export const UserName = styled.h2`
   font-size: 1.4rem;
 `;
 
@@ -46,6 +51,12 @@ export const UpdateLink = styled.h3`
   font-size: 1.4rem;
   color: ${textBlue};
   margin-right: 10px;
+`;
+
+export const PendingUsersTitle = styled.h2`
+  align-self: flex-start;
+  font-size: 1.7rem;
+  margin: 30px 30px 0;
 `;
 
 export const CreateButton = styled.div`
@@ -67,5 +78,16 @@ export const CreateButton = styled.div`
     text-transform: uppercase;
     font-weight: 700px;
     color: ${textBlue};
+  }
+`;
+
+export const CancelInvite = styled.div`
+  width: 18px;
+  height: 18px;
+  transform: rotate(45deg);
+  cursor: pointer;
+
+  svg {
+    fill: ${borderRed};
   }
 `;

@@ -15,7 +15,6 @@ import {
   dashboard,
   createPosition,
   questions,
-  customQuestions,
   complete
 } from "../../../../constants/routes";
 
@@ -65,7 +64,7 @@ export default function CreatePositionContainer(props) {
         render={props => (
           <PositionQuestions
             {...props}
-            nextScreen={`${dashboard}${createPosition}${customQuestions}`}
+            nextScreen={`${dashboard}${createPosition}${complete}`}
             instructionText={createPositionTextQuestions}
             action={positionContext.createPosition}
           />
