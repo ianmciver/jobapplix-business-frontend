@@ -24,7 +24,9 @@ import {
   UserName,
   CreateButton,
   PendingUsersTitle,
-  CancelInvite
+  CancelInvite,
+  OtherItems,
+  Role
 } from "./styles";
 
 export const options = ["Admin", "HR Manager", "Manager", "Read Only"];
@@ -45,14 +47,12 @@ export const roleToNumerical = {
 
 function UsersList(props) {
   useEffect(() => {
-    console.log("In here?");
     if (props.users.length < 1) {
       props.getListOfBusinessUsers();
     }
   }, []);
 
   useEffect(() => {
-    console.log("In here 2?");
     props.getListOfPendingUsers();
   }, []);
 
@@ -103,10 +103,12 @@ function UsersList(props) {
           return (
             <UserContainer key={user.id}>
               <UserName>{user.email}</UserName>
-              <UserName>{numericalToRole[user.role]}</UserName>
-              <CancelInvite onClick={e => deleteHandler(user.id)}>
-                <CheckBoxCheck />
-              </CancelInvite>
+              <OtherItems>
+                <Role>{numericalToRole[user.role]}</Role>
+                <CancelInvite onClick={e => deleteHandler(user.id)}>
+                  <CheckBoxCheck />
+                </CancelInvite>
+              </OtherItems>
             </UserContainer>
           );
         })}

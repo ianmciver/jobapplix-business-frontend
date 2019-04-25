@@ -11,3 +11,5 @@ export const applications = "/applications";
 export const positionsList = "/positionslist";
 export const usersList = "/userslist";
 export const inviteUserUrl = "/inviteuser";
+export const inviteSignUp = "/inviteesignup";
+export const businessProfile = "/businessprofile";

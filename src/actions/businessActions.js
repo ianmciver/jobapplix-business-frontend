@@ -165,7 +165,6 @@ export const getListOfBusinessUsers = () => {
   return async (dispatch, getState, API_URL) => {
     const token = await firebase.doGetCurrentUserIdToken();
     const { id } = getState().business;
-    dispatch(startLoadingScreen());
     try {
       let response = await axios.get(
         `${API_URL}/businesses/users?bid=${id}&token=${token}`
@@ -185,7 +184,7 @@ export const getListOfPendingUsers = () => {
     const { id } = getState().business;
     try {
       let response = await axios.get(
-        `${API_URL}/businesses/pendinguser?bid=${id}&token=${token}`
+        `${API_URL}/businesses/pendingusers?bid=${id}&token=${token}`
       );
       dispatch({ type: UPDATE_PENDING_USERS, users: response.data });
     } catch (err) {
@@ -200,7 +199,7 @@ export const deletePendingUser = pendingId => {
     const { id } = getState().business;
     try {
       await axios.delete(
-        `${API_URL}/businesses/pendinguser?bid=${id}&token=${token}&pendingid=${pendingId}`
+        `${API_URL}/businesses/pendingusers?bid=${id}&token=${token}&pendingid=${pendingId}`
       );
       dispatch({ type: DELETE_PENDING_USER, id: pendingId });
     } catch (err) {

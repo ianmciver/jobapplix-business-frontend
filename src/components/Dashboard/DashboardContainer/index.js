@@ -12,11 +12,11 @@ import UpdatePositionContainer from "../Position/UpdatePositionContainer";
 import PositionsList from "../PositionsList";
 import UsersList from "../UsersList";
 import InviteUser from "../InviteUser";
-
 import TopBar from "../TopBar";
 import Loading from "../Loading";
 import UserMenu from "../Menus/UserMenu";
 import BusinessMenu from "../Menus/BusinessMenu";
+import BusinessProfile from "../BusinessProfile";
 
 import {
   dashboard,
@@ -25,7 +25,8 @@ import {
   positionsList,
   usersList,
   updatePositionUrl,
-  inviteUserUrl
+  inviteUserUrl,
+  businessProfile
 } from "../../../constants/routes";
 import isLoggedIn from "../../../helpers/isLoggedIn";
 
@@ -97,6 +98,10 @@ function DashboardContainer(props) {
             <Route
               path={`${dashboard}${inviteUserUrl}`}
               component={InviteUser}
+            />
+            <Route
+              path={`${dashboard}${businessProfile}`}
+              component={BusinessProfile}
             />
           </DashboardBody>
         </DashboardProvider>

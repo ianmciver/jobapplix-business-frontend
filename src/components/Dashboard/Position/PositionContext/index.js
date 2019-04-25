@@ -46,7 +46,6 @@ function PositionContext(props) {
   const [personal_refs, setPersonalRefs] = useState(false);
   const [educational_history, setEduHist] = useState(false);
   const [availability, setAvailability] = useState(false);
-  const [shiftTimesId, setShiftTimesId] = useState(1);
 
   const firebase = useContext(FirebaseContext);
   const shiftTimes = useContext(ShiftTimesContext);
@@ -63,7 +62,19 @@ function PositionContext(props) {
       setActiveQuestions([...activeQuestions, id]);
     }
   };
-
+  const resetPosition = () => {
+    setPositionId(-1);
+    setActiveQuestions([]);
+    setPositionName("");
+    setPositionDesc("");
+    setStandardQuestions({});
+    setCustomQuestions([]);
+    setWorkRefs(false);
+    setPersonalRefs(false);
+    setEduHist(false);
+    setAvailability(false);
+    shiftTimes.resetShiftTimes();
+  };
   const loadPosition = async position => {
     // This will load an existing position into the context. This will allow us to update a position.
     // Get all current active questions and load them into the activeQuestions state
@@ -120,7 +131,7 @@ function PositionContext(props) {
 
   const createPosition = async () => {
     const token = await firebase.doGetCurrentUserIdToken();
-    const newShiftTimes = shiftTimes.createShiftTimes();
+    const newShiftTimes = shiftTimes.createShiftTimes(true);
     return axios.post(
       `${API_URL}/businesses/position?bid=${props.business.id}`,
       {
@@ -139,7 +150,7 @@ function PositionContext(props) {
 
   const updatePosition = async () => {
     const token = await firebase.doGetCurrentUserIdToken();
-    const newShiftTimes = shiftTimes.createShiftTimes();
+    const newShiftTimes = shiftTimes.createShiftTimes(false);
     const updatedPosition = {
       name: positionName,
       description: positionDesc,
@@ -169,11 +180,10 @@ function PositionContext(props) {
     setCustomQuestions,
     availability,
     setAvailability,
-    shiftTimesId,
-    setShiftTimesId,
     createPosition,
     loadPosition,
-    updatePosition
+    updatePosition,
+    resetPosition
   };
 
   return (

@@ -6,7 +6,8 @@ import {
   dashboard,
   positionsList,
   applications,
-  usersList
+  usersList,
+  businessProfile
 } from "../../../../constants/routes";
 
 import {
@@ -87,7 +88,7 @@ function BusinessMenu(props) {
         </>
       )}
       {props.business.role < 12 && (
-        <MenuItem>
+        <MenuItem onClick={navigateTo(`${dashboard}${businessProfile}`)}>
           <MenuChevron>
             <Chevron width={"20px"} height={"20px"} color={textBlue} />
           </MenuChevron>

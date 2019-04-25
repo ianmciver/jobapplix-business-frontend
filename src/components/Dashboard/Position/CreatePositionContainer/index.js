@@ -40,6 +40,7 @@ export default function CreatePositionContainer(props) {
 
   useEffect(() => {
     getStandardQuestions();
+    positionContext.resetPosition();
   }, []);
 
   return (

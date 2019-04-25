@@ -45,6 +45,24 @@ export default function ShiftTimesProvider(props) {
   const [shiftThreeEnd, setShiftThreeEnd] = useState(0);
   const [shiftThreeEndAmPm, setShiftThreeEndAmPm] = useState(0);
 
+  const resetShiftTimes = () => {
+    setId(-1);
+    setOption("");
+    setNoThirdShift(false);
+    setShiftOneStart(0);
+    setShiftOneStartAmPm(0);
+    setShiftOneEnd(0);
+    setShiftOneEndAmPm(0);
+    setShiftTwoStart(0);
+    setShiftTwoStartAmPm(0);
+    setShiftTwoEnd(0);
+    setShiftTwoEndAmPm(0);
+    setShiftThreeStart(0);
+    setShiftThreeStartAmPm(0);
+    setShiftThreeEnd(0);
+    setShiftThreeEndAmPm(0);
+  };
+
   const loadShiftTimes = shiftTimes => {
     const {
       shift_one_begin,
@@ -137,7 +155,7 @@ export default function ShiftTimesProvider(props) {
     }
   };
 
-  const createShiftTimes = () => {
+  const createShiftTimes = create => {
     if (option === "prebuilt") {
       return prebuilt;
     }
@@ -188,8 +206,7 @@ export default function ShiftTimesProvider(props) {
       shift_two_begin,
       shift_two_end,
       shift_three_begin: null,
-      shift_three_end: null,
-      id
+      shift_three_end: null
     };
     if (!noThirdShift) {
       shiftTimesUpdated = {
@@ -197,6 +214,9 @@ export default function ShiftTimesProvider(props) {
         shift_three_begin,
         shift_three_end
       };
+    }
+    if (!create) {
+      shiftTimesUpdated.id = id;
     }
 
     return shiftTimesUpdated;
@@ -238,7 +258,8 @@ export default function ShiftTimesProvider(props) {
         loadShiftTimes,
         prebuilt,
         id,
-        createShiftTimes
+        createShiftTimes,
+        resetShiftTimes
       }}
     >
       {props.children}

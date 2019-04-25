@@ -20,7 +20,9 @@ import {
   PositionContainer,
   PositionName,
   UpdateLink,
-  CreateButton
+  CreateButton,
+  UpdateAndActive,
+  Update
 } from "./styles";
 
 import { updatePosition } from "../../../actions/businessActions";
@@ -54,14 +56,16 @@ function PositionsList(props) {
           return (
             <PositionContainer key={pos.id}>
               <PositionName>{pos.name}</PositionName>
-              <Link to={`${dashboard}${updatePositionUrl}/${pos.id}`}>
-                <UpdateLink>Update</UpdateLink>
-              </Link>
-              <ActiveDropdown
-                options={options}
-                value={pos.active ? "Active" : "Not Active"}
-                selectHandler={selectOption(pos.id, pos.active)}
-              />
+              <UpdateAndActive>
+                <Link to={`${dashboard}${updatePositionUrl}/${pos.id}`}>
+                  <UpdateLink>Update</UpdateLink>
+                </Link>
+                <ActiveDropdown
+                  options={options}
+                  value={pos.active ? "Active" : "Not Active"}
+                  selectHandler={selectOption(pos.id, pos.active)}
+                />
+              </UpdateAndActive>
             </PositionContainer>
           );
         })}

@@ -44,13 +44,16 @@ export const UserContainer = styled.div`
 
 export const UserName = styled.h2`
   font-size: 1.4rem;
+  margin-right: 10px;
 `;
 
-export const UpdateLink = styled.h3`
-  cursor: pointer;
-  font-size: 1.4rem;
-  color: ${textBlue};
-  margin-right: 10px;
+export const Role = styled(UserName)`
+  margin-right: 20px;
+`;
+
+export const OtherItems = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const PendingUsersTitle = styled.h2`

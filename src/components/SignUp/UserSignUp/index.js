@@ -63,7 +63,6 @@ function UserSignUp(props) {
     props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(() => {
-        console.timeEnd("Firebase");
         props.createUser(email, name, title, props.next);
       })
       .catch(err => {
@@ -109,22 +108,17 @@ function UserSignUp(props) {
         type="password"
         match={passMatch}
       />
-      {passMatch ? null : (
-        <span className="no-match">Passwords do not match</span>
-      )}
-      {passLength ? null : (
-        <span className="no-match">
-          Password must be at least 6 characters long.
-        </span>
-      )}
-      {error ? <span className="no-match">{error}</span> : null}
-      {/* <NextButton disabled={buttonDisabled} onClick={props.next}> */}
       <NextButton disabled={buttonDisabled} onClick={createFirebaseUser}>
         NEXT STEP
       </NextButton>
       <SignUpCTA>
         Already have an account? <Link to="/signin">Sign in now!</Link>
       </SignUpCTA>
+      {passMatch ? null : <p className="no-match">Passwords do not match</p>}
+      {passLength ? null : (
+        <p className="no-match">Password must be at least 6 characters long.</p>
+      )}
+      {error ? <p className="no-match">{error}</p> : null}
     </>
   );
 }

@@ -21,6 +21,27 @@ export const createUser = (email, name, title, next) => {
   };
 };
 
+export const createUserFromPending = (email, name, title, pendingId, next) => {
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    axios
+      .post(`${API_URL}/businesses/pendinguser`, {
+        pendingId,
+        token,
+        email,
+        title,
+        name
+      })
+      .then(res => {
+        dispatch({ type: UPDATE_USER, user: { email, name, title } });
+        next();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
+
 export const fetchUser = () => {
   return async (dispatch, getState, API_URL) => {
     dispatch({ type: FETCHING_USER_DATA });

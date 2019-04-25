@@ -37,6 +37,7 @@ export const Container = styled.div`
   .no-match {
     line-height: 1.5rem;
     color: ${borderRed};
+    margin: 10px 0;
   }
 `;
 

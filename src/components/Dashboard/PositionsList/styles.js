@@ -39,6 +39,12 @@ export const PositionContainer = styled.div`
 
 export const PositionName = styled.h2`
   font-size: 1.4rem;
+  margin-right: 10px;
+`;
+
+export const UpdateAndActive = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const UpdateLink = styled.h3`

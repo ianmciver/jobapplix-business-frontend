@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { API_URL } from "../../../constants/urls";
 import { firebase } from "../../../index";
 
 import ActiveDropdown from "../PositionsList/ActiveDropdown";
-import { options, roleToNumerical, numericalToRole } from "../UsersList";
+import { options, roleToNumerical } from "../UsersList";
 import {
   InviteUserContainer,
   InviteUserDescription,
@@ -16,10 +16,18 @@ import {
   RoleTitle,
   SearchButton
 } from "./styles";
+import { dashboard, usersList } from "../../../constants/routes";
 
 function InviteUser(props) {
   const [value, setValue] = useState(options[0]);
   const [email, setEmail] = useState("");
+  const [invalid, setInvalid] = useState(true);
+
+  useEffect(() => {
+    if (email.length > 0) {
+      setInvalid(false);
+    }
+  }, [email]);
 
   const selectHandler = option => {
     setValue(option);
@@ -29,12 +37,12 @@ function InviteUser(props) {
     let numericalRole = roleToNumerical[value];
     const token = await firebase.doGetCurrentUserIdToken();
     axios
-      .post(`${API_URL}/businesses/pendinguser?bid=${props.id}`, {
+      .post(`${API_URL}/businesses/pendingusers?bid=${props.id}`, {
         email,
         role: numericalRole,
         token
       })
-      .then(res => console.log(res));
+      .then(() => props.history.push(`${dashboard}${usersList}`));
   };
 
   return (
@@ -60,7 +68,9 @@ function InviteUser(props) {
           selectHandler={selectHandler}
         />
       </RoleContainer>
-      <SearchButton onClick={submitInvite}>Invite User</SearchButton>
+      <SearchButton onClick={submitInvite} disabled={invalid}>
+        Invite User
+      </SearchButton>
     </InviteUserContainer>
   );
 }
