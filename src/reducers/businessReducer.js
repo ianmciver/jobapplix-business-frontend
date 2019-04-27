@@ -26,7 +26,8 @@ const initialState = {
   applications: [],
   role: 14,
   users: [],
-  pendingUsers: []
+  pendingUsers: [],
+  subDetails: {}
 };
 
 export default function BusinessReducer(state = initialState, action) {

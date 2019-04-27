@@ -91,10 +91,10 @@ export const uploadFileToS3 = (file, next) => {
         }&file-type=${file.type}`,
         { token }
       )
-      .then(res => {
+      .then(({ data }) => {
         return axios({
           method: "put",
-          url: res.data.signedRequest,
+          url: data.signedRequest,
           data: file,
           headers: { "Content-Type": file.type }
         });
@@ -113,8 +113,9 @@ export const getBusinessSummary = () => {
     const token = await firebase.doGetCurrentUserIdToken();
     axios
       .get(`${API_URL}/businesses/summary?token=${token}`)
-      .then(res => {
-        dispatch({ type: UPDATE_BUSINESS, payload: res.data.businesses[0] });
+      .then(({ data }) => {
+        console.log(data);
+        dispatch({ type: UPDATE_BUSINESS, payload: data.business });
         return axios.get(`${API_URL}/businesses/user?token=${token}`);
       })
       .then(res => {
@@ -205,6 +206,19 @@ export const deletePendingUser = pendingId => {
     } catch (err) {
       console.log(err);
     }
+  };
+};
+
+export const updateBusinessDetails = (business, next) => {
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    const { id } = getState().business;
+    return axios
+      .put(`${API_URL}/businesses?bid=${id}`, { token, business })
+      .then(() => {
+        dispatch({ type: CREATE_BUSINESS_BASICS, payload: business });
+        next();
+      });
   };
 };
 

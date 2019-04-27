@@ -27,4 +27,5 @@ export const DetailTitle = styled.h2`
 
 export const DetailValue = styled.h3`
   font-size: 1.6rem;
+  text-transform: uppercase;
 `;

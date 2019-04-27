@@ -17,6 +17,7 @@ import Loading from "../Loading";
 import UserMenu from "../Menus/UserMenu";
 import BusinessMenu from "../Menus/BusinessMenu";
 import BusinessProfile from "../BusinessProfile";
+import SubscriptionDetails from "../SubscriptionDetails";
 
 import {
   dashboard,
@@ -26,7 +27,8 @@ import {
   usersList,
   updatePositionUrl,
   inviteUserUrl,
-  businessProfile
+  businessProfile,
+  subscription
 } from "../../../constants/routes";
 import isLoggedIn from "../../../helpers/isLoggedIn";
 
@@ -102,6 +104,10 @@ function DashboardContainer(props) {
             <Route
               path={`${dashboard}${businessProfile}`}
               component={BusinessProfile}
+            />
+            <Route
+              path={`${dashboard}${subscription}`}
+              component={SubscriptionDetails}
             />
           </DashboardBody>
         </DashboardProvider>
