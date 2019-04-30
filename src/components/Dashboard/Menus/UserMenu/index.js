@@ -26,6 +26,7 @@ import UserIcon from "../../../../assets/UserIcon";
 
 import { DashboardContext } from "../../DashboardContext";
 import { textBlue } from "../../../../constants/colors";
+import { dashboard, userProfile } from "../../../../constants/routes";
 
 import FirebaseContext from "../../../../Firebase/context";
 
@@ -85,7 +86,9 @@ function UserMenu(props) {
           <SubjectTitle>{props.user.title}</SubjectTitle>
         </SubjectNameContainer>
       </SubjectContainer>
-      <MenuItem>
+      <MenuItem
+        onClick={() => props.history.push(`${dashboard}${userProfile}`)}
+      >
         <MenuChevron>
           <Chevron width={"20px"} height={"20px"} color={textBlue} />
         </MenuChevron>

@@ -7,7 +7,8 @@ const initialState = {
   id: "",
   name: "",
   title: "",
-  imageUrl: "",
+  image_url: "",
+  email: "",
   loading: true
 };
 

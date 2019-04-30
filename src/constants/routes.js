@@ -13,5 +13,6 @@ export const usersList = "/userslist";
 export const inviteUserUrl = "/inviteuser";
 export const inviteSignUp = "/inviteesignup";
 export const businessProfile = "/businessprofile";
+export const userProfile = "/userprofile";
 export const subscription = "/subscription";
 export const updatePayment = "/updatepayment";

@@ -18,6 +18,7 @@ import Loading from "../Loading";
 import UserMenu from "../Menus/UserMenu";
 import BusinessMenu from "../Menus/BusinessMenu";
 import BusinessProfile from "../BusinessProfile";
+import UserProfile from "../UserProfile";
 import SubscriptionDetails from "../SubscriptionDetails";
 import UpdatePayment from "../SubscriptionDetails/UpdateCard";
 
@@ -30,6 +31,7 @@ import {
   updatePositionUrl,
   inviteUserUrl,
   businessProfile,
+  userProfile,
   subscription,
   updatePayment
 } from "../../../constants/routes";
@@ -107,6 +109,10 @@ function DashboardContainer(props) {
             <Route
               path={`${dashboard}${businessProfile}`}
               component={BusinessProfile}
+            />
+            <Route
+              path={`${dashboard}${userProfile}`}
+              component={UserProfile}
             />
             <Route
               path={`${dashboard}${subscription}`}
