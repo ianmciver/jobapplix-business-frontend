@@ -1,65 +1,51 @@
 import styled from "styled-components";
-
-import { TextInput } from "../../../styles/forms";
-import { FormButton } from "../../../styles/buttons";
-
+import { FormButton } from "../../../../styles/buttons";
 import {
   textDark,
+  borderGrey,
+  textLight,
   borderLight,
   backgroundLight,
-  borderGrey,
-  textLight
-} from "../../../constants/colors";
+  borderRed
+} from "../../../../constants/colors";
 
-export const InviteUserContainer = styled.div`
+export const ProfileContainer = styled.div`
   margin-top: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 50px;
 `;
 
-export const InviteUserTitle = styled.h2`
+export const ProfileTitle = styled.h2`
   font-size: 1.9rem;
+  line-height: 2.3rem;
   color: ${textDark};
   text-transform: uppercase;
   margin-bottom: 20px;
+  text-align: center;
 `;
 
-export const InviteUserDescription = styled.p`
+export const Details = styled.p`
+  padding: 20px 0;
   font-size: 1.2rem;
-  color: ${textDark};
   line-height: 1.6rem;
-  margin: 0 30px;
 `;
 
-export const EmailInputContainer = styled.div`
+export const ButtonContainer = styled.div`
   width: 100%;
-  padding: 30px 30px 10px;
-`;
-
-export const EmailInput = styled(TextInput)`
-  margin-bottom: 10px;
-`;
-
-export const RoleContainer = styled.div`
   display: flex;
+  padding: 10px 30px 0;
   justify-content: space-between;
-  padding: 0 30px;
-  width: 100%;
-  align-items: center;
 `;
 
-export const RoleTitle = styled.h3`
-  font-size: 1.6rem;
-`;
-
-export const SearchButton = styled(FormButton)`
+export const UpdateButton = styled(FormButton)`
   align-self: flex-start;
   font-weight: 700;
   color: ${borderGrey};
   padding: 7px 14px;
   border-color: ${borderGrey};
-  margin: 20px 0 30px 30px;
+  margin: 20px 0 1px 0;
   display: inline-block;
   &:hover {
     background-color: ${borderGrey};
@@ -70,5 +56,14 @@ export const SearchButton = styled(FormButton)`
     border-color: ${borderLight};
     color: ${borderLight};
     background-color: ${backgroundLight};
+  }
+`;
+
+export const CancelButton = styled(UpdateButton)`
+  border-color: ${borderRed};
+  color: ${borderRed};
+
+  &:hover {
+    background-color: ${borderRed};
   }
 `;

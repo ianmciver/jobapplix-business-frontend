@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
+import { Elements } from "react-stripe-elements";
 
 import PositionContext from "../Position/PositionContext";
 import ShiftTimesContext from "../Position/ShiftTimesContext";
@@ -18,6 +19,7 @@ import UserMenu from "../Menus/UserMenu";
 import BusinessMenu from "../Menus/BusinessMenu";
 import BusinessProfile from "../BusinessProfile";
 import SubscriptionDetails from "../SubscriptionDetails";
+import UpdatePayment from "../SubscriptionDetails/UpdateCard";
 
 import {
   dashboard,
@@ -28,7 +30,8 @@ import {
   updatePositionUrl,
   inviteUserUrl,
   businessProfile,
-  subscription
+  subscription,
+  updatePayment
 } from "../../../constants/routes";
 import isLoggedIn from "../../../helpers/isLoggedIn";
 
@@ -108,6 +111,14 @@ function DashboardContainer(props) {
             <Route
               path={`${dashboard}${subscription}`}
               component={SubscriptionDetails}
+            />
+            <Route
+              path={`${dashboard}${updatePayment}`}
+              render={props => (
+                <Elements>
+                  <UpdatePayment {...props} />
+                </Elements>
+              )}
             />
           </DashboardBody>
         </DashboardProvider>

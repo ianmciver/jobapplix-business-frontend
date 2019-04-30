@@ -114,7 +114,6 @@ export const getBusinessSummary = () => {
     axios
       .get(`${API_URL}/businesses/summary?token=${token}`)
       .then(({ data }) => {
-        console.log(data);
         dispatch({ type: UPDATE_BUSINESS, payload: data.business });
         return axios.get(`${API_URL}/businesses/user?token=${token}`);
       })
@@ -219,6 +218,53 @@ export const updateBusinessDetails = (business, next) => {
         dispatch({ type: CREATE_BUSINESS_BASICS, payload: business });
         next();
       });
+  };
+};
+
+export const cancelSubscription = next => {
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    const { id } = getState().business;
+    return axios
+      .delete(`${API_URL}/businesses/subscribe?bid=${id}&token=${token}`)
+      .then(() => {
+        dispatch({ type: UPDATE_BUSINESS, payload: { active: false } });
+        next();
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+export const updateSubscription = (subType, next) => {
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    const { id } = getState().business;
+    return axios
+      .put(`${API_URL}/businesses/subscribe?bid=${id}`, {
+        length: subType,
+        token
+      })
+      .then(() => {
+        dispatch({ type: UPDATE_BUSINESS, payload: { sub_type: subType } });
+        next();
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+export const updatePaymentMethod = (stripe_token, next) => {
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    const { id } = getState().business;
+    return axios
+      .put(`${API_URL}/businesses/subscribe?bid=${id}`, {
+        stripe_token,
+        token
+      })
+      .then(() => {
+        next();
+      })
+      .catch(err => console.log(err));
   };
 };
 

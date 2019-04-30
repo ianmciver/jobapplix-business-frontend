@@ -6,13 +6,23 @@ import {
   backgroundGreyOpacity94
 } from "../../../../constants/colors";
 
+export const ModalContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: ${backgroundGreyOpacity94};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+`;
+
 export const Modal = styled.div`
-  width: 87.5vw;
+  width: 87.5%;
   border: 3px solid ${borderBlue};
   background-color: ${backgroundGreyOpacity94};
-  position: absolute;
-  top: 15vh;
-  z-index: 9999;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 import Chevron from "../../../../assets/Chevron";
 import { chevronDropDown } from "../../../../constants/colors";
 

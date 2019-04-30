@@ -28,7 +28,6 @@ function InviteSignUp(props) {
   const [businessLogo, setbusinessLogo] = useState(""); //business name
   const [email, setEmail] = useState(""); //email
   const [id, setId] = useState(""); //id
-  const [role, setRole] = useState(""); //role
 
   const [name, setName] = useState(""); //name
   const [title, setTitle] = useState(""); //title
@@ -52,7 +51,6 @@ function InviteSignUp(props) {
           setbusinessName(data.name);
           setEmail(data.email);
           setbusinessLogo(data.image_url);
-          setRole(data.role);
           setId(data.id);
           setLoading(false);
         }
@@ -112,54 +110,66 @@ function InviteSignUp(props) {
       {loading && <Loading />}
       <Header />
       <Container>
-        <WelcomeHeader>Welcome!</WelcomeHeader>
-        <BusinessLogo src={businessLogo} alt={`${businessName} logo`} />
-        <Description>
-          You have been invited to {businessName}'s JobApplix group. Complete
-          your account details here to join the group.
-        </Description>
-        <FormContainer>
-          <TextInput
-            value={name}
-            onChange={e => setName(e.target.value)}
-            placeholder="YOUR FULL NAME*"
-          />
-          <TextInput
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            placeholder="EMAIL*"
-          />
-          <TextInput
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            placeholder="YOUR TITLE"
-          />
-          <PasswordInput
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="PASSWORD*"
-            type="password"
-            match={passMatch}
-          />
-          <PasswordInput
-            value={confirmPassword}
-            onChange={e => setConfirmPassword(e.target.value)}
-            placeholder="CONFIRM PASSWORD*"
-            type="password"
-            match={passMatch}
-          />
-          <NextButton disabled={buttonDisabled} onClick={createFirebaseUser}>
-            COMPLETE SIGN UP
-          </NextButton>
-          {passMatch ? null : (
-            <p className="no-match">Passwords do not match</p>
-          )}
-          {passLength ? null : (
-            <p className="no-match">
-              Password must be at least 6 characters long.
-            </p>
-          )}
-        </FormContainer>
+        {error ? (
+          <>
+            <WelcomeHeader>Sorry!</WelcomeHeader>
+            <Description>{error}</Description>
+          </>
+        ) : (
+          <>
+            <WelcomeHeader>Welcome!</WelcomeHeader>
+            <BusinessLogo src={businessLogo} alt={`${businessName} logo`} />
+            <Description>
+              You have been invited to {businessName}'s JobApplix group.
+              Complete your account details here to join the group.
+            </Description>
+            <FormContainer>
+              <TextInput
+                value={name}
+                onChange={e => setName(e.target.value)}
+                placeholder="YOUR FULL NAME*"
+              />
+              <TextInput
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="EMAIL*"
+              />
+              <TextInput
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+                placeholder="YOUR TITLE"
+              />
+              <PasswordInput
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="PASSWORD*"
+                type="password"
+                match={passMatch}
+              />
+              <PasswordInput
+                value={confirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
+                placeholder="CONFIRM PASSWORD*"
+                type="password"
+                match={passMatch}
+              />
+              <NextButton
+                disabled={buttonDisabled}
+                onClick={createFirebaseUser}
+              >
+                COMPLETE SIGN UP
+              </NextButton>
+              {passMatch ? null : (
+                <p className="no-match">Passwords do not match</p>
+              )}
+              {passLength ? null : (
+                <p className="no-match">
+                  Password must be at least 6 characters long.
+                </p>
+              )}
+            </FormContainer>
+          </>
+        )}
       </Container>
     </>
   );

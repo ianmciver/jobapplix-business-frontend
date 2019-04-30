@@ -53,7 +53,7 @@ export default function PaymentOptions(props) {
         Questions about our payment plans?
       </QuestionsText>
       <NextButton disabled={disabledButton()} onClick={props.selectPayment}>
-        SET UP PAYMENT
+        {props.nextButtonText}
       </NextButton>
     </>
   );

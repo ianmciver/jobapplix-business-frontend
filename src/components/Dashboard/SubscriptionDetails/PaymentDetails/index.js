@@ -2,13 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { format } from "date-fns";
 
-import {
-  DetailsContainer,
-  BusinessLogo,
-  DetailGroup,
-  DetailTitle,
-  DetailValue
-} from "./styles";
+import { BusinessLogo, DetailGroup, DetailTitle, DetailValue } from "./styles";
 
 function BusinessDetails(props) {
   return (

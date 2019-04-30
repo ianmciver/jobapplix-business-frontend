@@ -34,7 +34,6 @@ function EditBusinessDetails(props) {
   const [website, setWebsite] = useState(props.business.website);
   const [urlAvailable, setUrlAvailable] = useState(true);
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [file, setFile] = useState(null);
   const [changeWarning, setChangeWarning] = useState(false);
   const [desc, setDesc] = useState(props.business.description);
 
@@ -166,7 +165,9 @@ function EditBusinessDetails(props) {
         <Error>Sorry, that URL has already been taken</Error>
       )}
       <ButtonContainer>
-        <SubmitButton onClick={submitHandler}>SAVE DETAILS</SubmitButton>
+        <SubmitButton onClick={submitHandler} disabled={buttonDisabled}>
+          SAVE DETAILS
+        </SubmitButton>
         <SubmitButton cancel onClick={props.cancel}>
           CANCEL
         </SubmitButton>

@@ -21,8 +21,7 @@ import {
   PositionName,
   UpdateLink,
   CreateButton,
-  UpdateAndActive,
-  Update
+  UpdateAndActive
 } from "./styles";
 
 import { updatePosition } from "../../../actions/businessActions";

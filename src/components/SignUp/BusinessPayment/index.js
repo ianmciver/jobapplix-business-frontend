@@ -26,6 +26,7 @@ export default function PaymentContainer(props) {
           openModal={() => setModal(true)}
           selectSub={type => setSubType(type)}
           subType={subType}
+          nextButtonText={"SET PAYMENT METHOD"}
         />
       ) : null}
       {screen === "form" ? (
