@@ -7,6 +7,7 @@ import PositionContext from "../Position/PositionContext";
 import ShiftTimesContext from "../Position/ShiftTimesContext";
 import { FirebaseContext } from "../../../Firebase";
 
+import Home from "../Home";
 import ApplicationsContainer from "../ApplicationsContainer";
 import CreatePositionContainer from "../Position/CreatePositionContainer";
 import UpdatePositionContainer from "../Position/UpdatePositionContainer";
@@ -73,6 +74,7 @@ function DashboardContainer(props) {
           <BusinessMenu />
           <TopBar />
           <DashboardBody>
+            <Route path={dashboard} exact component={Home} />
             <Route
               path={`${dashboard}${createPosition}`}
               render={props => (

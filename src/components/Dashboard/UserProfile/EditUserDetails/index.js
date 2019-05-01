@@ -30,6 +30,8 @@ function EditBusinessDetails(props) {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [noPasswordMatch, setNoPasswordMatch] = useState("");
+  const [noPasswordLength, setNoPasswordLength] = useState("");
   const [invalidEmail, setinValidEmail] = useState(false);
   const [error, setError] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -46,6 +48,22 @@ function EditBusinessDetails(props) {
       setButtonDisabled(false);
     }
   }, [name, title, email, newPassword]);
+
+  useEffect(() => {
+    if (newPassword && newPassword !== confirmNewPassword) {
+      setNoPasswordMatch("Passwords Do Not Match");
+    } else {
+      setNoPasswordMatch("");
+    }
+  }, [newPassword, confirmNewPassword]);
+
+  useEffect(() => {
+    if (newPassword && newPassword.length < 6) {
+      setNoPasswordLength("Password Must Be At Least 6 Characters");
+    } else {
+      setNoPasswordLength("");
+    }
+  }, [newPassword]);
 
   const onDrop = useCallback(acceptedFiles => {
     const reader = new FileReader();
@@ -82,7 +100,6 @@ function EditBusinessDetails(props) {
         userDetails.email = email;
         await firebase.doUpdateUserEmail(email);
       }
-
       if (newPassword && newPassword === confirmNewPassword) {
         await firebase.doPasswordUpdate(newPassword);
       }
@@ -144,7 +161,9 @@ function EditBusinessDetails(props) {
         type="password"
         onChange={e => setPassword(e.target.value)}
       />
-      {error && <Error>{error}s</Error>}
+      {error && <Error>{error}</Error>}
+      {noPasswordMatch && <Error>{noPasswordMatch}</Error>}
+      {noPasswordLength && <Error>{noPasswordLength}</Error>}
       <ButtonContainer>
         <SubmitButton onClick={submitHandler} disabled={buttonDisabled}>
           SAVE DETAILS

@@ -95,4 +95,5 @@ export const SubmitButton = styled(FormButton)`
 export const Error = styled.p`
   color: ${borderRed};
   font-size: 1.2rem;
+  padding: 5px 0;
 `;

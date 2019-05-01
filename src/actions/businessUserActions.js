@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { firebase } from "../index";
+import { API_URL } from "../constants/urls";
 
 export const UPDATE_USER = "UPDATE_USER";
 export const FETCHING_USER_DATA = "FETCHING_USER_DATA";
@@ -98,4 +99,8 @@ export const updateUserImage = file => {
         console.log(err);
       });
   };
+};
+
+export const validateEmail = email => {
+  return axios.get(`${API_URL}/businesses/user/validateemail?email=${email}`);
 };

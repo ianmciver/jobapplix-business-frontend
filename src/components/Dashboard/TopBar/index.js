@@ -1,5 +1,8 @@
 import React, { useContext } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+
+import { dashboard } from "../../../constants/routes";
 
 import hamburger from "../../../assets/hamburger.svg";
 import UserIcon from "../../../assets/UserIcon";
@@ -23,7 +26,10 @@ function TopBar(props) {
         alt="Open Menu"
         onClick={dashboardContext.toggleBusinessMenu}
       />
-      <HeaderLogo src={jobApplixLogo} />
+      <HeaderLogo
+        src={jobApplixLogo}
+        onClick={e => props.history.push(dashboard)}
+      />
       <HeaderUserIcon
         onClick={dashboardContext.toggleUserMenu}
         thin={!!props.user.image_url}
@@ -38,4 +44,6 @@ function TopBar(props) {
   );
 }
 
-export default connect(state => ({ user: state.businessUser }))(TopBar);
+export default connect(state => ({ user: state.businessUser }))(
+  withRouter(TopBar)
+);

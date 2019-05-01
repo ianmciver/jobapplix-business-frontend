@@ -11,6 +11,7 @@ import {
 export const ProfileContainer = styled.div`
   margin-top: 25px;
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   padding: 0 50px;
