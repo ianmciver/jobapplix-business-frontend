@@ -2,15 +2,21 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { connect } from "react-redux";
 
+import Progress from "../ProgressBar";
 import addIcon from "../../../assets/add.svg";
 import {
   DropContainer,
-  Instructions,
+  DropInstructions,
   AddIcon,
   AdditionalInstructions,
   SkipOption
 } from "./styles";
-import { NextButton } from "../SignUpContainer/styles";
+import {
+  Headline,
+  SubHeadline,
+  Instructions,
+  NextButton
+} from "../SignUpContainer/styles";
 
 import { uploadFileToS3 } from "../../../actions/businessActions";
 import { withFirebase } from "../../../Firebase";
@@ -40,20 +46,21 @@ function BusinessLogo(props) {
 
   return (
     <>
-      <h1 className="headline">UPLOAD YOUR LOGO</h1>
-      <span className="step">FINAL STEP:</span>
-      <span>
+      <Headline>CREATE BUSINESS</Headline>
+      <Progress progress={"80%"} />
+      <SubHeadline>Business Logo</SubHeadline>
+      <Instructions>
         Upload your business's logo. Brand your page and make it your own.
-      </span>
+      </Instructions>
       <DropContainer {...getRootProps()} background={image}>
         <input {...getInputProps()} />
         {isDragActive ? (
           <p>Drop the files here ...</p>
         ) : image ? null : (
-          <Instructions>
+          <DropInstructions>
             <AddIcon src={addIcon} alt="Click to add your logo" />
-            <p>Drag 'n' drop your logo here, or click to select file</p>
-          </Instructions>
+            <p>Click to Add File</p>
+          </DropInstructions>
         )}
       </DropContainer>
       {image ? (

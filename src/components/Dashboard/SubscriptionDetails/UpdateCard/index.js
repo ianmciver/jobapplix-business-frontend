@@ -43,7 +43,9 @@ function UpdateCard(props) {
       <Form name={name} email={email} setName={setName} setEmail={setEmail} />
       <ButtonContainer>
         <UpdateButton onClick={updateCardHandler}>UPDATE CARD</UpdateButton>
-        <CancelButton>Cancel</CancelButton>
+        <CancelButton onClick={e => props.history.goBack()}>
+          Cancel
+        </CancelButton>
       </ButtonContainer>
       {successModalOpen && (
         <SubscriptionModal

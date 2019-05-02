@@ -6,7 +6,7 @@ export const DropContainer = styled.div`
   border: 2px solid ${borderLight};
   border-width: ${props => (props.background.length > 0 ? `0px` : "2px")};
   width: 100%;
-  height: 200px;
+  height: 260px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,11 +18,15 @@ export const DropContainer = styled.div`
   outline: none;
 `;
 
-export const Instructions = styled.div`
+export const DropInstructions = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  p {
+    font-size: 1.6rem;
+  }
 `;
 
 export const AddIcon = styled.img`

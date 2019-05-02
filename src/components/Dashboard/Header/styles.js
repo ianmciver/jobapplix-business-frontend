@@ -13,6 +13,7 @@ export const HeaderContainer = styled.div`
   width: 100vw;
   z-index: 100;
   border-bottom: 6px solid ${borderBlue};
+  top: 52px;
 `;
 
 export const CompanyContainer = styled.div`

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import {
   backgroundBlue35percent,
@@ -19,7 +19,12 @@ export const FeaturesGroup = styled.div`
 
 export const FeaturesButton = styled.span`
   padding: 10px 15px;
-  color: ${textDarkBlue};
+  color: ${props => (props.selected ? textLight : textDarkBlue)};
+  ${props =>
+    props.selected &&
+    css`
+      background-color: ${backgroundBlue};
+    `};
   font-size: 1.2rem;
   text-transform: uppercase;
   cursor: pointer;

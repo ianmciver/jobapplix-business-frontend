@@ -48,7 +48,7 @@ function Home(props) {
     },
     []
   );
-  console.log(positionApplicationsGroups);
+
   return (
     <HomeContainer>
       <GreetingContainer>

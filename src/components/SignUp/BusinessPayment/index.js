@@ -4,6 +4,9 @@ import { Elements } from "react-stripe-elements";
 import PaymentOptions from "./PaymentOptions";
 import PaymentForm from "./PaymentForm";
 import PaymentModal from "./PaymentModal";
+import Progress from "../ProgressBar";
+
+import { Headline, SubHeadline, Instructions } from "../SignUpContainer/styles";
 
 export default function PaymentContainer(props) {
   const [subType, setSubType] = useState("yearly");
@@ -12,14 +15,14 @@ export default function PaymentContainer(props) {
 
   return (
     <>
-      <h1 className="headline">SUBSCRIPTION</h1>
-      <span className="step">STEP 3:</span>
-      <span>Enter your payment info</span>
-      <span>
+      <Headline>CREATE BUSINESS</Headline>
+      <Progress progress={"50%"} />
+      <SubHeadline>Select Subscription Plan</SubHeadline>
+      <Instructions>
         Reminder: Every subscription comes with a 30 day free trial. Your card
         will only be charged after this trial. Cancel anytime during the trial
         free of charge.
-      </span>
+      </Instructions>
       {screen === "options" ? (
         <PaymentOptions
           selectPayment={() => setScreen("form")}

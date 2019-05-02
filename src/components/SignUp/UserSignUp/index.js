@@ -2,8 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { PasswordInput } from "./styles";
-import { NextButton } from "../SignUpContainer/styles";
+import { PasswordInput, ButtonContainer } from "./styles";
+import {
+  Headline,
+  SubHeadline,
+  NextButton,
+  Error,
+  Instructions
+} from "../SignUpContainer/styles";
 import { TextInput } from "../../../styles/forms";
 import { SignUpCTA } from "../../SignIn/styles";
 
@@ -72,13 +78,16 @@ function UserSignUp(props) {
 
   return (
     <>
-      <h1 className="headline">CREATE AN ADMIN ACCOUNT</h1>
-      <span className="step">Step 1:</span>
-      <span>
+      <Headline>CREATE AN ADMIN ACCOUNT</Headline>
+      <SubHeadline>Personal Information</SubHeadline>
+      <Instructions>
         Create an admin account that will have full access to your business. You
         can invite other users later.
-      </span>
-      <span>Note: this will be your own personal account.</span>
+      </Instructions>
+      <Instructions>
+        **Note: this will be your own personal account, we'll add business stuff
+        next.
+      </Instructions>
       <TextInput
         value={name}
         onChange={e => setName(e.target.value)}
@@ -108,17 +117,19 @@ function UserSignUp(props) {
         type="password"
         match={passMatch}
       />
-      <NextButton disabled={buttonDisabled} onClick={createFirebaseUser}>
-        NEXT STEP
-      </NextButton>
+      {passMatch ? null : <Error>Passwords do not match</Error>}
+      {passLength ? null : (
+        <Error>Password must be at least 6 characters long.</Error>
+      )}
+      {error ? <Error>{error}</Error> : null}
+      <ButtonContainer>
+        <NextButton disabled={buttonDisabled} onClick={createFirebaseUser}>
+          NEXT STEP
+        </NextButton>
+      </ButtonContainer>
       <SignUpCTA>
         Already have an account? <Link to="/signin">Sign in now!</Link>
       </SignUpCTA>
-      {passMatch ? null : <p className="no-match">Passwords do not match</p>}
-      {passLength ? null : (
-        <p className="no-match">Password must be at least 6 characters long.</p>
-      )}
-      {error ? <p className="no-match">{error}</p> : null}
     </>
   );
 }

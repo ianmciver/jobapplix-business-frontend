@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 import { connect } from "react-redux";
 import { useDropzone } from "react-dropzone";
 
-import { TextInput, TextArea } from "../../../../styles/forms";
+import { TextInput } from "../../../../styles/forms";
 import FirebaseContext from "../../../../Firebase/context";
 
 import {
@@ -32,7 +32,6 @@ function EditBusinessDetails(props) {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [noPasswordMatch, setNoPasswordMatch] = useState("");
   const [noPasswordLength, setNoPasswordLength] = useState("");
-  const [invalidEmail, setinValidEmail] = useState(false);
   const [error, setError] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
 

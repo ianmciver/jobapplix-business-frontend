@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
+import Progress from "../ProgressBar";
+
 import { TextInput } from "../../../styles/forms";
-import { NextButton } from "../SignUpContainer/styles";
+import {
+  Headline,
+  SubHeadline,
+  Instructions,
+  NextButton,
+  Error,
+  JobApplixAddress,
+  AddressLine
+} from "../SignUpContainer/styles";
 
 import {
   createBusinessBasics,
@@ -41,6 +51,16 @@ function BusinessBasics(props) {
       });
   };
 
+  const restrictURLChars = e => {
+    const allowableChars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_";
+    let newEntry = e.target.value
+      .split("")
+      .filter(char => allowableChars.includes(char))
+      .join("");
+    setUrl(newEntry);
+  };
+
   const buttonClickHandler = () => {
     props.createBusinessBasics(
       businessName,
@@ -56,35 +76,29 @@ function BusinessBasics(props) {
 
   return (
     <>
-      <h1 className="headline">CREATE A BUSINESS ACCOUNT</h1>
-      <span className="step">Step 2:</span>
-      <span>
+      <Headline>CREATE A BUSINESS</Headline>
+      <Progress progress={"17%"} />
+      <SubHeadline>Business Information</SubHeadline>
+      <Instructions>
         Great! Now let's create an business account. This account will serve as
         either your sole location, or your organization master account. You will
         be able to add sub-businesses later.
-      </span>
-      <span>
+      </Instructions>
+      <Instructions>
         Note: All information here will be shown on your public facing page.
-      </span>
+      </Instructions>
       <TextInput
         placeholder="BUSINESS NAME*"
         value={businessName}
         onChange={e => setBusinessName(e.target.value)}
       />
       <TextInput
-        placeholder="JOBAPPLIX URL*"
+        placeholder="UNIQUE JOBAPPLIX ADDRESS*"
         value={url}
-        onChange={e => setUrl(e.target.value)}
+        onChange={restrictURLChars}
         onBlur={validateUrl}
       />
-      {urlAvailable ? (
-        <span>
-          Your business's JobApplix page will be found at:{" "}
-          <span className="step">{`https://${url}.jobapplix.com`}</span>
-        </span>
-      ) : (
-        <span className="no-match">Sorry, that URL has already been taken</span>
-      )}
+
       <TextInput
         placeholder="BUSINESS EMAIL"
         value={email}
@@ -105,6 +119,14 @@ function BusinessBasics(props) {
         value={website}
         onChange={e => setWebsite(e.target.value)}
       />
+      {urlAvailable ? (
+        <AddressLine>
+          Your business's JobApplix page will be found at:{" "}
+          <JobApplixAddress>{`https://${url}.jobapplix.com`}</JobApplixAddress>
+        </AddressLine>
+      ) : (
+        <Error>Sorry, that JobApplix Address has already been taken</Error>
+      )}
       <NextButton onClick={buttonClickHandler} disabled={buttonDisabled}>
         NEXT STEP
       </NextButton>

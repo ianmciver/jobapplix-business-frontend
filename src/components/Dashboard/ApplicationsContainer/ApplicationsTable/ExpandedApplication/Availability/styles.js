@@ -18,7 +18,8 @@ export const GridItem = styled.div`
   ${props =>
     props.column &&
     css`
-      grid-column: ${props.column} / ${props.column + 1};
+      grid-column: ${props.column} /
+        ${props.columnEnd ? props.columnEnd : props.column + 1};
     `}
 
   ${props =>

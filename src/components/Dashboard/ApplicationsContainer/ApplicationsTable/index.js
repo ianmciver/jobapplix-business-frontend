@@ -58,6 +58,3 @@ export default function ApplicationsTable() {
     </ApplicationsGroup>
   );
 }
-
-// name: 169 40.8%, group 145.7 35.2%, details 99.36 (24%)
-// name, position, group, email, date applied , details

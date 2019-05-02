@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 import {
   textDark,
-  textBlue,
   textLight,
+  textBlue,
   borderGrey,
   borderLight,
   borderRed,
@@ -13,32 +13,35 @@ import {
 import { FormButton } from "../../../styles/buttons";
 
 export const Container = styled.div`
-  padding: 40px 50px;
+  padding: 30px 50px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  .headline {
-    font-size: 2.3rem;
-    color: ${textDark};
-    font-weight: 700;
-    padding-bottom: 20px;
-  }
-  .step {
-    color: ${textBlue};
-    font-weight: 700;
-    margin: 0;
-  }
-  span {
-    margin: 0 10px 15px;
-    font-size: 1.1rem;
-    line-height: 1.3rem;
-    text-align: center;
-  }
-  .no-match {
-    line-height: 1.5rem;
-    color: ${borderRed};
-    margin: 10px 0;
-  }
+`;
+
+export const Headline = styled.h1`
+  font-size: 2.3rem;
+  color: ${textDark};
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+`;
+
+export const SubHeadline = styled.h2`
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+`;
+export const Instructions = styled.span`
+  margin: 0 10px 15px;
+  font-size: 1.1rem;
+  line-height: 1.3rem;
+  text-align: center;
+`;
+
+export const Error = styled.p`
+  color: ${borderRed};
+  font-size: 1.2rem;
+  padding: 5px 0;
 `;
 
 export const NextButton = styled(FormButton)`
@@ -57,4 +60,14 @@ export const NextButton = styled(FormButton)`
     color: ${borderLight};
     background-color: ${backgroundLight};
   }
+`;
+export const AddressLine = styled.span`
+  margin: 0 10px 15px;
+  font-size: 1.1rem;
+  line-height: 2rem;
+  text-align: center;
+`;
+export const JobApplixAddress = styled.span`
+  font-size: 1.6rem;
+  color: ${textBlue};
 `;

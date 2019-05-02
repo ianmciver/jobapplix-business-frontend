@@ -84,7 +84,7 @@ function UsersList(props) {
           return (
             <UserContainer key={user.id}>
               <UserName>{user.name}</UserName>
-              {props.role < 13 && props.role >= user.businesses[0].role ? (
+              {props.role < 13 && props.role < user.businesses[0].role ? (
                 <ActiveDropdown
                   options={options}
                   value={numericalToRole[user.businesses[0].role]}

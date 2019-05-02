@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
+import Progress from "../ProgressBar";
+
 import { TextArea } from "./styles";
-import { NextButton } from "../SignUpContainer/styles";
+import {
+  Headline,
+  SubHeadline,
+  Instructions,
+  NextButton
+} from "../SignUpContainer/styles";
 import { createBusinessWithDescription } from "../../../actions/businessActions";
 
 function BusinessPayment(props) {
@@ -14,12 +21,13 @@ function BusinessPayment(props) {
 
   return (
     <>
-      <h1 className="headline">DESCRIPTION</h1>
-      <span className="step">Step 4:</span>
-      <span>
+      <Headline>CREATE BUSINESS</Headline>
+      <Progress progress={"33%"} />
+      <SubHeadline>Business Description</SubHeadline>
+      <Instructions>
         Tell us about your business. This will be displayed on your business
         homepage. Tell your prospective applicants more about your business.
-      </span>
+      </Instructions>
       <TextArea
         placeholder="WRITE YOUR DESCRIPTION HERE..."
         value={desc}

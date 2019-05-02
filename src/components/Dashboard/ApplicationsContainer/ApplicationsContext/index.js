@@ -16,10 +16,34 @@ export const ApplicationsContext = createContext({
 function ApplicationsProvider(props) {
   const firebase = useContext(FirebaseContext);
   const [selectedGroupId, setSelectedGroupId] = useState(1000);
+  const [selectedPositions, setSelectedPositions] = useState([]);
   const [applications, setApplications] = useState([]);
   const [selectedApp, setSelectedApp] = useState({});
   const [selectedAppId, setSelectedAppId] = useState(-1);
   const [applicationCache, setApplicationCache] = useState({});
+  const [availabilityFilter, setAvailabilityFilter] = useState({
+    fri_first: false,
+    fri_second: false,
+    fri_third: false,
+    mon_first: false,
+    mon_second: false,
+    mon_third: false,
+    sat_first: false,
+    sat_second: false,
+    sat_third: false,
+    sun_first: false,
+    sun_second: false,
+    sun_third: false,
+    thurs_first: false,
+    thurs_second: false,
+    thurs_third: false,
+    tues_first: false,
+    tues_second: false,
+    tues_third: false,
+    wed_first: false,
+    wed_second: false,
+    wed_third: false
+  });
   const groups = [
     { id: 1000, title: "All" },
     { id: 0, title: "New" },
@@ -35,12 +59,33 @@ function ApplicationsProvider(props) {
   };
 
   const setGroupSelected = id => {
-    let apps =
+    let appsByGroup =
       id === 1000
         ? props.applications
         : props.applications.filter(app => app.group === id);
+    let apps =
+      selectedPositions.length === 0
+        ? appsByGroup
+        : appsByGroup.filter(app => {
+            return selectedPositions.indexOf(app.position_id) >= 0;
+          });
+    let availabilityFilterApps = Object.values(availabilityFilter).reduce(
+      (a, b) => a | b
+    )
+      ? apps.filter(app => {
+          let match = true;
+          for (let key in availabilityFilter) {
+            if (availabilityFilter[key]) {
+              if (!app.availability[key]) {
+                match = false;
+              }
+            }
+          }
+          return match;
+        })
+      : apps;
     setSelectedGroupId(id);
-    setApplications(apps);
+    setApplications(availabilityFilterApps);
   };
 
   const formatApplication = application => {
@@ -99,6 +144,19 @@ function ApplicationsProvider(props) {
     }
   };
 
+  const selectPosition = posId => {
+    let selectedIndex = selectedPositions.indexOf(posId);
+    if (selectedIndex < 0) {
+      setSelectedPositions([...selectedPositions, posId]);
+    } else {
+      let newSelectedPositions = [
+        ...selectedPositions.slice(0, selectedIndex),
+        ...selectedPositions.slice(selectedIndex + 1)
+      ];
+      setSelectedPositions(newSelectedPositions);
+    }
+  };
+
   const addNote = async noteText => {
     const token = await firebase.doGetCurrentUserIdToken();
     let newComment = await axios.post(
@@ -125,9 +183,15 @@ function ApplicationsProvider(props) {
     setSelectedApp({ ...application, comments: notesArray });
   };
 
+  const toggleAvailability = shift => {
+    let newAvailFilter = { ...availabilityFilter };
+    newAvailFilter[shift] = !newAvailFilter[shift];
+    setAvailabilityFilter(newAvailFilter);
+  };
+
   useEffect(() => {
     setGroupSelected(selectedGroupId);
-  }, [props.applications]);
+  }, [props.applications, selectedPositions, availabilityFilter]);
 
   return (
     <ApplicationsContext.Provider
@@ -140,7 +204,12 @@ function ApplicationsProvider(props) {
         selectAppById,
         selectedAppId,
         selectedApp,
-        addNote
+        addNote,
+        positions: props.positions,
+        selectedPositions,
+        selectPosition,
+        toggleAvailability,
+        availabilityFilter
       }}
     >
       {props.children}

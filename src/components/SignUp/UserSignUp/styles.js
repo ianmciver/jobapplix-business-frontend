@@ -9,3 +9,8 @@ export const PasswordInput = styled(TextInput)`
     border-color: ${props => (props.match ? borderGrey : borderRed)};
   }
 `;
+
+export const ButtonContainer = styled.div`
+  margin: 15px 0;
+  width: 100%;
+`;
