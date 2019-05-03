@@ -17,6 +17,10 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-grow: 1;
+  width: 100%;
+  max-width: 700px;
+  align-self: center;
 `;
 
 export const Headline = styled.h1`
@@ -62,7 +66,7 @@ export const NextButton = styled(FormButton)`
   }
 `;
 export const AddressLine = styled.span`
-  margin: 0 10px 15px;
+  margin-bottom: 5px;
   font-size: 1.1rem;
   line-height: 2rem;
   text-align: center;
@@ -70,4 +74,5 @@ export const AddressLine = styled.span`
 export const JobApplixAddress = styled.span`
   font-size: 1.6rem;
   color: ${textBlue};
+  margin-bottom: 15px;
 `;

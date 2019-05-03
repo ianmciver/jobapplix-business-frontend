@@ -8,10 +8,9 @@ import CheckBoxCheck from "../../../assets/checkboxCheck";
 import {
   getListOfBusinessUsers,
   getListOfPendingUsers,
-  deletePendingUser
+  deletePendingUser,
+  updateUserRole
 } from "../../../actions/businessActions";
-
-// import ActiveDropdown from "./ActiveDropdown";
 
 import { dashboard, inviteUserUrl } from "../../../constants/routes";
 
@@ -56,14 +55,16 @@ function UsersList(props) {
     props.getListOfPendingUsers();
   }, []);
 
-  const selectHandler = option => {
+  const selectHandler = id => option => {
     const numRole = roleToNumerical[option];
-    console.log(numRole);
+    props.updateUserRole(id, numRole);
   };
 
   const deleteHandler = id => {
     props.deletePendingUser(id);
   };
+
+  console.log(props.users);
   return (
     <UsersListContainer>
       <UsersListTitle>Business Users</UsersListTitle>
@@ -88,7 +89,7 @@ function UsersList(props) {
                 <ActiveDropdown
                   options={options}
                   value={numericalToRole[user.businesses[0].role]}
-                  selectHandler={selectHandler}
+                  selectHandler={selectHandler(user.id)}
                 />
               ) : (
                 <UserName>{numericalToRole[user.businesses[0].role]}</UserName>
@@ -123,5 +124,10 @@ export default connect(
     role: state.business.role,
     pendingUsers: state.business.pendingUsers
   }),
-  { getListOfBusinessUsers, getListOfPendingUsers, deletePendingUser }
+  {
+    getListOfBusinessUsers,
+    getListOfPendingUsers,
+    deletePendingUser,
+    updateUserRole
+  }
 )(UsersList);

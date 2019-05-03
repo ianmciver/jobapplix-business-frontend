@@ -5,7 +5,8 @@ import {
   UPDATE_POSITION,
   UPDATE_USERS,
   UPDATE_PENDING_USERS,
-  DELETE_PENDING_USER
+  DELETE_PENDING_USER,
+  UPDATE_USER_ROLE
 } from "../actions/businessActions";
 
 const initialState = {
@@ -74,6 +75,21 @@ export default function BusinessReducer(state = initialState, action) {
         ...newPendingUsers.slice(deleted + 1)
       ];
       return { ...state, pendingUsers: newPendingUsers };
+    case UPDATE_USER_ROLE:
+      const users = [...state.users];
+      const userIndex = users.findIndex(u => u.id === action.payload.id);
+      const user = { ...users[userIndex] };
+      const userBusinesses = [...user.businesses];
+      const firstBusiness = { ...userBusinesses[0] };
+      firstBusiness.role = action.payload.role;
+      userBusinesses[0] = firstBusiness;
+      user.businesses = userBusinesses;
+      users[userIndex] = user;
+      return {
+        ...state,
+        users
+      };
+
     default:
       return state;
   }

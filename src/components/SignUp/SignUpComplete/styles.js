@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../../styles/mediaQueries";
 
 import {
   textBlue,
@@ -7,6 +8,16 @@ import {
   borderBlue
 } from "../../../constants/colors";
 import { NextButton } from "../SignUpContainer/styles";
+
+export const CompleteContainer = styled.div`
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  ${media.desktop`align-self: center;`}
+`;
 
 export const Logo = styled.img`
   width: 70px;

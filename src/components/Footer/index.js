@@ -3,10 +3,7 @@ import React from "react";
 import {
   FooterContainer,
   FooterLogo,
-  FooterSeparator,
   Copywrite,
-  FooterNav,
-  FooterNavItem,
   SocialMediaGroup,
   SocialMediaIcon
 } from "./styles";
@@ -23,20 +20,6 @@ export default function Footer() {
         src={jobApplixLogo}
         alt="Job Applix logo. Click to navigate home."
       />
-      <FooterNav>
-        <FooterNavItem href="/">HOME</FooterNavItem>
-        <FooterNavItem href="/how-it-works">HOW IT WORKS</FooterNavItem>
-        <FooterNavItem href="/pricing">PRICING</FooterNavItem>
-        <FooterNavItem href="/about">WHO WE ARE</FooterNavItem>
-        <FooterNavItem href="https://app.jobapplix.com/signup">
-          SIGN UP
-        </FooterNavItem>
-        <FooterNavItem href="https://app.jobapplix.com/login">
-          SIGN IN
-        </FooterNavItem>
-        <FooterNavItem href="/contact">CONTACT</FooterNavItem>
-      </FooterNav>
-      <FooterSeparator />
       <SocialMediaGroup>
         <a href="https://www.instagram.com/jobapplix/" target="_blank_">
           <SocialMediaIcon>

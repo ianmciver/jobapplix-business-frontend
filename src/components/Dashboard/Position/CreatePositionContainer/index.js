@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { Route } from "react-router-dom";
 import axios from "axios";
 
-import { CreatePosHeader } from "./styles";
+import { CreatePosContainer, CreatePosHeader } from "./styles";
 
 import PositionDetails from "../PositionDetails";
 import PositionQuestions from "../PositionQuestions";
@@ -44,7 +44,7 @@ export default function CreatePositionContainer(props) {
   }, []);
 
   return (
-    <div>
+    <CreatePosContainer>
       {props.location.pathname !==
         `${dashboard}${createPosition}${complete}` && (
         <CreatePosHeader>Create A Position</CreatePosHeader>
@@ -75,6 +75,6 @@ export default function CreatePositionContainer(props) {
         path={`${dashboard}${createPosition}${complete}`}
         render={props => <PositionComplete {...props} />}
       />
-    </div>
+    </CreatePosContainer>
   );
 }

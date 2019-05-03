@@ -15,6 +15,7 @@ export const UPDATE_POSITION = "UPDATE_POSITION";
 export const UPDATE_USERS = "UPDATE_USERS";
 export const UPDATE_PENDING_USERS = "UPDATE_PENDING_USERS";
 export const DELETE_PENDING_USER = "DELETE_PENDING_USER";
+export const UPDATE_USER_ROLE = "UPDATE_USER_ROLE";
 
 export const createBusinessBasics = (
   name,
@@ -265,6 +266,24 @@ export const updatePaymentMethod = (stripe_token, next) => {
         next();
       })
       .catch(err => console.log(err));
+  };
+};
+
+export const updateUserRole = (uid, role) => {
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    const { id } = getState().business;
+    axios
+      .put(
+        `${API_URL}/businesses/assignuser/${role}?bid=${id}&uid=${uid}&token=${token}`
+      )
+      .then(res => {
+        console.log(res);
+        dispatch({ type: UPDATE_USER_ROLE, payload: { id: uid, role } });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 };
 

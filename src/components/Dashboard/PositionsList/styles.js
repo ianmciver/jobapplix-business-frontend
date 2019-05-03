@@ -2,11 +2,15 @@ import styled from "styled-components";
 
 import { textDark, textBlue, borderQuestion } from "../../../constants/colors";
 
+import { media } from "../../../styles/mediaQueries";
+
 export const PositionsListContainer = styled.div`
   margin-top: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  ${media.desktop`padding: 0 50px;`}
 `;
 
 export const PositionsListTitle = styled.h2`
@@ -21,11 +25,13 @@ export const PositionsListDescription = styled.p`
   color: ${textDark};
   line-height: 1.6rem;
   margin: 0 30px;
+  max-width: 600px;
+  text-align: center;
 `;
 
 export const PositionTable = styled.div`
   width: 100%;
-  padding: 20px 30px;
+  padding: 20px 0;
 `;
 
 export const PositionContainer = styled.div`

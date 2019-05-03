@@ -6,6 +6,7 @@ export const DropContainer = styled.div`
   border: 2px solid ${borderLight};
   border-width: ${props => (props.background.length > 0 ? `0px` : "2px")};
   width: 100%;
+  max-width: 350px;
   height: 260px;
   display: flex;
   justify-content: center;
@@ -37,6 +38,10 @@ export const AddIcon = styled.img`
 export const AdditionalInstructions = styled.p`
   font-size: 1.1rem;
   margin: 10px;
+`;
+
+export const ButtonContainer = styled.div`
+  align-self: center;
 `;
 
 export const SkipOption = styled.span`

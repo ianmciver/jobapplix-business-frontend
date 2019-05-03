@@ -24,6 +24,7 @@ export const SelectorBox = styled.div`
   border-radius: 5px;
   color: ${props => (props.selected ? textBlue : textLight)};
   margin: 5px 0;
+  cursor: pointer;
   ${props =>
     props.selected &&
     css`

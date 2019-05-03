@@ -5,7 +5,8 @@ import {
   PositionNextButton,
   PositionName,
   StandardAppContainer,
-  ItalicsSpan
+  ItalicsSpan,
+  PositionQuestionsContainer
 } from "./styles";
 
 import {
@@ -72,7 +73,7 @@ export default function PositionQuestions(props) {
     }
   };
   return (
-    <>
+    <PositionQuestionsContainer>
       <PositionName>POSITION: {positionContext.positionName}</PositionName>
       <InstructionSpan>{props.instructionText}</InstructionSpan>
       <InstructionSpan>
@@ -120,6 +121,6 @@ export default function PositionQuestions(props) {
           Cancel Update
         </PositionNextButton>
       )}
-    </>
+    </PositionQuestionsContainer>
   );
 }

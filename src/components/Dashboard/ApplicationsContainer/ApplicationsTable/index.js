@@ -19,7 +19,12 @@ export default function ApplicationsTable() {
   return (
     <ApplicationsGroup>
       <ApplicationsGroupHead>
-        <ApplicationRow colOne={"name"} colTwo={"group"} colThree={"details"} />
+        <ApplicationRow
+          colOne={"name"}
+          colTwo={"position"}
+          colThree={"group"}
+          colFour={"details"}
+        />
       </ApplicationsGroupHead>
       {applicationsContext.applications.map((app, index) => {
         const firstName = app.questions.find(q => q.question_id === 1);
@@ -32,10 +37,11 @@ export default function ApplicationsTable() {
           <ApplicationsRowContent bgcolor={bgcolor} key={app.app_id}>
             <ApplicationRow
               colOne={`${lastName.answer_text}, ${firstName.answer_text}`}
-              colTwo={() => (
+              colTwo={app.position_name}
+              colThree={() => (
                 <GroupsDropdown selected={groupName.title} appId={app.app_id} />
               )}
-              colThree={() => {
+              colFour={() => {
                 return (
                   <ExpandAppIcon
                     viewBox="0 0 24 24"

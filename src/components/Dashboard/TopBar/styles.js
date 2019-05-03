@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { backgroundGrey, backgroundWhite } from "../../../constants/colors";
+import { media } from "../../../styles/mediaQueries";
 
 export const HeaderContainer = styled.div`
   background-color: ${backgroundGrey};
@@ -14,12 +15,20 @@ export const HeaderContainer = styled.div`
   z-index: 100;
 `;
 
-export const HeaderLogo = styled.img`
+export const HeaderLogoMobile = styled.img`
   width: 30px;
+  ${media.desktop`display: none;`}
+`;
+
+export const HeaderLogoDesktop = styled.img`
+  height: 20px;
+  display: none;
+  ${media.desktop`display: inline;`}
 `;
 
 export const HeaderHamburger = styled.img`
   width: 30px;
+  ${media.desktop`display: none;`}
 `;
 
 export const HeaderUserIcon = styled.div`

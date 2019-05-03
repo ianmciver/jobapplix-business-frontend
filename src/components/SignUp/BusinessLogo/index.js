@@ -9,7 +9,8 @@ import {
   DropInstructions,
   AddIcon,
   AdditionalInstructions,
-  SkipOption
+  SkipOption,
+  ButtonContainer
 } from "./styles";
 import {
   Headline,
@@ -70,9 +71,11 @@ function BusinessLogo(props) {
       ) : (
         <AdditionalInstructions />
       )}
-      <NextButton disabled={image.length === 0} onClick={submitImage}>
-        SUBMIT AND FINISH
-      </NextButton>
+      <ButtonContainer>
+        <NextButton disabled={image.length === 0} onClick={submitImage}>
+          SUBMIT AND FINISH
+        </NextButton>
+      </ButtonContainer>
       <SkipOption onClick={props.next}>SKIP FOR NOW >></SkipOption>
     </>
   );

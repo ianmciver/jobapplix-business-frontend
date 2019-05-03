@@ -1,11 +1,23 @@
 import styled from "styled-components";
 
+import { media } from "../../../../styles/mediaQueries";
+
 import {
   textLight,
   borderWhite,
   backgroundBlue
 } from "../../../../constants/colors";
-
+export const FiltersModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  ${media.desktop`
+    padding-left: 319px;
+  `}
+`;
 export const FiltersContainer = styled.div`
   position: fixed;
   top: 188px;
@@ -14,6 +26,10 @@ export const FiltersContainer = styled.div`
   padding: 10px 0 0;
   border-bottom: 2px solid ${borderWhite};
   z-index: 100;
+  ${media.desktop`
+    top:  82px
+    max-width: 600px;
+  `}
 `;
 
 export const Instructions = styled.p`

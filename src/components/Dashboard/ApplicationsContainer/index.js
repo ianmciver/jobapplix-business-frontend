@@ -10,7 +10,8 @@ import {
   ApplicationsContainer,
   ApplicationsTitle,
   FeaturesButton,
-  FeaturesGroup
+  FeaturesGroup,
+  FeaturesGroupContainer
 } from "./styles";
 
 export default function Applications() {
@@ -33,20 +34,22 @@ export default function Applications() {
   return (
     <ApplicationsProvider>
       <Header />
-      <FeaturesGroup>
-        <FeaturesButton onClick={toggleFilters} selected={filtersOpen}>
-          Filters
-        </FeaturesButton>
-        {/* <FeaturesButton onClick={toggleSearch}>Search</FeaturesButton> */}
-      </FeaturesGroup>
+      <FeaturesGroupContainer>
+        <FeaturesGroup>
+          <FeaturesButton onClick={toggleFilters} selected={filtersOpen}>
+            Filters
+          </FeaturesButton>
+          {/* <FeaturesButton onClick={toggleSearch}>Search</FeaturesButton> */}
+        </FeaturesGroup>
+      </FeaturesGroupContainer>
       {/* {searchOpen && <SearchBar />} */}
-      {filtersOpen && <Filters />}
+      {filtersOpen && <Filters closeMenu={toggleFilters} />}
 
       <ApplicationsContainer>
         <ApplicationsTitle>Applications</ApplicationsTitle>
+        <ApplicationsTabs />
+        <ApplicationsTable />
       </ApplicationsContainer>
-      <ApplicationsTabs />
-      <ApplicationsTable />
     </ApplicationsProvider>
   );
 }

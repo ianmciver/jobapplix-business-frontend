@@ -10,7 +10,9 @@ import {
   Checkbox,
   SignInButton,
   SignUpCTA,
-  ErrorText
+  ErrorText,
+  AppContainer,
+  SignInCard
 } from "./styles";
 import { TextInput } from "../../styles/forms";
 import Header from "../Header";
@@ -49,40 +51,45 @@ function SignIn(props) {
   };
 
   return (
-    <>
+    <AppContainer>
       <Header />
       <SignInContainer>
-        <h1>SIGN IN</h1>
-        <TextInput
-          placeholder="EMAIL"
-          type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          error={!!error}
-          onKeyPress={keyPressHandler}
-        />
-        <TextInput
-          placeholder="PASSWORD"
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          error={!!error}
-          onKeyPress={keyPressHandler}
-        />
-        {error && <ErrorText>{error}</ErrorText>}
-        <CheckboxContainer>
-          <Checkbox checked={remember} onClick={e => setRemember(!remember)} />
-          <span>Remember Me</span>
-        </CheckboxContainer>
-        <SignInButton padding="7px 14px" onClick={signIn}>
-          SIGN IN
-        </SignInButton>
-        <SignUpCTA>
-          Dont' have an account? <Link to="/signup">Sign up now!</Link>
-        </SignUpCTA>
+        <SignInCard>
+          <h1>SIGN IN</h1>
+          <TextInput
+            placeholder="EMAIL"
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            error={!!error}
+            onKeyPress={keyPressHandler}
+          />
+          <TextInput
+            placeholder="PASSWORD"
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            error={!!error}
+            onKeyPress={keyPressHandler}
+          />
+          {error && <ErrorText>{error}</ErrorText>}
+          <CheckboxContainer>
+            <Checkbox
+              checked={remember}
+              onClick={e => setRemember(!remember)}
+            />
+            <span>Remember Me</span>
+          </CheckboxContainer>
+          <SignInButton padding="7px 14px" onClick={signIn}>
+            SIGN IN
+          </SignInButton>
+          <SignUpCTA>
+            Dont' have an account? <Link to="/signup">Sign up now!</Link>
+          </SignUpCTA>
+        </SignInCard>
       </SignInContainer>
       <Footer />
-    </>
+    </AppContainer>
   );
 }
 

@@ -11,6 +11,7 @@ import Header from "../../Header";
 import Footer from "../../Footer";
 
 import { Container } from "./styles";
+import { AppContainer } from "../../SignIn/styles";
 import { signup } from "../../../constants/routes";
 
 export default function SignUpContainer(props) {
@@ -25,7 +26,7 @@ export default function SignUpContainer(props) {
   };
 
   return (
-    <>
+    <AppContainer>
       <Header />
       <Container>
         <Route
@@ -55,6 +56,6 @@ export default function SignUpContainer(props) {
         />
       </Container>
       <Footer />
-    </>
+    </AppContainer>
   );
 }

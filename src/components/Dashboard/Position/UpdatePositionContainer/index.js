@@ -10,7 +10,7 @@ import {
 } from "../../../../constants/routes";
 
 import { PositionQuestionContext } from "../PositionContext";
-import { UpdatePosHeader } from "./styles";
+import { UpdatePosContainer, UpdatePosHeader } from "./styles";
 
 import PositionDetails from "../PositionDetails";
 import PositionQuestions from "../PositionQuestions";
@@ -31,7 +31,7 @@ function UpdatePositionContainer(props) {
   }, []);
 
   return (
-    <>
+    <UpdatePosContainer>
       <UpdatePosHeader>Update Postition</UpdatePosHeader>
       <Route
         path={`${dashboard}${updatePositionUrl}/:id`}
@@ -61,7 +61,7 @@ function UpdatePositionContainer(props) {
           />
         )}
       />
-    </>
+    </UpdatePosContainer>
   );
 }
 

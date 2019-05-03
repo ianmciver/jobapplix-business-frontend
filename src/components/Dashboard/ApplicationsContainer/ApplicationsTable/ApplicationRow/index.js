@@ -4,6 +4,7 @@ import {
   ApplicationsGroupColumnOne,
   ApplicationsGroupColumnTwo,
   ApplicationsGroupColumnThree,
+  ApplicationsGroupColumnFour,
   ApplicationsGroupColumnTitle,
   ApplicationRowContainer
 } from "./styles";
@@ -16,11 +17,13 @@ export default function ApplicationRow(props) {
           {typeof props.colOne === "function" ? props.colOne() : props.colOne}
         </ApplicationsGroupColumnTitle>
       </ApplicationsGroupColumnOne>
+
       <ApplicationsGroupColumnTwo>
-        <ApplicationsGroupColumnTitle center={"center"}>
-          {typeof props.colTwo === "function" ? props.colTwo() : props.colTwo}
+        <ApplicationsGroupColumnTitle>
+          {typeof props.colOne === "function" ? props.colTwo() : props.colTwo}
         </ApplicationsGroupColumnTitle>
       </ApplicationsGroupColumnTwo>
+
       <ApplicationsGroupColumnThree>
         <ApplicationsGroupColumnTitle center={"center"}>
           {typeof props.colThree === "function"
@@ -28,6 +31,14 @@ export default function ApplicationRow(props) {
             : props.colThree}
         </ApplicationsGroupColumnTitle>
       </ApplicationsGroupColumnThree>
+
+      <ApplicationsGroupColumnFour>
+        <ApplicationsGroupColumnTitle center={"center"}>
+          {typeof props.colThree === "function"
+            ? props.colFour()
+            : props.colFour}
+        </ApplicationsGroupColumnTitle>
+      </ApplicationsGroupColumnFour>
     </ApplicationRowContainer>
   );
 }

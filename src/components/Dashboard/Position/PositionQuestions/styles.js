@@ -12,6 +12,10 @@ import {
 } from "../../../../constants/colors";
 import { FormButton } from "../../../../styles/buttons";
 
+export const PositionQuestionsContainer = styled.div`
+  width: 100%;
+`;
+
 export const InstructionSpan = styled.p`
   margin: 10px 30px;
   font-size: 1.3rem;

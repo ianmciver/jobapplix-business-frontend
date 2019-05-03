@@ -41,7 +41,7 @@ function PositionsList(props) {
       <PositionsListDescription>
         Here you will find a list of positions you have already created. You may
         activate or deactivate a position at any time. By default new positions
-        are automatically activated. You may also update your position, and it's
+        are automatically activated. You may also update your position and it's
         custom application at any time simply by clicking the update option on
         each position.
       </PositionsListDescription>

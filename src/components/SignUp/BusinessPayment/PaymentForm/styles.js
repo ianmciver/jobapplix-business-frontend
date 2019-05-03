@@ -27,6 +27,7 @@ export const FormContainer = styled.div`
   margin: 10px 20px;
   display: flex;
   flex-direction: column;
+  width: 100%;
   .sub-details {
     font-size: 1.4rem;
     text-transform: capitalize;

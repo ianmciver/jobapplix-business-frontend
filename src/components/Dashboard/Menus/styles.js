@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-
+import { media } from "../../../styles/mediaQueries";
 import {
   borderBlue,
   backgroundWhite,
@@ -38,6 +38,14 @@ export const MenuContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  ${props => media.desktop`
+    ${props.left &&
+      `
+      left: 0;
+      top: 50px;
+      border-right: 5px solid ${borderBlue};
+    `}
+  `}
 `;
 
 export const CloseIcon = styled.div`
@@ -58,6 +66,9 @@ export const CloseIcon = styled.div`
     css`
       transform: rotate(180deg);
     `}
+  ${props => media.desktop`
+    ${props.left && `display: none`}
+  `}
 `;
 
 // User details container

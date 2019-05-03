@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../styles/mediaQueries";
 
 import {
   textDark,
@@ -10,11 +11,29 @@ import {
 } from "../../constants/colors";
 import { FormButton } from "../../styles/buttons";
 
+export const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
+
 export const SignInContainer = styled.div`
+  flex-grow: 1;
+  align-self: center;
   padding: 40px 50px;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  ${media.desktop`
+    justify-content: center;
+    align-items: center;`}
+`;
+
+export const SignInCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   h1 {
     font-size: 2.3rem;
     color: ${textDark};

@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
+import { media } from "../../../styles/mediaQueries";
+
 import {
   backgroundWhite,
   textBlue,
@@ -14,6 +16,9 @@ export const HeaderContainer = styled.div`
   z-index: 100;
   border-bottom: 6px solid ${borderBlue};
   top: 52px;
+  ${media.desktop`
+    display: none;
+  `}
 `;
 
 export const CompanyContainer = styled.div`

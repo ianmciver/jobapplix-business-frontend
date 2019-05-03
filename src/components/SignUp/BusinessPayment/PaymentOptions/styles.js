@@ -19,7 +19,6 @@ export const OptionContainer = styled.div`
 export const OptionButtonContainer = styled.div`
   display: flex;
   align-items: center;
-
   .selected {
     color: ${textLight};
     background-color: ${backgroundBlue};
@@ -32,6 +31,7 @@ export const OptionButton = styled.div`
   border: 2px solid ${borderDark};
   color: ${textDark};
   width: 37vw;
+  max-width: 260px;
   height: 60px;
   display: flex;
   justify-content: center;
@@ -46,6 +46,7 @@ export const OptionButton = styled.div`
 
 export const OptionDividerHor = styled.div`
   flex-grow: 1;
+  /* width: 100%; */
   border: 1px solid ${borderDark};
 `;
 
@@ -59,6 +60,7 @@ export const OptionText = styled.p`
   font-weight: 700;
   margin-left: 4vw;
   width: 25vw;
+  max-width: 172px;
   text-align: left;
 `;
 

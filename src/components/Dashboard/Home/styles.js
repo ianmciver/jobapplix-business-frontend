@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { media } from "../../../styles/mediaQueries";
+
 import {
   borderBlue,
   borderLight,
@@ -11,9 +13,17 @@ import {
 
 export const HomeContainer = styled.div`
   width: 100%;
+  max-width: 700px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: ${backgroundWhite};
+  ${media.desktop`
+    border: 1px solid ${borderLight};
+    border-radius: 7px;
+    box-shadow: 1px 1px 2px ${borderLight};
+    margin-top: 50px;
+  `}
 `;
 
 export const GreetingContainer = styled.div`
@@ -21,6 +31,7 @@ export const GreetingContainer = styled.div`
   flex-direction: column;
   padding: 20px 30px;
   border-bottom: 3px solid ${borderBlue};
+  width: 100%;
 `;
 
 export const Welcome = styled.p`
@@ -112,8 +123,9 @@ export const ActionButton = styled.button`
   border-radius: 28px;
   padding: 0 23px;
   height: 56px;
-
+  cursor: pointer;
   &:hover {
+    border-color: ${borderBlue};
     background-color: ${borderBlue};
     color: ${textLight};
   }

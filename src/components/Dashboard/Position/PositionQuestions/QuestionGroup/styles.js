@@ -9,7 +9,7 @@ import {
 } from "../../../../../constants/colors";
 
 export const QuestionGroupContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   /* border-bottom: 1px solid ${borderQuestion}; */
   background-color: ${backgroundWhite};
   padding: 15px 30px;

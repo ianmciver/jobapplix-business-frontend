@@ -1,20 +1,32 @@
 import styled, { css } from "styled-components";
-
+import { media } from "../../../styles/mediaQueries";
 import {
   backgroundBlue35percent,
   textDarkBlue,
   textLight,
   backgroundBlue,
-  textDark
+  textDark,
+  backgroundWhite,
+  borderLight
 } from "../../../constants/colors";
 
-export const FeaturesGroup = styled.div`
+export const FeaturesGroupContainer = styled.div`
   position: fixed;
   top: 156px;
   width: 100vw;
+  background-color: ${backgroundWhite};
+  z-index: 100;
+  ${media.desktop`
+    top: 50px;
+    width: calc(100vw - 319px);
+  `}
+`;
+
+export const FeaturesGroup = styled.div`
+  width: 100%;
+  height: 100%;
   background-color: ${backgroundBlue35percent};
   display: flex;
-  justify-content: center;
 `;
 
 export const FeaturesButton = styled.span`
@@ -35,10 +47,21 @@ export const FeaturesButton = styled.span`
 `;
 
 export const ApplicationsContainer = styled.div`
-  margin-top: 150px;
+  margin-top: 135px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 10px;
+  width: 100%;
+  /* max-width: 800px; */
+  background-color: ${backgroundWhite};
+  ${media.desktop`
+    padding: 40px 50px;
+    /* border: 1px solid ${borderLight}; */
+    /* border-radius: 7px; */
+    /* box-shadow: 1px 1px 2px ${borderLight}; */
+    margin: 30px 10px 0;
+  `}
 `;
 
 export const ApplicationsTitle = styled.h2`

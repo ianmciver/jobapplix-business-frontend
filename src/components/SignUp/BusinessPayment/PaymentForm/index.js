@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { format, addDays } from "date-fns";
 
 import { injectStripe } from "react-stripe-elements";
 
@@ -45,8 +46,8 @@ const PaymentForm = props => {
         </FinePrintContainer>
         <Total>total charge today: $0</Total>
         <SubTotal>
-          {props.subType === "yearly" ? "$349.99" : "$34.99"} will be charged in
-          30 days.
+          {props.subType === "yearly" ? "$349.99" : "$34.99"} will be charged on
+          {` ${format(addDays(new Date(), 30), "MM/DD/YYYY")}`}
         </SubTotal>
         <NextButton onClick={submitPayment}>SUBMIT</NextButton>
       </FormContainer>

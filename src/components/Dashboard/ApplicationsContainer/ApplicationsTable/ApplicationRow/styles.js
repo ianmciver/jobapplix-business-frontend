@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 import { textDark } from "../../../../../constants/colors";
 
+import { media } from "../../../../../styles/mediaQueries";
+
 export const ApplicationRowContainer = styled.div`
   display: flex;
   padding-left: 7vw;
@@ -10,25 +12,36 @@ export const ApplicationRowContainer = styled.div`
 export const ApplicationsGroupColumnOne = styled.div`
   height: 44px;
   width: 40.8%;
-  max-width: 169px;
   display: flex;
   align-items: center;
+  ${media.desktop`width: 35%`};
 `;
+
 export const ApplicationsGroupColumnTwo = styled.div`
   height: 44px;
   width: 35.2%;
-  max-width: 145px;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
+  ${media.desktop`display: flex; width: 30%`};
 `;
+
 export const ApplicationsGroupColumnThree = styled.div`
   height: 44px;
-  width: 24%;
-  max-width: 100px;
+  width: 35.2%;
   display: flex;
   justify-content: center;
   align-items: center;
+  ${media.desktop`width: 20%`};
+`;
+
+export const ApplicationsGroupColumnFour = styled.div`
+  height: 44px;
+  width: 24%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${media.desktop`width: 15%`};
 `;
 
 export const ApplicationsGroupColumnTitle = styled.span`

@@ -9,10 +9,10 @@ import {
 import { NextButton } from "../../../../SignUp/SignUpContainer/styles";
 
 export const ExistingQuestionsContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: 30px 0;
 
   h2 {
     font-size: 1.4rem;

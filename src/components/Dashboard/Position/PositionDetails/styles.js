@@ -1,4 +1,7 @@
 import styled, { css } from "styled-components";
+
+import { media } from "../../../../styles/mediaQueries";
+
 import {
   textLight,
   borderMedium69,
@@ -61,6 +64,10 @@ export const TextArea = styled.textarea`
   &:focus {
     border-color: ${borderMedium};
   }
+
+  ${media.desktop`
+    width: 100%;
+  `}
 `;
 
 export const PositionNextButton = styled(FormButton)`

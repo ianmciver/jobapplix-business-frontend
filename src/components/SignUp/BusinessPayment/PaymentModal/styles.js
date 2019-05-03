@@ -21,6 +21,7 @@ export const ModalContainer = styled.div`
 
 export const Modal = styled.div`
   width: 87.5%;
+  max-width: 700px;
   border: 3px solid ${borderBlue};
   background-color: ${backgroundGreyOpacity94};
   display: flex;

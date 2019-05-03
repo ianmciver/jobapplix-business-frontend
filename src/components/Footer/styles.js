@@ -19,7 +19,7 @@ export const FooterContainer = styled.footer`
 `;
 
 export const FooterLogo = styled.img`
-  width: 46%;
+  width: 172px;
   margin: 5px 0 10px;
 `;
 
@@ -55,7 +55,7 @@ export const FooterNavItem = styled.a`
 // Social Media Icons:
 
 export const SocialMediaGroup = styled.div`
-  width: 37%;
+  width: 140px;
   display: flex;
   align-items: center;
   justify-content: space-between;

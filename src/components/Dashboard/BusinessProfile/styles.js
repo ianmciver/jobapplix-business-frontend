@@ -14,6 +14,8 @@ export const ProfileContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0 50px;
+  width: 100%;
+  max-width: 600px;
 `;
 
 export const ProfileTitle = styled.h2`
