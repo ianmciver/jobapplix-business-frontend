@@ -1,5 +1,6 @@
 import {
   CREATE_BUSINESS_BASICS,
+  CREATE_POSITION,
   UPDATE_BUSINESS,
   UPDATE_APP_GROUP,
   UPDATE_POSITION,
@@ -36,6 +37,7 @@ export default function BusinessReducer(state = initialState, action) {
     case CREATE_BUSINESS_BASICS:
       return { ...state, ...action.payload };
     case UPDATE_BUSINESS:
+      console.log(action.payload);
       return { ...state, ...action.payload };
     case UPDATE_APP_GROUP:
       const newApps = state.applications.map(app => {
@@ -51,6 +53,8 @@ export default function BusinessReducer(state = initialState, action) {
         }
       });
       return { ...state, applications: newApps };
+    case CREATE_POSITION:
+      return { ...state, positions: [...state.positions, action.position] };
     case UPDATE_POSITION:
       let positionIndex = state.positions.findIndex(
         pos => pos.id === action.position.id

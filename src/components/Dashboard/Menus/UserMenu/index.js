@@ -87,7 +87,10 @@ function UserMenu(props) {
         </SubjectNameContainer>
       </SubjectContainer>
       <MenuItem
-        onClick={() => props.history.push(`${dashboard}${userProfile}`)}
+        onClick={() => {
+          dashboardContext.toggleUserMenu();
+          props.history.push(`${dashboard}${userProfile}`);
+        }}
       >
         <MenuChevron>
           <Chevron width={"20px"} height={"20px"} color={textBlue} />

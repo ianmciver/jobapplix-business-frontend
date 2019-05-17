@@ -17,6 +17,8 @@ import { withFirebase } from "../../../Firebase";
 
 import { createUser } from "../../../actions/businessUserActions";
 
+import { isValidEmail } from "../../../helpers/validationFunctions";
+
 function UserSignUp(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -27,6 +29,13 @@ function UserSignUp(props) {
   const [passLength, setPassLength] = useState(true);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [error, setError] = useState("");
+  const [emailValid, setEmailValid] = useState(true);
+
+  useEffect(() => {
+    if (email.length > 0) {
+      isValidEmail(email, setEmailValid);
+    }
+  }, [email]);
 
   useEffect(() => {
     if (password !== confirmPassword) {
@@ -54,6 +63,7 @@ function UserSignUp(props) {
     if (
       name.length > 0 &&
       email.length > 0 &&
+      emailValid &&
       password.length > 0 &&
       passMatch &&
       passLength
@@ -117,6 +127,7 @@ function UserSignUp(props) {
         type="password"
         match={passMatch}
       />
+      {!emailValid && <Error>Please Enter a Valid Email</Error>}
       {passMatch ? null : <Error>Passwords do not match</Error>}
       {passLength ? null : (
         <Error>Password must be at least 6 characters long.</Error>

@@ -3,7 +3,10 @@ import axios from "axios";
 
 import { connect } from "react-redux";
 
-import { updatePosition } from "../../../../actions/businessActions";
+import {
+  createPosition,
+  updatePosition
+} from "../../../../actions/businessActions";
 
 import { API_URL } from "../../../../constants/urls";
 import { FirebaseContext } from "../../../../Firebase";
@@ -132,20 +135,17 @@ function PositionContext(props) {
   const createPosition = async () => {
     const token = await firebase.doGetCurrentUserIdToken();
     const newShiftTimes = shiftTimes.createShiftTimes(true);
-    return axios.post(
-      `${API_URL}/businesses/position?bid=${props.business.id}`,
-      {
-        name: positionName,
-        description: positionDesc,
-        work_history,
-        educational_history,
-        personal_refs,
-        availability,
-        shift_times: newShiftTimes,
-        questions: activeQuestions,
-        token
-      }
-    );
+    return props.createPosition({
+      name: positionName,
+      description: positionDesc,
+      work_history,
+      educational_history,
+      personal_refs,
+      availability,
+      shift_times: newShiftTimes,
+      questions: activeQuestions,
+      token
+    });
   };
 
   const updatePosition = async () => {
@@ -195,5 +195,5 @@ function PositionContext(props) {
 
 export default connect(
   state => ({ business: state.business }),
-  { updatePosition }
+  { updatePosition, createPosition }
 )(PositionContext);

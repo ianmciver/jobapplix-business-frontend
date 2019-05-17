@@ -22,7 +22,7 @@ export default function PaymentModal(props) {
         />
         <ModalLogo src={icon} alt="Job Applix logo" />
         <PlanGroup>
-          <h2>The Monthly Plan:</h2>
+          <h2>The Monthly Plan</h2>
           <p>$34.99/month</p>
           {!props.noTrial && <p>30-day free trial</p>}
           <p>No Commitment</p>
@@ -30,8 +30,8 @@ export default function PaymentModal(props) {
         </PlanGroup>
         <ModalSeparator />
         <PlanGroup>
-          <h2>The Yearly Plan:</h2>
-          <p>$349.99/month</p>
+          <h2>The Yearly Plan</h2>
+          <p>$349.99/year</p>
           {!props.noTrial && <p>30-day free trial</p>}
           <p>1-year uninterrupted service</p>
           <p>Save $69.89/year</p>

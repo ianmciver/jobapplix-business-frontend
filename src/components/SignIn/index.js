@@ -20,6 +20,8 @@ import Footer from "../Footer";
 import { fetchUser } from "../../actions/businessUserActions";
 import { getBusinessSummary } from "../../actions/businessActions";
 
+import { forgotPass, signup } from "../../constants/routes";
+
 function SignIn(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -72,6 +74,9 @@ function SignIn(props) {
             error={!!error}
             onKeyPress={keyPressHandler}
           />
+          <SignUpCTA>
+            <Link to={forgotPass}>Forgot your password?</Link>
+          </SignUpCTA>
           {error && <ErrorText>{error}</ErrorText>}
           <CheckboxContainer>
             <Checkbox
@@ -84,7 +89,7 @@ function SignIn(props) {
             SIGN IN
           </SignInButton>
           <SignUpCTA>
-            Dont' have an account? <Link to="/signup">Sign up now!</Link>
+            Dont' have an account? <Link to={signup}>Sign up now!</Link>
           </SignUpCTA>
         </SignInCard>
       </SignInContainer>

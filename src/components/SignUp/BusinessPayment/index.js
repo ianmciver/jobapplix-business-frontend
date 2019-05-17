@@ -19,9 +19,9 @@ export default function PaymentContainer(props) {
       <Progress progress={"50%"} />
       <SubHeadline>Select Subscription Plan</SubHeadline>
       <Instructions>
-        Reminder: Every subscription comes with a 30 day free trial. Your card
-        will only be charged after this trial. Cancel anytime during the trial
-        free of charge.
+        Reminder: Every subscription comes with a 30 day free trial! You card
+        will be charged at the end of your free trial. You may cancel at any
+        time.
       </Instructions>
       {screen === "options" ? (
         <PaymentOptions

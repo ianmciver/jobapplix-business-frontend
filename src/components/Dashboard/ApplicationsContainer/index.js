@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ApplicationsProvider from "./ApplicationsContext";
 import ApplicationsTabs from "./ApplicationsTabs";
 import ApplicationsTable from "./ApplicationsTable";
-import SearchBar from "./SearchBar";
+// import SearchBar from "./SearchBar";
 import Filters from "./Filters";
 import Header from "../Header";
 import {
@@ -18,12 +18,12 @@ export default function Applications() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const toggleSearch = () => {
-    if (filtersOpen) {
-      setFiltersOpen(false);
-    }
-    setSearchOpen(!searchOpen);
-  };
+  // const toggleSearch = () => {
+  //   if (filtersOpen) {
+  //     setFiltersOpen(false);
+  //   }
+  //   setSearchOpen(!searchOpen);
+  // };
 
   const toggleFilters = () => {
     if (searchOpen) {

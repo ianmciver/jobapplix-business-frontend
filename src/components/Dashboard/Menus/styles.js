@@ -142,6 +142,7 @@ export const MenuItem = styled.div`
   padding: 25px 30px;
   border-bottom: 1px solid ${borderQuestion};
   justify-content: flex-start;
+  cursor: pointer;
 `;
 
 export const MenuChevron = styled.div`

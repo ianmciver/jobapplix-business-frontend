@@ -31,7 +31,7 @@ export const PositionsListDescription = styled.p`
 
 export const PositionTable = styled.div`
   width: 100%;
-  padding: 20px 0;
+  padding: 20px 30px;
 `;
 
 export const PositionContainer = styled.div`

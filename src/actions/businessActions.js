@@ -16,6 +16,7 @@ export const UPDATE_USERS = "UPDATE_USERS";
 export const UPDATE_PENDING_USERS = "UPDATE_PENDING_USERS";
 export const DELETE_PENDING_USER = "DELETE_PENDING_USER";
 export const UPDATE_USER_ROLE = "UPDATE_USER_ROLE";
+export const CREATE_POSITION = "CREATE_POSITION";
 
 export const createBusinessBasics = (
   name,
@@ -136,6 +137,25 @@ export const updateApplicationGroup = (appid, group) => {
         appid,
         group,
         token
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const createPosition = position => {
+  return async (dispatch, getState, API_URL) => {
+    const token = await firebase.doGetCurrentUserIdToken();
+    const { id } = getState().business;
+    try {
+      let response = await axios.post(
+        `${API_URL}/businesses/position?bid=${id}`,
+        { ...position, token }
+      );
+      dispatch({
+        type: CREATE_POSITION,
+        position: { ...position, active: true, id: response.data.id }
       });
     } catch (err) {
       console.log(err);

@@ -6,8 +6,7 @@ import {
   textDark,
   textBlue,
   borderQuestion,
-  borderRed,
-  backgroundWhite
+  borderRed
 } from "../../../constants/colors";
 
 export const UsersListContainer = styled.div`
@@ -29,7 +28,7 @@ export const UsersListDescription = styled.p`
   font-size: 1.2rem;
   color: ${textDark};
   line-height: 1.6rem;
-  margin: 0 30px;
+  padding: 0 30px;
   width: 100%;
   max-width: 600px;
 `;

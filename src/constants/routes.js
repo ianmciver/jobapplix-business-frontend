@@ -1,5 +1,6 @@
 export const signup = "/signup";
 export const signin = "/signin";
+export const forgotPass = "/forgotpass";
 export const dashboard = "/dashboard";
 export const createPosition = "/createposition";
 export const updatePositionUrl = "/updateposition";

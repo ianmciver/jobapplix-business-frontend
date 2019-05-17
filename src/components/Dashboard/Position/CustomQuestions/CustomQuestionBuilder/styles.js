@@ -14,7 +14,7 @@ import { TextArea, TextInput } from "../../../../../styles/forms";
 import { NextButton } from "../../../../SignUp/SignUpContainer/styles";
 
 export const CustomQuestionBuilderContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   padding: 0 30px;
   display: flex;
   flex-direction: column;

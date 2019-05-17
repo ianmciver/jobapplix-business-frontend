@@ -80,13 +80,14 @@ function BusinessBasics(props) {
       <Progress progress={"20%"} />
       <SubHeadline>Business Information</SubHeadline>
       <Instructions>
-        Great! Now let's create an business account. All information here will
-        be shown on your public facing page.
+        Great! Now let's create a business account. All the information here
+        will appear on your public facing JobApplix webpage.
       </Instructions>
       <Instructions>
         **Note: Your Custom JobApplix Address can only be letters and numbers.
-        This will be your new JobApplix web address. You will see a preview of
-        your new address at the bottom of the page.
+        This will be the address applicants will go to find your JobApplix
+        application. You can see a preview of your new address at the bottom of
+        the page.
       </Instructions>
       <TextInput
         placeholder="BUSINESS NAME*"
@@ -125,7 +126,7 @@ function BusinessBasics(props) {
           <AddressLine>
             Your business's JobApplix page will be found at:{" "}
           </AddressLine>
-          <JobApplixAddress>{`https://${url}.jobapplix.com`}</JobApplixAddress>
+          <JobApplixAddress>{`https://apply.jobapplix.com/${url}`}</JobApplixAddress>
         </>
       ) : (
         <Error>Sorry, that JobApplix Address has already been taken</Error>

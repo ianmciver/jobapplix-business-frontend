@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 
 import FilterContainer from "./FilterContainer";
 import PositionsFilter from "./PositionsFilter";

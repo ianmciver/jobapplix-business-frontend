@@ -18,11 +18,13 @@ export const HeaderContainer = styled.div`
 export const HeaderLogoMobile = styled.img`
   width: 30px;
   ${media.desktop`display: none;`}
+  cursor: pointer;
 `;
 
 export const HeaderLogoDesktop = styled.img`
   height: 20px;
   display: none;
+  cursor: pointer;
   ${media.desktop`display: inline;`}
 `;
 
@@ -41,6 +43,7 @@ export const HeaderUserIcon = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  cursor: pointer;
 `;
 
 export const HeaderUserImage = styled.div`
@@ -54,4 +57,5 @@ export const HeaderUserImage = styled.div`
   background-size: cover;
   background-color: ${backgroundWhite};
   background-repeat: no-repeat;
+  cursor: pointer;
 `;
