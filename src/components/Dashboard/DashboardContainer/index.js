@@ -57,7 +57,7 @@ function DashboardContainer(props) {
     if (firebaseInitialized) {
       isLoggedIn().then(loggedIn => {
         if (loggedIn) {
-          props.getBusinessSummary();
+          props.getBusinessSummary(() => props.history.replace("/signin"));
         } else {
           props.history.replace("/signin");
         }

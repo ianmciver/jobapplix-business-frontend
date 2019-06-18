@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -21,6 +21,7 @@ import { fetchUser } from "../../actions/businessUserActions";
 import { getBusinessSummary } from "../../actions/businessActions";
 
 import { forgotPass, signup } from "../../constants/routes";
+import isLoggedIn from "../../helpers/isLoggedIn";
 
 function SignIn(props) {
   const [email, setEmail] = useState("");
@@ -28,6 +29,20 @@ function SignIn(props) {
   const [remember, setRemember] = useState(false);
   const [error, setError] = useState("");
   const firebase = useContext(FirebaseContext);
+  const [firebaseInitialized, setFirebaseInitialized] = useState(false);
+  useEffect(() => {
+    firebase.doSetInitializationListener(() => setFirebaseInitialized(true));
+  }, []);
+
+  useEffect(() => {
+    if (firebaseInitialized && !props.businessUser.error) {
+      isLoggedIn().then(loggedIn => {
+        if (loggedIn) {
+          props.history.replace(dashboard);
+        }
+      });
+    }
+  }, [firebaseInitialized]);
 
   const signIn = () => {
     firebase
@@ -58,6 +73,13 @@ function SignIn(props) {
       <SignInContainer>
         <SignInCard>
           <h1>SIGN IN</h1>
+          {props.businessUser.error && (
+            <ErrorText>
+              Internal Error: We have encountered an error, please try again at
+              another time.
+            </ErrorText>
+          )}
+          {error && <ErrorText>{error}</ErrorText>}
           <TextInput
             placeholder="EMAIL"
             type="email"
@@ -77,7 +99,6 @@ function SignIn(props) {
           <SignUpCTA>
             <Link to={forgotPass}>Forgot your password?</Link>
           </SignUpCTA>
-          {error && <ErrorText>{error}</ErrorText>}
           <CheckboxContainer>
             <Checkbox
               checked={remember}
@@ -99,6 +120,6 @@ function SignIn(props) {
 }
 
 export default connect(
-  null,
+  state => ({ businessUser: state.businessUser }),
   { fetchUser, getBusinessSummary }
 )(SignIn);

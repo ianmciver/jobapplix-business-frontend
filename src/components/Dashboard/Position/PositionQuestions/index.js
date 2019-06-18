@@ -65,7 +65,7 @@ export default function PositionQuestions(props) {
   const standardAppClickHandler = () => {
     if (standardApp) {
       setStandardApp(false);
-      positionContext.setActiveQuestions([]);
+      positionContext.setActiveQuestions([1, 2, 3, 4, 5, 6, 7, 8]);
     } else {
       setStandardApp(true);
       positionContext.setActiveQuestions(standardAppQuestions);

@@ -10,6 +10,16 @@ import {
   borderQuestion
 } from "../../../constants/colors";
 
+export const ModalContainer = styled.div`
+  display: ${props => (props.show ? "block" : "none")};
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 999;
+`;
+
 export const MenuContainer = styled.div`
   position: fixed;
   height: 100vh;
@@ -71,6 +81,49 @@ export const CloseIcon = styled.div`
   `}
 `;
 
+// Experimental styles to follow:
+export const BusinessLogoContainer = styled.div`
+  width: 90%;
+  height: 40px;
+  margin: 30px 10px 10px;
+  border: 1px solid ${borderLight};
+  background-color: ${backgroundWhite};
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  svg {
+    transform: rotate(90deg);
+  }
+`;
+export const LogoNameHolder = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const BusinessLogo = styled.div`
+  width: 30px;
+  height: 30px;
+  ${props =>
+    css`
+      background: url(${props.image});
+    `};
+  background-position: center;
+  background-size: cover;
+  background-color: ${backgroundWhite};
+  background-repeat: no-repeat;
+`;
+
+export const BusinessName = styled.h2`
+  font-size: 1.8rem;
+  margin-left: 5px;
+`;
+
+export const BusinessURL = styled.a`
+  font-size: 1.2rem;
+  margin: 5px 10px 10px;
+`;
 // User details container
 
 export const SubjectContainer = styled.div`

@@ -19,7 +19,13 @@ export default function Question(props) {
     : positionContext.addOrRemoveActiveQuestions;
   return (
     <QuestionContainer>
-      <QuestionCheckBox onClick={() => clickHandler(props.question.id)}>
+      <QuestionCheckBox
+        onClick={() => {
+          if (props.question.id < 9) return;
+          clickHandler(props.question.id);
+        }}
+        default={props.question.id < 9}
+      >
         {isActive ? <CheckBoxCheck /> : null}
       </QuestionCheckBox>
       <div>

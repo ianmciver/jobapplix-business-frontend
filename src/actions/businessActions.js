@@ -17,6 +17,7 @@ export const UPDATE_PENDING_USERS = "UPDATE_PENDING_USERS";
 export const DELETE_PENDING_USER = "DELETE_PENDING_USER";
 export const UPDATE_USER_ROLE = "UPDATE_USER_ROLE";
 export const CREATE_POSITION = "CREATE_POSITION";
+export const FETCHING_ERROR = "FETCHING_ERROR";
 
 export const createBusinessBasics = (
   name,
@@ -88,9 +89,9 @@ export const uploadFileToS3 = (file, next) => {
     const { id } = getState().business;
     axios
       .post(
-        `${API_URL}/businesses/logo?bid=${id}&file-name=${
+        `${API_URL}/businesses/logo?bid=${id}&file-name=${encodeURIComponent(
           file.name
-        }&file-type=${file.type}`,
+        )}&file-type=${encodeURIComponent(file.type)}`,
         { token }
       )
       .then(({ data }) => {
@@ -98,7 +99,7 @@ export const uploadFileToS3 = (file, next) => {
           method: "put",
           url: data.signedRequest,
           data: file,
-          headers: { "Content-Type": file.type }
+          headers: { "Content-Type": encodeURIComponent(file.type) }
         });
       })
       .then(res => {
@@ -110,7 +111,7 @@ export const uploadFileToS3 = (file, next) => {
   };
 };
 
-export const getBusinessSummary = () => {
+export const getBusinessSummary = errorCallback => {
   return async (dispatch, getState, API_URL) => {
     const token = await firebase.doGetCurrentUserIdToken();
     axios
@@ -123,7 +124,11 @@ export const getBusinessSummary = () => {
         dispatch({ type: UPDATE_USER, user: res.data.user });
         dispatch({ type: FETCHING_USER_DATA_COMPLETE });
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        dispatch({ type: FETCHING_ERROR });
+        errorCallback();
+      });
   };
 };
 

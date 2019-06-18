@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { borderMedium, textDark } from "../../../../../constants/colors";
 
@@ -13,12 +13,12 @@ export const QuestionCheckBox = styled.div`
   width: 24px;
   height: 24px;
   margin-right: 10px;
-  border: 1px solid ${borderMedium};
+  border: ${props => (props.default ? "none" : css`1px solid ${borderMedium}`)};
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  cursor: pointer;
+  cursor: ${props => (props.default ? "auto" : "pointer")};
 
   svg {
     width: 18px;

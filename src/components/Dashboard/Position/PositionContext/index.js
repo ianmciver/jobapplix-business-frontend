@@ -67,7 +67,7 @@ function PositionContext(props) {
   };
   const resetPosition = () => {
     setPositionId(-1);
-    setActiveQuestions([]);
+    setActiveQuestions([1, 2, 3, 4, 5, 6, 7, 8]);
     setPositionName("");
     setPositionDesc("");
     setStandardQuestions({});
@@ -103,7 +103,9 @@ function PositionContext(props) {
       questionGroups[question.group].questions.push(question);
     });
     setStandardQuestions(questionGroups);
-    shiftTimes.loadShiftTimes(position.shift_times);
+    if (position.shift_times) {
+      shiftTimes.loadShiftTimes(position.shift_times);
+    }
   };
 
   const refsQuestions = {

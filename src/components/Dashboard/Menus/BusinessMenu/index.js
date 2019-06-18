@@ -11,6 +11,7 @@ import {
 } from "../../../../constants/routes";
 
 import {
+  ModalContainer,
   MenuContainer,
   CloseIcon,
   SubjectContainer,
@@ -23,7 +24,12 @@ import {
   SubjectTitle,
   MenuItem,
   MenuChevron,
-  MenuItemTitle
+  MenuItemTitle,
+  BusinessLogoContainer,
+  LogoNameHolder,
+  BusinessLogo,
+  BusinessName,
+  BusinessURL
 } from "../styles";
 
 import Chevron from "../../../../assets/Chevron";
@@ -39,63 +45,45 @@ function BusinessMenu(props) {
     props.history.push(url);
   };
   return (
-    <MenuContainer open={dashboardContext.businessMenuOpen} left>
-      <CloseIcon onClick={dashboardContext.toggleBusinessMenu} left>
-        <Chevron width={"20px"} height={"20px"} color={"white"} />
-      </CloseIcon>
-      <SubjectContainer>
-        <SubjectImageContainer>
-          {props.business.image_url ? (
-            <>
-              <SubjectImageHolder>
-                <SubjectImage image={props.business.image_url} />
-              </SubjectImageHolder>
-            </>
-          ) : (
-            <>
-              <SubjectImageHolder>
-                <UserIcon width="40" height="44" />
-              </SubjectImageHolder>
-              <AddImageText>+ Add Photo</AddImageText>
-            </>
-          )}
-        </SubjectImageContainer>
-        <SubjectNameContainer>
-          <SubjectName>{props.business.name}</SubjectName>
-          <SubjectTitle>{props.business.url}.jobapplix.com</SubjectTitle>
-        </SubjectNameContainer>
-      </SubjectContainer>
-      <MenuItem onClick={navigateTo(`${dashboard}${applications}`)}>
-        <MenuChevron>
-          <Chevron width={"20px"} height={"20px"} color={textBlue} />
-        </MenuChevron>
-        <MenuItemTitle>Applications</MenuItemTitle>
-      </MenuItem>
-      {props.business.role < 13 && (
-        <>
-          <MenuItem onClick={navigateTo(`${dashboard}${positionsList}`)}>
-            <MenuChevron>
-              <Chevron width={"20px"} height={"20px"} color={textBlue} />
-            </MenuChevron>
-            <MenuItemTitle>Positions</MenuItemTitle>
-          </MenuItem>
-          <MenuItem onClick={navigateTo(`${dashboard}${usersList}`)}>
-            <MenuChevron>
-              <Chevron width={"20px"} height={"20px"} color={textBlue} />
-            </MenuChevron>
-            <MenuItemTitle>Business Users</MenuItemTitle>
-          </MenuItem>
-        </>
-      )}
-      {props.business.role < 12 && (
-        <MenuItem onClick={navigateTo(`${dashboard}${businessProfile}`)}>
-          <MenuChevron>
-            <Chevron width={"20px"} height={"20px"} color={textBlue} />
-          </MenuChevron>
-          <MenuItemTitle>Business Profile & Payments</MenuItemTitle>
+    <>
+      <ModalContainer
+        show={dashboardContext.businessMenuOpen}
+        onClick={dashboardContext.toggleBusinessMenu}
+      />
+      <MenuContainer open={dashboardContext.businessMenuOpen} left>
+        <CloseIcon onClick={dashboardContext.toggleBusinessMenu} left>
+          <Chevron width={"20px"} height={"20px"} color={"white"} />
+        </CloseIcon>
+        <BusinessLogoContainer>
+          <LogoNameHolder>
+            <BusinessLogo image={props.business.image_url} />
+            <BusinessName>{props.business.name}</BusinessName>
+          </LogoNameHolder>
+          {/* <Chevron width={"20px"} height={"20px"} color={textBlue} /> */}
+        </BusinessLogoContainer>
+        <MenuItem onClick={navigateTo(`${dashboard}${applications}`)}>
+          <MenuItemTitle>Applications</MenuItemTitle>
         </MenuItem>
-      )}
-    </MenuContainer>
+        {props.business.role < 13 && (
+          <>
+            <MenuItem onClick={navigateTo(`${dashboard}${positionsList}`)}>
+              <MenuItemTitle>Positions</MenuItemTitle>
+            </MenuItem>
+            <MenuItem onClick={navigateTo(`${dashboard}${usersList}`)}>
+              <MenuItemTitle>Business Users</MenuItemTitle>
+            </MenuItem>
+          </>
+        )}
+        {props.business.role < 12 && (
+          <MenuItem onClick={navigateTo(`${dashboard}${businessProfile}`)}>
+            <MenuItemTitle>Business Profile & Payments</MenuItemTitle>
+          </MenuItem>
+        )}
+        {/* <BusinessURL>
+          https://apply.jobapplix.com/{props.business.url}
+        </BusinessURL> */}
+      </MenuContainer>
+    </>
   );
 }
 

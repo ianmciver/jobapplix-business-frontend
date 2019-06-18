@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FormButton } from "../../../styles/buttons";
 import {
   textDark,
+  textBlue,
   borderGrey,
   textLight,
   borderLight,
@@ -16,6 +17,7 @@ export const ProfileContainer = styled.div`
   padding: 0 50px;
   width: 100%;
   max-width: 600px;
+  position: relative;
 `;
 
 export const ProfileTitle = styled.h2`
@@ -26,6 +28,7 @@ export const ProfileTitle = styled.h2`
 `;
 
 export const UpdateButton = styled(FormButton)`
+  width: 100%;
   align-self: flex-start;
   font-weight: 700;
   color: ${borderGrey};
@@ -42,5 +45,19 @@ export const UpdateButton = styled(FormButton)`
     border-color: ${borderLight};
     color: ${borderLight};
     background-color: ${backgroundLight};
+  }
+`;
+
+export const EditButton = styled.div`
+  position: absolute;
+  top: -10px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  fill: ${textBlue};
+  cursor: pointer;
+  transform: rotate(90deg);
+  &:hover {
+    fill: ${textDark};
   }
 `;

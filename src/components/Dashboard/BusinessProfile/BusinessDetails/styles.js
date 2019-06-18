@@ -5,6 +5,7 @@ import {} from "../../../../constants/colors";
 export const DetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 export const BusinessLogo = styled.img`
@@ -14,6 +15,7 @@ export const BusinessLogo = styled.img`
 `;
 
 export const DetailGroup = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;

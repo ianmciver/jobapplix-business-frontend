@@ -5,6 +5,7 @@ import { useDropzone } from "react-dropzone";
 
 import { updateUserImage } from "../../../../actions/businessUserActions";
 import {
+  ModalContainer,
   MenuContainer,
   CloseIcon,
   SubjectContainer,
@@ -61,44 +62,47 @@ function UserMenu(props) {
   };
 
   return (
-    <MenuContainer open={dashboardContext.userMenuOpen}>
-      <CloseIcon onClick={dashboardContext.toggleUserMenu}>
-        <Chevron width={"20px"} height={"20px"} color={"white"} />
-      </CloseIcon>
-      <SubjectContainer>
-        {props.user.image_url ? (
-          <SubjectImageContainer>
-            <SubjectImageHolder>
-              <SubjectImage image={props.user.image_url} />
-            </SubjectImageHolder>
-          </SubjectImageContainer>
-        ) : (
-          <SubjectImageContainer {...getRootProps()}>
-            <input {...getInputProps()} />
-            <SubjectImageHolder>
-              <UserIcon width="40" height="44" />
-            </SubjectImageHolder>
-            <AddImageText>+ Add Photo</AddImageText>
-          </SubjectImageContainer>
-        )}
-        <SubjectNameContainer>
-          <SubjectName>{props.user.name}</SubjectName>
-          <SubjectTitle>{props.user.title}</SubjectTitle>
-        </SubjectNameContainer>
-      </SubjectContainer>
-      <MenuItem
-        onClick={() => {
-          dashboardContext.toggleUserMenu();
-          props.history.push(`${dashboard}${userProfile}`);
-        }}
-      >
-        <MenuChevron>
-          <Chevron width={"20px"} height={"20px"} color={textBlue} />
-        </MenuChevron>
-        <MenuItemTitle>View & update personal information</MenuItemTitle>
-      </MenuItem>
-      <LogOutButton onClick={logOut}>Log Out</LogOutButton>
-    </MenuContainer>
+    <>
+      <ModalContainer
+        show={dashboardContext.userMenuOpen}
+        onClick={dashboardContext.toggleUserMenu}
+      />
+      <MenuContainer open={dashboardContext.userMenuOpen}>
+        <CloseIcon onClick={dashboardContext.toggleUserMenu}>
+          <Chevron width={"20px"} height={"20px"} color={"white"} />
+        </CloseIcon>
+        <SubjectContainer>
+          {props.user.image_url ? (
+            <SubjectImageContainer>
+              <SubjectImageHolder>
+                <SubjectImage image={props.user.image_url} />
+              </SubjectImageHolder>
+            </SubjectImageContainer>
+          ) : (
+            <SubjectImageContainer {...getRootProps()}>
+              <input {...getInputProps()} />
+              <SubjectImageHolder>
+                <UserIcon width="40" height="44" />
+              </SubjectImageHolder>
+              <AddImageText>+ Add Photo</AddImageText>
+            </SubjectImageContainer>
+          )}
+          <SubjectNameContainer>
+            <SubjectName>{props.user.name}</SubjectName>
+            <SubjectTitle>{props.user.title}</SubjectTitle>
+          </SubjectNameContainer>
+        </SubjectContainer>
+        <MenuItem
+          onClick={() => {
+            dashboardContext.toggleUserMenu();
+            props.history.push(`${dashboard}${userProfile}`);
+          }}
+        >
+          <MenuItemTitle>View & update personal information</MenuItemTitle>
+        </MenuItem>
+        <LogOutButton onClick={logOut}>Log Out</LogOutButton>
+      </MenuContainer>
+    </>
   );
 }
 
