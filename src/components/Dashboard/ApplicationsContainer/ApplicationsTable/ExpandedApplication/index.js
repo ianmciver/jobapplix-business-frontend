@@ -43,13 +43,15 @@ export default function ExpandedApplication(props) {
               return <QuestionsGroup group={g} key={g.groupName} />;
             }
           })}
-          {app.includeAvailability && (
-            <Availability
-              availability={app.availability[0]}
-              shiftTimes={app.shiftTimes}
-              positionShiftTimes={app.positionShiftTimes}
-            />
-          )}
+          {app.includeAvailability &&
+            app.availability &&
+            app.availability.length && (
+              <Availability
+                availability={app.availability[0]}
+                shiftTimes={app.shiftTimes}
+                positionShiftTimes={app.positionShiftTimes}
+              />
+            )}
           {app.includePersonalRefs && (
             <PersonalRefs references={app.personal_refs} />
           )}

@@ -7,21 +7,21 @@ import {
   borderLight,
   borderGrey,
   textBlue,
+  textDark,
   backgroundWhite,
   textLight
 } from "../../../constants/colors";
 
 export const HomeContainer = styled.div`
   width: 100%;
-  max-width: 700px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: ${backgroundWhite};
   ${media.desktop`
-    border: 1px solid ${borderLight};
     border-radius: 7px;
-    box-shadow: 1px 1px 2px ${borderLight};
+    box-shadow: 0 1px 5px -2px ${textDark};
     margin-top: 50px;
   `}
 `;

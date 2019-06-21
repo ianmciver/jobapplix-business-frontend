@@ -14,29 +14,22 @@ import {
   ModalContainer,
   MenuContainer,
   CloseIcon,
-  SubjectContainer,
-  SubjectImageContainer,
-  SubjectImageHolder,
-  SubjectImage,
-  AddImageText,
-  SubjectNameContainer,
-  SubjectName,
-  SubjectTitle,
   MenuItem,
-  MenuChevron,
   MenuItemTitle,
   BusinessLogoContainer,
   LogoNameHolder,
   BusinessLogo,
   BusinessName,
-  BusinessURL
+  MenuIcon
 } from "../styles";
 
 import Chevron from "../../../../assets/Chevron";
-import UserIcon from "../../../../assets/UserIcon";
+import AppsIcon from "../../../../assets/AppsIcon";
+import PositionsIcon from "../../../../assets/PositionsIcon";
+import UsersIcon from "../../../../assets/UsersIcon";
+import PaymentIcon from "../../../../assets/PaymentIcon";
 
 import { DashboardContext } from "../../DashboardContext";
-import { textBlue } from "../../../../constants/colors";
 
 function BusinessMenu(props) {
   const dashboardContext = useContext(DashboardContext);
@@ -62,26 +55,35 @@ function BusinessMenu(props) {
           {/* <Chevron width={"20px"} height={"20px"} color={textBlue} /> */}
         </BusinessLogoContainer>
         <MenuItem onClick={navigateTo(`${dashboard}${applications}`)}>
+          <MenuIcon>
+            <AppsIcon />
+          </MenuIcon>
           <MenuItemTitle>Applications</MenuItemTitle>
         </MenuItem>
         {props.business.role < 13 && (
           <>
             <MenuItem onClick={navigateTo(`${dashboard}${positionsList}`)}>
+              <MenuIcon>
+                <PositionsIcon />
+              </MenuIcon>
               <MenuItemTitle>Positions</MenuItemTitle>
             </MenuItem>
             <MenuItem onClick={navigateTo(`${dashboard}${usersList}`)}>
+              <MenuIcon>
+                <UsersIcon />
+              </MenuIcon>
               <MenuItemTitle>Business Users</MenuItemTitle>
             </MenuItem>
           </>
         )}
         {props.business.role < 12 && (
           <MenuItem onClick={navigateTo(`${dashboard}${businessProfile}`)}>
+            <MenuIcon>
+              <PaymentIcon />
+            </MenuIcon>
             <MenuItemTitle>Business Profile & Payments</MenuItemTitle>
           </MenuItem>
         )}
-        {/* <BusinessURL>
-          https://apply.jobapplix.com/{props.business.url}
-        </BusinessURL> */}
       </MenuContainer>
     </>
   );

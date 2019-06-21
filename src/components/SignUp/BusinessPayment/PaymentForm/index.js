@@ -17,6 +17,7 @@ import {
 } from "./styles";
 
 import { Error } from "../../SignUpContainer/styles";
+import SubscriptionModal from "../../../Dashboard/SubscriptionDetails/SubscriptionModal";
 
 import Form from "./Form";
 import { NextButton } from "../../SignUpContainer/styles";
@@ -24,6 +25,7 @@ import { NextButton } from "../../SignUpContainer/styles";
 import { processPaymentDetails } from "../../../../actions/businessActions";
 
 const PaymentForm = props => {
+  const [processing, setProcessing] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [cardComplete, setCardComplete] = useState("");
@@ -56,6 +58,7 @@ const PaymentForm = props => {
 
   const submitPayment = async e => {
     let { token } = await props.stripe.createToken({ name, email });
+    setProcessing(true);
     props.processPaymentDetails(token.id, props.subType, props.nextScreen);
   };
 
@@ -95,6 +98,12 @@ const PaymentForm = props => {
           SUBMIT
         </NextButton>
       </FormContainer>
+      {processing && (
+        <SubscriptionModal
+          title="PROCESSING"
+          message="Your payment is being processed, this may take a minute."
+        />
+      )}
     </>
   );
 };

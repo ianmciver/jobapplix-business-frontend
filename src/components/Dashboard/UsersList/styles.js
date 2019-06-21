@@ -15,6 +15,9 @@ export const UsersListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  ${media.desktop`
+    margin-top: 73px
+  `};
 `;
 
 export const UsersListTitle = styled.h2`
@@ -36,7 +39,7 @@ export const UsersListDescription = styled.p`
 export const UserTable = styled.div`
   width: 100%;
   padding: 10px 30px 20px;
-  ${media.desktop`padding: 10px 50px 20px`}
+  ${media.desktop`padding: 10px 80px 20px`};
 `;
 
 export const UserContainer = styled.div`
@@ -66,7 +69,7 @@ export const PendingUsersTitle = styled.h2`
   align-self: flex-start;
   font-size: 1.7rem;
   margin: 30px 30px 0;
-  ${media.desktop`margin: 30px 50px 0`}
+  ${media.desktop`margin: 30px 80px 0`}
 `;
 
 export const CreateButton = styled.div`
@@ -75,7 +78,7 @@ export const CreateButton = styled.div`
   display: flex;
   align-items: center;
   margin: 30px 30px 0;
-  ${media.desktop`margin: 30px 50px 0`}
+  ${media.desktop`margin: 30px 80px 0`}
   svg {
     width: 15px;
     height: 15px;

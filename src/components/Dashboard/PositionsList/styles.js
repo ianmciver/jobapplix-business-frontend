@@ -10,7 +10,10 @@ export const PositionsListContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  ${media.desktop`padding: 0 50px;`}
+  ${media.desktop`
+    padding: 0 50px;
+    margin-top: 73px;  
+  `}
 `;
 
 export const PositionsListTitle = styled.h2`

@@ -35,7 +35,6 @@ function PositionsList(props) {
       props.updatePosition(positionId, { active: activeOption });
     }
   };
-  console.log(props.business.positions);
   return (
     <PositionsListContainer>
       <PositionsListTitle>Positions</PositionsListTitle>

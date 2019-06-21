@@ -10,6 +10,14 @@ export default function QuestionAndAnswer(props) {
         ? "Yes"
         : "No"
       : props.question.answer_text || "No Answer Given";
+
+  const showSubQuestion =
+    questionType === "bool"
+      ? props.question.answer_bool
+        ? true
+        : false
+      : props.question.answer_text || false;
+
   const subQuestionType = props.question.subType;
   const subAnswer =
     subQuestionType === "bool"
@@ -21,7 +29,7 @@ export default function QuestionAndAnswer(props) {
     <QuestionContainer>
       <Question>{props.question.question}</Question>
       <Answer>{answer}</Answer>
-      {props.question.subQuestion && (
+      {props.question.subQuestion && showSubQuestion && (
         <div>
           <SubQuestion>{props.question.subQuestion}</SubQuestion>
           <Answer>{subAnswer}</Answer>

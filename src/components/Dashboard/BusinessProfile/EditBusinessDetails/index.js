@@ -62,7 +62,6 @@ function EditBusinessDetails(props) {
       setImage(reader.result);
     };
     acceptedFiles.forEach(file => {
-      console.log(file);
       reader.readAsDataURL(file);
       props.uploadFileToS3(file, () => {});
     });

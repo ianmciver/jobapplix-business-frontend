@@ -31,7 +31,7 @@ export const firebase = new Firebase();
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <StripeProvider apiKey="pk_test_gMIMMFFn1lI7NSrMPy63JmCg">
+      <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}>
         <FirebaseContext.Provider value={firebase}>
           <App />
         </FirebaseContext.Provider>

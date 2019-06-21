@@ -173,14 +173,17 @@ export const updatePosition = (position_id, updatedFields) => {
     const token = await firebase.doGetCurrentUserIdToken();
     const { id } = getState().business;
     try {
-      let response = await axios.put(
+      await axios.put(
         `${API_URL}/businesses/position/${position_id}?bid=${id}`,
         {
           ...updatedFields,
           token
         }
       );
-      dispatch({ type: UPDATE_POSITION, position: response.data });
+      dispatch({
+        type: UPDATE_POSITION,
+        position: { id: position_id, ...updatedFields }
+      });
     } catch (err) {
       console.log(err);
     }

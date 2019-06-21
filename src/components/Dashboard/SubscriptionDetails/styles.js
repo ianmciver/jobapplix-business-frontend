@@ -26,6 +26,7 @@ export const ProfileTitle = styled.h2`
 `;
 
 export const UpdateButton = styled(FormButton)`
+  width: 100%;
   align-self: flex-start;
   font-weight: 700;
   color: ${borderGrey};

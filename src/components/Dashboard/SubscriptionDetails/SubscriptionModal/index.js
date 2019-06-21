@@ -20,9 +20,11 @@ export default function SubscriptionModal(props) {
         {props.title && <Header>{props.title}</Header>}
         {props.message && <Message>{props.message}</Message>}
         <ButtonContainer>
-          <ConfirmButton onClick={e => props.confirmHandler()}>
-            {props.confirmText}
-          </ConfirmButton>
+          {props.confirmText && (
+            <ConfirmButton onClick={e => props.confirmHandler()}>
+              {props.confirmText}
+            </ConfirmButton>
+          )}
           {props.cancelText && (
             <CancelButton onClick={e => props.cancelHandler()}>
               {props.cancelText}

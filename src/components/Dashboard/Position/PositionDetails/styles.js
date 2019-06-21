@@ -55,7 +55,7 @@ export const TextArea = styled.textarea`
   padding: 7px;
   margin-bottom: 25px;
   height: 188px;
-  width: 280px;
+  width: 100%;
   border-width: 2px;
   border-color: ${borderMedium69};
   background-color: transparent;

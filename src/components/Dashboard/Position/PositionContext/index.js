@@ -82,6 +82,7 @@ function PositionContext(props) {
     // This will load an existing position into the context. This will allow us to update a position.
     // Get all current active questions and load them into the activeQuestions state
     const activeQuestions = position.questions.reduce((acc, group) => {
+      console.log(group);
       return [...acc, ...group.questions.map(q => q.id)];
     }, []);
     setActiveQuestions(activeQuestions);

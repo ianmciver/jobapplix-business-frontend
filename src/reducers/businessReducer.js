@@ -37,7 +37,6 @@ export default function BusinessReducer(state = initialState, action) {
     case CREATE_BUSINESS_BASICS:
       return { ...state, ...action.payload };
     case UPDATE_BUSINESS:
-      console.log(action.payload);
       return { ...state, ...action.payload };
     case UPDATE_APP_GROUP:
       const newApps = state.applications.map(app => {

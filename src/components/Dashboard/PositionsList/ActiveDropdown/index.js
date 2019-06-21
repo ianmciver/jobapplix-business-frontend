@@ -1,45 +1,51 @@
 import React, { useState } from "react";
-import Chevron from "../../../../assets/Chevron";
-import { chevronDropDown } from "../../../../constants/colors";
 
+import Chevron from "../../../../assets/Chevron";
 import {
-  DropDownContainer,
-  ClosedDropdownContainer,
-  ActiveRow,
   ChevronWrapper,
-  RowTitle,
-  OpenDropdownContainer
+  MultiSelector,
+  MultiWindow,
+  MultiList,
+  MultiOption
 } from "./styles";
 
-export default function ActiveDropdown(props) {
-  const [open, setOpen] = useState(false);
+import { ModalContainer } from "../../Menus/styles";
 
+import { chevronDropDown } from "../../../../constants/colors";
+export default function GroupsDropdown(props) {
+  const [open, setOpen] = useState(false);
   const selectOption = option => {
     props.selectHandler(option);
     setOpen(false);
   };
+  const optionIndex = props.options.findIndex(option => {
+    return option === props.value;
+  });
+
   return (
-    <DropDownContainer>
-      {open ? (
-        <OpenDropdownContainer>
+    <>
+      <ModalContainer show={open} onClick={() => setOpen(false)} />
+      <MultiSelector open={open}>
+        <MultiWindow open={open} onClick={() => setOpen(true)}>
+          <ChevronWrapper>
+            <Chevron width={"16px"} height={"16px"} color={chevronDropDown} />
+          </ChevronWrapper>
+        </MultiWindow>
+        <MultiList
+          open={open}
+          valueIndex={optionIndex}
+          onClick={() => setOpen(false)}
+          length={props.options.length}
+        >
           {props.options.map(option => {
             return (
-              <ActiveRow key={option} onClick={e => selectOption(option)}>
-                <RowTitle>{option}</RowTitle>
-              </ActiveRow>
+              <MultiOption key={option} onClick={e => selectOption(option)}>
+                {option}
+              </MultiOption>
             );
           })}
-        </OpenDropdownContainer>
-      ) : (
-        <ClosedDropdownContainer onClick={e => setOpen(true)}>
-          <ActiveRow>
-            <RowTitle>{props.value}</RowTitle>
-            <ChevronWrapper>
-              <Chevron width={"16px"} height={"16px"} color={chevronDropDown} />
-            </ChevronWrapper>
-          </ActiveRow>
-        </ClosedDropdownContainer>
-      )}
-    </DropDownContainer>
+        </MultiList>
+      </MultiSelector>
+    </>
   );
 }

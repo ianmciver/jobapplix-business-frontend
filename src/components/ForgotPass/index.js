@@ -28,7 +28,6 @@ function SignIn(props) {
     let newUUID = await axios.get(
       `${API_URL}/businesses/userreset?email=${email}`
     );
-    console.log(newUUID);
     firebase
       .doPasswordReset(email, {
         url: `http://localhost:3000/resetpass/${newUUID}`

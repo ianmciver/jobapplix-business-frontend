@@ -6,8 +6,7 @@ import {
   textLight,
   backgroundBlue,
   textDark,
-  backgroundWhite,
-  borderLight
+  backgroundWhite
 } from "../../../constants/colors";
 
 export const FeaturesGroupContainer = styled.div`
@@ -53,14 +52,11 @@ export const ApplicationsContainer = styled.div`
   align-items: center;
   padding-top: 10px;
   width: 100%;
-  /* max-width: 800px; */
   background-color: ${backgroundWhite};
   ${media.desktop`
-    padding: 40px 50px;
-    /* border: 1px solid ${borderLight}; */
-    /* border-radius: 7px; */
-    /* box-shadow: 1px 1px 2px ${borderLight}; */
-    margin: 30px 10px 0;
+    margin: 35px 10px 50px;
+    padding: 40px 80px;
+    border-radius: 7px;
   `}
 `;
 

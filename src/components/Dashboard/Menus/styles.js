@@ -3,7 +3,6 @@ import { media } from "../../../styles/mediaQueries";
 import {
   borderBlue,
   backgroundWhite,
-  backgroundBlue,
   borderLight,
   textBlue,
   textDark,
@@ -17,7 +16,7 @@ export const ModalContainer = styled.div`
   height: 100vh;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 99;
 `;
 
 export const MenuContainer = styled.div`
@@ -54,7 +53,7 @@ export const MenuContainer = styled.div`
       left: 0;
       top: 50px;
       border-right: 5px solid ${borderBlue};
-    `}
+      `}
   `}
 `;
 
@@ -120,71 +119,6 @@ export const BusinessName = styled.h2`
   margin-left: 5px;
 `;
 
-export const BusinessURL = styled.a`
-  font-size: 1.2rem;
-  margin: 5px 10px 10px;
-`;
-// User details container
-
-export const SubjectContainer = styled.div`
-  padding: 30px 30px 30px 40px;
-  display: flex;
-  border-bottom: 2px solid ${borderQuestion};
-  width: 100%;
-`;
-
-export const SubjectImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-export const SubjectImageHolder = styled.div`
-  width: 86px;
-  height: 86px;
-  border: 1px solid ${borderLight};
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-`;
-
-export const SubjectImage = styled.div`
-  width: 86px;
-  height: 86px;
-  ${props =>
-    css`
-      background: url(${props.image});
-    `};
-  background-position: center;
-  background-size: cover;
-  background-color: ${backgroundWhite};
-  background-repeat: no-repeat;
-`;
-
-export const AddImageText = styled.p`
-  color: ${textBlue};
-  font-size: 1.2rem;
-  margin-top: 5px;
-`;
-
-export const SubjectNameContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 10px 0 10px 15px;
-`;
-
-export const SubjectName = styled.h2`
-  font-size: 2.5rem;
-  color: ${textDark};
-`;
-
-export const SubjectTitle = styled.h3`
-  font-size: 1.1rem;
-  margin-top: 5px;
-`;
-
 // Menu items:
 
 export const MenuItem = styled.div`
@@ -196,12 +130,16 @@ export const MenuItem = styled.div`
   border-bottom: 1px solid ${borderQuestion};
   justify-content: flex-start;
   cursor: pointer;
-`;
 
-export const MenuChevron = styled.div`
-  height: 20px;
-  width: 20px;
-  margin-right: 15px;
+  &:hover {
+    h3 {
+      color: ${textBlue};
+    }
+
+    svg {
+      fill: ${textBlue};
+    }
+  }
 `;
 
 export const MenuItemTitle = styled.h3`
@@ -211,21 +149,8 @@ export const MenuItemTitle = styled.h3`
   color: ${textDark};
 `;
 
-export const LogOutButton = styled.button`
-  margin-top: 25px;
-  width: 145px;
-  height: 56px;
-  outline: none;
-  border: 1px solid ${borderLight};
-  border-radius: 28px;
-  font-size: 1.4rem;
-  background-color: ${backgroundWhite};
-  text-transform: uppercase;
-  align-self: center;
-
-  &:hover {
-    color: white;
-    background-color: ${backgroundBlue};
-    border-color: ${borderBlue};
-  }
+export const MenuIcon = styled.div`
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
 `;

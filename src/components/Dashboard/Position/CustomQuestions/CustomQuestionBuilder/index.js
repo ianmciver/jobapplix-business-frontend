@@ -78,6 +78,7 @@ function CustomQuestionBuilder(props) {
           ...positionContext.customQuestions,
           { ...newQuestion, id: questionId.data.id }
         ]);
+        positionContext.addOrRemoveActiveQuestions(questionId.data.id);
         props.toggleModal();
         return;
       } else {

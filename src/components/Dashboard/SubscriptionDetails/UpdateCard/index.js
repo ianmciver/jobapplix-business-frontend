@@ -31,7 +31,8 @@ function UpdateCard(props) {
   const [expComplete, setExpComplete] = useState("");
   const [emailValid, setEmailValid] = useState(true);
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
     if (email.length > 0) {
@@ -56,8 +57,10 @@ function UpdateCard(props) {
 
   const updateCardHandler = async () => {
     let { token } = await props.stripe.createToken({ name, email });
+    setProcessing(true);
+    setModalOpen(true);
     props.updatePaymentMethod(token.id, () => {
-      setSuccessModalOpen(true);
+      setProcessing(false);
     });
   };
 
@@ -92,15 +95,22 @@ function UpdateCard(props) {
           Cancel
         </CancelButton>
       </ButtonContainer>
-      {successModalOpen && (
-        <SubscriptionModal
-          title="PAYMENT METHOD UPDATED"
-          message="Your payment method has been successfully updated. You will not be charged until your next billing period end."
-          confirmText="OK."
-          closeModal={leave}
-          confirmHandler={leave}
-        />
-      )}
+      {modalOpen ? (
+        processing ? (
+          <SubscriptionModal
+            title="PROCESSING"
+            message="Your payment is being processed, this may take a moment."
+          />
+        ) : (
+          <SubscriptionModal
+            title="PAYMENT METHOD UPDATED"
+            message="Your payment method has been successfully updated. You will not be charged until your next billing period end."
+            confirmText="OK."
+            closeModal={leave}
+            confirmHandler={leave}
+          />
+        )
+      ) : null}
     </ProfileContainer>
   );
 }

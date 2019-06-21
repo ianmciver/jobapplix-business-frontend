@@ -76,7 +76,7 @@ function ApplicationsProvider(props) {
           let match = true;
           for (let key in availabilityFilter) {
             if (availabilityFilter[key]) {
-              if (!app.availability[key]) {
+              if (!app.availability || !app.availability[key]) {
                 match = false;
               }
             }

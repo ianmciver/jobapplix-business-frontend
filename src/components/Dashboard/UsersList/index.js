@@ -64,7 +64,6 @@ function UsersList(props) {
     props.deletePendingUser(id);
   };
 
-  console.log(props.users);
   return (
     <UsersListContainer>
       <UsersListTitle>Business Users</UsersListTitle>

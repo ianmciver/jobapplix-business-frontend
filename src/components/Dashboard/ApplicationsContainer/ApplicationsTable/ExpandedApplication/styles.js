@@ -9,7 +9,9 @@ export const GroupTitle = styled.h2`
   font-size: 1.2rem;
   margin-bottom: 5px;
 `;
-export const QuestionContainer = styled.div``;
+export const QuestionContainer = styled.div`
+  margin: 5px 0;
+`;
 
 export const Question = styled.h3`
   font-size: 1.4rem;
