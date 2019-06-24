@@ -20,7 +20,8 @@
     "styled-components": "^4.1.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start:dev": "react-scripts start",
+    "start": "node server.js",
     "build": "react-scripts build",
     "build:staging": "env-cmd -f .env.staging npm run build",
     "test": "react-scripts test",

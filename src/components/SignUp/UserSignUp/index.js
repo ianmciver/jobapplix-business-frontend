@@ -78,11 +78,14 @@ function UserSignUp(props) {
     e.preventDefault();
     props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
-      .then(() => {
+      .then(data => {
         props.createUser(email, name, title, props.next);
       })
       .catch(err => {
         setError(err.message);
+        setPassword("");
+        setConfirmPassword("");
+        setPassLength(true);
       });
   };
 

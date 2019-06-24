@@ -29,9 +29,7 @@ class Firebase {
     return this.auth
       .setPersistence(firebaseApp.auth.Auth.Persistence.LOCAL)
       .then(() => this.auth.createUserWithEmailAndPassword(email, password))
-      .catch(err => {
-        console.log("Firebase error:", err);
-      });
+      .catch(err => Promise.reject(err));
   };
 
   doSignInWithEmailAndPassword = (email, password) => {
