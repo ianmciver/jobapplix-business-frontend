@@ -4,6 +4,7 @@ import {
   textDark,
   textLight,
   textBlue,
+  textDarkBlue,
   borderGrey,
   borderLight,
   borderRed,
@@ -74,6 +75,6 @@ export const AddressLine = styled.span`
 `;
 export const JobApplixAddress = styled.span`
   font-size: 1.6rem;
-  color: ${textBlue};
+  color: ${textDarkBlue};
   margin-bottom: 15px;
 `;

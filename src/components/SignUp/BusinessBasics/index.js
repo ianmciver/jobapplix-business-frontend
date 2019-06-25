@@ -83,24 +83,16 @@ function BusinessBasics(props) {
         Great! Now let's create a business account. All the information here
         will appear on your public facing JobApplix webpage.
       </Instructions>
-      <Instructions>
-        **Note: Your Custom JobApplix Address can only be letters and numbers.
-        This will be the address applicants will go to find your JobApplix
-        application. You can see a preview of your new address at the bottom of
-        the page.
-      </Instructions>
       <TextInput
         placeholder="BUSINESS NAME*"
         value={businessName}
         onChange={e => setBusinessName(e.target.value)}
       />
       <TextInput
-        placeholder="UNIQUE JOBAPPLIX ADDRESS*"
-        value={url}
-        onChange={restrictURLChars}
-        onBlur={validateUrl}
+        placeholder="BUSINESS WEBSITE"
+        value={website}
+        onChange={e => setWebsite(e.target.value)}
       />
-
       <TextInput
         placeholder="BUSINESS EMAIL"
         value={email}
@@ -116,10 +108,18 @@ function BusinessBasics(props) {
         value={phone}
         onChange={e => setPhone(e.target.value)}
       />
+
+      <Instructions>
+        **Note: Your Custom JobApplix Address can only be letters and numbers.
+        This will be the address applicants will go to find your JobApplix
+        application. You can see a preview of your new address at the bottom of
+        the page.
+      </Instructions>
       <TextInput
-        placeholder="BUSINESS WEBSITE"
-        value={website}
-        onChange={e => setWebsite(e.target.value)}
+        placeholder="UNIQUE JOBAPPLIX ADDRESS*"
+        value={url}
+        onChange={restrictURLChars}
+        onBlur={validateUrl}
       />
       {urlAvailable ? (
         <>
