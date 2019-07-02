@@ -1,6 +1,8 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
+import UserCheckHOC from "../UserCheckHOC";
+
 import UserSignUp from "../UserSignUp";
 import BusinessBasics from "../BusinessBasics";
 import BusinessDescription from "../BusinessDescription";
@@ -36,23 +38,43 @@ export default function SignUpContainer(props) {
         />
         <Route
           path={`${signup}/1`}
-          render={props => <BusinessBasics next={nextScreen} />}
+          render={props => (
+            <UserCheckHOC>
+              <BusinessBasics next={nextScreen} />
+            </UserCheckHOC>
+          )}
         />
         <Route
           path={`${signup}/2`}
-          render={props => <BusinessDescription next={nextScreen} />}
+          render={props => (
+            <UserCheckHOC>
+              <BusinessDescription next={nextScreen} />
+            </UserCheckHOC>
+          )}
         />
         <Route
           path={`${signup}/3`}
-          render={props => <BusinessPayment next={nextScreen} />}
+          render={props => (
+            <UserCheckHOC>
+              <BusinessPayment next={nextScreen} />
+            </UserCheckHOC>
+          )}
         />
         <Route
           path={`${signup}/4`}
-          render={props => <BusinessLogo next={nextScreen} />}
+          render={props => (
+            <UserCheckHOC>
+              <BusinessLogo next={nextScreen} />
+            </UserCheckHOC>
+          )}
         />
         <Route
           path={`${signup}/5`}
-          render={props => <SignUpComplete next={nextScreen} {...props} />}
+          render={props => (
+            <UserCheckHOC>
+              <SignUpComplete next={nextScreen} {...props} />
+            </UserCheckHOC>
+          )}
         />
       </Container>
       <Footer />

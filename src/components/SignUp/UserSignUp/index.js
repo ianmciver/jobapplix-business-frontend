@@ -30,6 +30,7 @@ function UserSignUp(props) {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [error, setError] = useState("");
   const [emailValid, setEmailValid] = useState(true);
+  const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
     if (email.length > 0) {
@@ -66,7 +67,8 @@ function UserSignUp(props) {
       emailValid &&
       password.length > 0 &&
       passMatch &&
-      passLength
+      passLength &&
+      !processing
     ) {
       setButtonDisabled(false);
     } else {
@@ -75,6 +77,7 @@ function UserSignUp(props) {
   });
 
   const createFirebaseUser = e => {
+    setProcessing(true);
     e.preventDefault();
     props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
@@ -138,7 +141,7 @@ function UserSignUp(props) {
       {error ? <Error>{error}</Error> : null}
       <ButtonContainer>
         <NextButton disabled={buttonDisabled} onClick={createFirebaseUser}>
-          NEXT STEP
+          {processing ? "LOADING..." : "NEXT STEP"}
         </NextButton>
       </ButtonContainer>
       <SignUpCTA>
