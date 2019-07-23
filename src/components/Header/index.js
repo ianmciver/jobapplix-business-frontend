@@ -6,7 +6,10 @@ import jobApplixLogo from "../../assets/LogoEqualLight350.png";
 export default function Header(props) {
   return (
     <HeaderContainer>
-      <HeaderLogo src={jobApplixLogo} />
+      <HeaderLogo
+        onClick={e => (window.location = "https://www.jobapplix.com")}
+        src={jobApplixLogo}
+      />
     </HeaderContainer>
   );
 }

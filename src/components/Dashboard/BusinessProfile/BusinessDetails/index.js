@@ -17,7 +17,7 @@ function BusinessDetails(props) {
       <DetailGroup>
         <DetailTitle>JobApplix URL:</DetailTitle>
         <DetailValue>
-          <a href="https://apply.jobapplix.com/{props.business.url}">
+          <a href={`https://apply.jobapplix.com/${props.business.url}`}>
             https://apply.jobapplix.com/{props.business.url}
           </a>
         </DetailValue>

@@ -32,7 +32,6 @@ export default function ApplicationsTable() {
         const groupName = applicationsContext.groups.find(
           g => app.group === g.id
         );
-        console.log(app.group, groupName);
         const bgcolor = index % 2 ? "transparent" : backgroundAppTable;
         return (
           <ApplicationsRowContent bgcolor={bgcolor} key={app.app_id}>

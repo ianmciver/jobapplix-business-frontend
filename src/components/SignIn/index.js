@@ -50,7 +50,7 @@ function SignIn(props) {
       .then(() => {
         props.history.push(dashboard);
         props.fetchUser();
-        props.getBusinessSummary();
+        props.getBusinessSummary(() => props.history.replace("/signin"));
       })
       .catch(err => {
         setError("Email or Password is incorrect");

@@ -15,7 +15,7 @@ export default function PersonalRefs(props) {
       {props.references.length ? (
         props.references.map((reference, index) => {
           return (
-            <div key={index}>
+            <div style={{ marginTop: 10 }} key={index}>
               <QuestionContainer>
                 <Question>Name:</Question>
                 <Answer>{reference.name || "None Given"}</Answer>
