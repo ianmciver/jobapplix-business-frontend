@@ -4,15 +4,22 @@ import { connect } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import { PasswordInput, ButtonContainer } from "./styles";
+import {
+  Form,
+  Label,
+  TextInput,
+  ButtonContainer,
+  NextButton,
+  FormGroup
+} from "../../../styles/forms2";
+
 import {
   Headline,
   SubHeadline,
-  NextButton,
   Error,
   Instructions
 } from "../SignUpContainer/styles";
-import { TextInput } from "../../../styles/forms";
+
 import { SignUpCTA } from "../../SignIn/styles";
 
 import { withFirebase } from "../../../Firebase";
@@ -84,71 +91,89 @@ function UserSignUp(props) {
           handleBlur,
           handleSubmit,
           isSubmitting
-        }) => (
-          <form>
-            <TextInput
-              name="name"
-              value={values.name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="FULL NAME*"
-            />
-            <TextInput
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="EMAIL*"
-            />
-            <TextInput
-              name="title"
-              value={values.title}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="YOUR TITLE"
-            />
-            <PasswordInput
-              name="password"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="PASSWORD*"
-              type="password"
-              match={!errors.confirmPassword}
-            />
-            <PasswordInput
-              name="confirmPassword"
-              value={values.confirmPassword}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="CONFIRM PASSWORD*"
-              type="password"
-              match={!errors.confirmPassword}
-            />
-            {touched.email && errors.email && <Error>{errors.email}</Error>}
-            {touched.confirmPassword && errors.confirmPassword && (
-              <Error>{errors.confirmPassword}</Error>
-            )}
-            {touched.password && errors.password && (
-              <Error>{errors.password}</Error>
-            )}
-            {error ? <Error>{error}</Error> : null}
-            <ButtonContainer>
-              <NextButton
-                disabled={
-                  isSubmitting ||
-                  (errors.email ||
-                    errors.password ||
-                    errors.confirmPassword ||
-                    errors.name)
-                }
-                onClick={handleSubmit}
-              >
-                {isSubmitting ? "LOADING..." : "NEXT STEP"}
-              </NextButton>
-            </ButtonContainer>
-          </form>
-        )}
+        }) => {
+          return (
+            <Form>
+              <FormGroup>
+                <Label htmlFor="name">Full Name</Label>
+                <TextInput
+                  name="name"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.name && errors.name}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="email">Email</Label>
+                <TextInput
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.email && errors.email}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="title">Your Title</Label>
+                <TextInput
+                  name="title"
+                  value={values.title}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="password">Password</Label>
+                <TextInput
+                  name="password"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  type="password"
+                  error={
+                    touched.password &&
+                    (errors.confirmPassword || errors.password)
+                  }
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <TextInput
+                  name="confirmPassword"
+                  value={values.confirmPassword}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  type="password"
+                  match={errors.confirmPassword}
+                />
+              </FormGroup>
+              {touched.name && errors.name && <Error>{errors.name}</Error>}
+              {touched.email && errors.email && <Error>{errors.email}</Error>}
+              {touched.confirmPassword && errors.confirmPassword && (
+                <Error>{errors.confirmPassword}</Error>
+              )}
+              {touched.password && errors.password && (
+                <Error>{errors.password}</Error>
+              )}
+              {error ? <Error>{error}</Error> : null}
+              <ButtonContainer>
+                <NextButton
+                  disabled={
+                    isSubmitting ||
+                    (errors.email ||
+                      errors.password ||
+                      errors.confirmPassword ||
+                      errors.name)
+                  }
+                  onClick={handleSubmit}
+                >
+                  {isSubmitting ? "LOADING..." : "NEXT STEP"} &rarr;
+                </NextButton>
+              </ButtonContainer>
+            </Form>
+          );
+        }}
       />
       <SignUpCTA>
         Already have an account? <Link to="/signin">Sign in now!</Link>

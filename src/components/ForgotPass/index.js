@@ -4,19 +4,36 @@ import { connect } from "react-redux";
 import axios from "axios";
 import { API_URL } from "../../constants/urls";
 
+import { Formik } from "formik";
+import * as Yup from "yup";
+
 import { FirebaseContext } from "../../Firebase";
 // import { dashboard } from "../../constants/routes";
+import { AppContainer, Error } from "../SignIn/styles";
+import {
+  Form,
+  FormGroup,
+  Label,
+  TextInput,
+  ButtonContainer,
+  NextButton
+} from "../../styles/forms2";
 import {
   SignInContainer,
   SignInButton,
   SignUpCTA,
   ErrorText,
-  AppContainer,
   SignInCard
 } from "./styles";
-import { TextInput } from "../../styles/forms";
+
 import Header from "../Header";
 import Footer from "../Footer";
+
+const EmailValidation = Yup.object().shape({
+  email: Yup.string()
+    .email("Please Enter a Valid Email Address")
+    .required("An Email Address is Required")
+});
 
 function SignIn(props) {
   const [email, setEmail] = useState("");
@@ -40,14 +57,6 @@ function SignIn(props) {
       });
   };
 
-  const keyPressHandler = e => {
-    if (e.key === "Enter") {
-      sendEmail();
-    } else {
-      return;
-    }
-  };
-
   return (
     <AppContainer>
       <Header />
@@ -62,24 +71,48 @@ function SignIn(props) {
               </SignUpCTA>
             </>
           ) : (
-            <>
-              <h1>FORGOT PASSWORD</h1>
-              <TextInput
-                placeholder="EMAIL"
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                error={!!error}
-                onKeyPress={keyPressHandler}
-              />
-              {error && <ErrorText>{error}</ErrorText>}
-              <SignInButton padding="7px 14px" onClick={sendEmail}>
-                RESET PASSWORD
-              </SignInButton>
-              <SignUpCTA>
-                Dont' have an account? <Link to="/signup">Sign up now!</Link>
-              </SignUpCTA>
-            </>
+            <Formik
+              initialValues={{ email: "" }}
+              validationSchema={EmailValidation}
+              render={({
+                values,
+                errors,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                touched
+              }) => (
+                <Form>
+                  <h1>FORGOT PASSWORD</h1>
+                  <FormGroup>
+                    <Label htmlFor="email">
+                      Please Enter Your Email Address
+                    </Label>
+                    <TextInput
+                      type="email"
+                      name="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={touched.email && errors.email}
+                    />
+                  </FormGroup>
+                  {error && <ErrorText>{error}</ErrorText>}
+                  {touched.email && errors.email && (
+                    <ErrorText>{errors.email}</ErrorText>
+                  )}
+                  <ButtonContainer>
+                    <NextButton padding="7px 14px" onClick={sendEmail}>
+                      RESET PASSWORD
+                    </NextButton>
+                  </ButtonContainer>
+                  <SignUpCTA>
+                    Dont' have an account?{" "}
+                    <Link to="/signup">Sign up now!</Link>
+                  </SignUpCTA>
+                </Form>
+              )}
+            />
           )}
         </SignInCard>
       </SignInContainer>
