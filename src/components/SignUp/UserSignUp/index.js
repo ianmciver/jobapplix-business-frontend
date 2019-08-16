@@ -53,7 +53,7 @@ function UserSignUp(props) {
         can invite other users later.
       </Instructions>
       <Instructions>
-        **Note: this will be your own personal account, we'll add business stuff
+        Note: this will be your own personal account, we'll add business stuff
         next.
       </Instructions>
       <Formik
@@ -90,8 +90,17 @@ function UserSignUp(props) {
           handleChange,
           handleBlur,
           handleSubmit,
-          isSubmitting
+          isSubmitting,
+          dirty
         }) => {
+          const buttonDisabled =
+            !dirty ||
+            isSubmitting ||
+            (errors.email ||
+              errors.password ||
+              errors.confirmPassword ||
+              errors.name) ||
+            values.password !== values.confirmPassword;
           return (
             <Form>
               <FormGroup>
@@ -103,6 +112,7 @@ function UserSignUp(props) {
                   onBlur={handleBlur}
                   error={touched.name && errors.name}
                 />
+                {touched.name && errors.name && <Error>{errors.name}</Error>}
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="email">Email</Label>
@@ -113,6 +123,7 @@ function UserSignUp(props) {
                   onBlur={handleBlur}
                   error={touched.email && errors.email}
                 />
+                {touched.email && errors.email && <Error>{errors.email}</Error>}
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="title">Your Title</Label>
@@ -136,6 +147,9 @@ function UserSignUp(props) {
                     (errors.confirmPassword || errors.password)
                   }
                 />
+                {touched.password && errors.password && (
+                  <Error>{errors.password}</Error>
+                )}
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
@@ -148,26 +162,12 @@ function UserSignUp(props) {
                   match={errors.confirmPassword}
                 />
               </FormGroup>
-              {touched.name && errors.name && <Error>{errors.name}</Error>}
-              {touched.email && errors.email && <Error>{errors.email}</Error>}
               {touched.confirmPassword && errors.confirmPassword && (
                 <Error>{errors.confirmPassword}</Error>
               )}
-              {touched.password && errors.password && (
-                <Error>{errors.password}</Error>
-              )}
               {error ? <Error>{error}</Error> : null}
               <ButtonContainer>
-                <NextButton
-                  disabled={
-                    isSubmitting ||
-                    (errors.email ||
-                      errors.password ||
-                      errors.confirmPassword ||
-                      errors.name)
-                  }
-                  onClick={handleSubmit}
-                >
+                <NextButton disabled={buttonDisabled} onClick={handleSubmit}>
                   {isSubmitting ? "LOADING..." : "NEXT STEP"} &rarr;
                 </NextButton>
               </ButtonContainer>

@@ -19,17 +19,10 @@ export const UPDATE_USER_ROLE = "UPDATE_USER_ROLE";
 export const CREATE_POSITION = "CREATE_POSITION";
 export const FETCHING_ERROR = "FETCHING_ERROR";
 
-export const createBusinessBasics = (
-  name,
-  email,
-  address,
-  phone,
-  website,
-  url
-) => {
+export const createBusinessBasics = itemsToUpdate => {
   return {
     type: CREATE_BUSINESS_BASICS,
-    payload: { name, email, address, phone, website, url }
+    payload: { ...itemsToUpdate }
   };
 };
 

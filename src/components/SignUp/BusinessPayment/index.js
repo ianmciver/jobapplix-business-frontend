@@ -9,19 +9,19 @@ import Progress from "../ProgressBar";
 import { Headline, SubHeadline, Instructions } from "../SignUpContainer/styles";
 
 export default function PaymentContainer(props) {
-  const [subType, setSubType] = useState("yearly");
+  const [subType, setSubType] = useState("");
   const [screen, setScreen] = useState("options");
   const [modal, setModal] = useState(false);
 
   return (
     <>
       <Headline>CREATE BUSINESS</Headline>
-      <Progress progress={"50%"} />
+      <Progress progress={"66.6%"} />
       <SubHeadline>Select Subscription Plan</SubHeadline>
       <Instructions>
         Reminder: Every subscription comes with a 30 day free trial! You card
-        will be charged at the end of your free trial. You may cancel at any
-        time.
+        will only be charged at the end of your free trial. You may cancel at
+        any time.
       </Instructions>
       {screen === "options" ? (
         <PaymentOptions

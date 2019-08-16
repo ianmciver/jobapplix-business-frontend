@@ -39,8 +39,8 @@ export const SubHeadline = styled.h2`
 `;
 export const Instructions = styled.span`
   margin: 0 10px 15px;
-  font-size: 1.1rem;
-  line-height: 1.3rem;
+  font-size: 1.3rem;
+  line-height: 2.4rem;
   text-align: center;
 `;
 

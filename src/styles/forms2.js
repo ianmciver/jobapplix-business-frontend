@@ -20,7 +20,7 @@ export const Label = styled.label`
 export const TextInput = styled.input`
   display: block;
   width: 100%;
-  border: 2px solid transparent;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   padding: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -62,8 +62,70 @@ export const NextButton = styled.button`
     background-image: none;
     background-color: ${props => props.theme.backgroundBlue};
   }
+  &:disabled {
+    background-image: none;
+    background-color: ${props => props.theme.backgroundWhite};
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.1);
+    cursor: not-allowed;
+  }
 `;
 
+export const TextArea = styled.textarea`
+  height: 210px;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+  padding: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  border-color: ${props => props.error && `#e57373`};
+  margin-bottom: 20px;
+
+  &:focus {
+    outline: none;
+    border-color: ${props => props.theme.backgroundGreen};
+  }
+`;
+
+export const StripeInput = {
+  base: {
+    // color: textDark,
+    fontSize: "14px"
+  }
+};
+
+export const StripeInputDiv = styled.div`
+  display: block;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 10.5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  ${props =>
+    props.error &&
+    css`
+      border-color: #e57373;
+    `};
+
+  ${props =>
+    props.focus &&
+    css`
+      outline: none;
+      border-color: ${props => props.theme.backgroundGreen};
+    `}
+`;
+
+export const Error = styled.p`
+  color: ${props => props.theme.borderRed};
+  font-size: 1.2rem;
+  padding: 5px 0;
+`;
 // Checkbox Code Below:
 
 const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`

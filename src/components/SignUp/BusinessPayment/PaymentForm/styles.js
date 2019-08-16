@@ -1,25 +1,18 @@
 import styled from "styled-components";
 
-import {
-  borderGrey,
-  backgroundBlue,
-  textLight,
-  textBlue,
-  textDark
-} from "../../../../constants/colors";
-
 export const SubType = styled.div`
-  width: 100%;
-  border: 2px solid ${borderGrey};
-  background-color: ${backgroundBlue};
-  color: ${textLight};
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: ${props => props.theme.backgroundBlue};
+  color: ${props => props.theme.textLight};
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.8rem;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 15px 0;
+  padding: 15px 40px;
   cursor: pointer;
 `;
 
@@ -35,19 +28,6 @@ export const FormContainer = styled.div`
   }
 `;
 
-export const HalfInputContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const HalfWidthInput = styled.div`
-  margin: 0 0 20px;
-  border-bottom: 1px solid ${borderGrey};
-  padding-bottom: 5px;
-  width: 45%;
-`;
-
 export const FinePrintContainer = styled.div`
   display: flex;
   align-items: center;
@@ -56,28 +36,28 @@ export const FinePrintContainer = styled.div`
 
 export const FinePrint = styled.a`
   font-size: 1.1rem;
-  color: ${textBlue};
+  color: ${props => props.theme.textBlue};
   text-decoration: underline;
   text-transform: uppercase;
   cursor: pointer;
 `;
 
 export const FinePrintSeparator = styled.p`
-  color: ${textBlue};
+  color: ${props => props.theme.textBlue};
   font-size: 1.1rem;
   padding: 0 5px;
 `;
 
 export const Total = styled.h3`
   font-size: 1.9rem;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
   text-transform: uppercase;
-  margin: 20px 0 5px;
+  margin: 20px 0 10px;
 `;
 
 export const SubTotal = styled.h4`
   font-size: 1.3rem;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
   text-transform: uppercase;
   margin-bottom: 20px;
 `;

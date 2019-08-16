@@ -1,74 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 
-import {
-  CardCVCElement,
-  CardNumberElement,
-  CardExpiryElement,
-  PostalCodeElement
-} from "react-stripe-elements";
-
-import { HalfInputContainer, HalfWidthInput } from "../styles";
+import { CardElement } from "react-stripe-elements";
 
 import {
   TextInput,
+  Form,
+  FormGroup,
+  Label,
   StripeInput,
-  StripeInputDiv
-} from "../../../../../styles/forms";
+  StripeInputDiv,
+  Error
+} from "../../../../../styles/forms2";
 
-export default function Form(props) {
-  const onStripeElementChange = cb => e => {
-    console.log(e);
-    cb(e.complete);
+export default function PaymentForm(props) {
+  const [cardInputFocused, setCardInputFocused] = useState(false);
+  const [cardError, setCardError] = useState("");
+  const onStripeElementChange = e => {
+    if (e.error && e.error.message) {
+      setCardError(e.error.message);
+    } else if (cardError !== "") {
+      setCardError("");
+    }
+
+    if (e.complete) {
+      props.setCardComplete(true);
+    }
   };
 
   return (
-    <>
-      <label>Name</label>
-      <TextInput
-        placeholder="Jane Doe"
-        value={props.name}
-        onChange={e => props.setName(e.target.value)}
-      />
-      <StripeInputDiv>
-        <label>
-          Card Number
-          <CardNumberElement
-            style={StripeInput}
-            onChange={onStripeElementChange(props.setCardComplete)}
-          />
-        </label>
-      </StripeInputDiv>
-      <HalfInputContainer>
-        <HalfWidthInput>
-          <label>Expiration</label>
-          <CardExpiryElement
-            style={StripeInput}
-            onChange={onStripeElementChange(props.setExpComplete)}
-          />
-        </HalfWidthInput>
-        <HalfWidthInput>
-          <label>CVC</label>
-          <CardCVCElement
-            style={StripeInput}
-            onChange={onStripeElementChange(props.setCvcComplete)}
-          />
-        </HalfWidthInput>
-      </HalfInputContainer>
-      <StripeInputDiv>
-        <label>Billing Zip</label>
-        <PostalCodeElement
-          style={StripeInput}
-          placeholder="83001"
-          onChange={onStripeElementChange(props.setZipComplete)}
+    <Form>
+      <FormGroup>
+        <Label>Name</Label>
+        <TextInput
+          value={props.name}
+          onChange={e => props.setName(e.target.value)}
         />
-      </StripeInputDiv>
-      <label>Email</label>
-      <TextInput
-        placeholder="jane@doe.com"
-        value={props.email}
-        onChange={e => props.setEmail(e.target.value)}
-      />
-    </>
+      </FormGroup>
+      <FormGroup>
+        <Label>Email</Label>
+        <TextInput
+          value={props.email}
+          onChange={e => props.setEmail(e.target.value)}
+        />
+        {!props.emailValid && <Error>Please Enter a Valid Email</Error>}
+      </FormGroup>
+      <FormGroup>
+        <Label>Card Information</Label>
+        <StripeInputDiv focus={cardInputFocused} error={!!cardError}>
+          <CardElement
+            style={StripeInput}
+            onChange={onStripeElementChange}
+            onFocus={() => setCardInputFocused(true)}
+            onBlur={() => setCardInputFocused(false)}
+          />
+        </StripeInputDiv>
+        {cardError && <Error>{cardError}</Error>}
+      </FormGroup>
+    </Form>
   );
 }
 
