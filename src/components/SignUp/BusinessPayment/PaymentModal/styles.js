@@ -34,7 +34,7 @@ export const ModalLogo = styled.img`
   width: 11.2vw;
 `;
 
-export const CloseButton = styled.img`
+export const CloseButton = styled.div`
   position: absolute;
   top: 10px;
   right: 10px;

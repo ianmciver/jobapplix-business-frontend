@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import styled, { css } from "styled-components";
 const sizes = {
   desktop: 1000
 };
@@ -13,3 +13,17 @@ export const media = Object.keys(sizes).reduce((acc, label) => {
 
   return acc;
 }, {});
+
+export const MobileOff = styled.div`
+  display: none;
+  ${media.desktop`
+    display: initial;
+  `}
+`;
+
+export const DesktopOff = styled.div`
+  display: initial;
+  ${media.desktop`
+    display: none;
+  `}
+`;

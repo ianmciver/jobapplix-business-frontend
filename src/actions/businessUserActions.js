@@ -6,6 +6,7 @@ import { API_URL } from "../constants/urls";
 export const UPDATE_USER = "UPDATE_USER";
 export const FETCHING_USER_DATA = "FETCHING_USER_DATA";
 export const FETCHING_USER_DATA_COMPLETE = "FETCHING_USER_DATA_COMPLETE";
+export const SELECT_BUSINESS = "SELECT_BUSINESS";
 
 export const createUser = (email, name, title, next) => {
   return async (dispatch, getState, API_URL) => {
@@ -76,9 +77,7 @@ export const updateUserImage = file => {
     let userImageUrl;
     axios
       .put(
-        `${API_URL}/businesses/user/image?file-name=${file.name}&file-type=${
-          file.type
-        }`,
+        `${API_URL}/businesses/user/image?file-name=${file.name}&file-type=${file.type}`,
         { token }
       )
       .then(res => {

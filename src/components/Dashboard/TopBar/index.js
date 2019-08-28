@@ -6,7 +6,7 @@ import { dashboard } from "../../../constants/routes";
 
 import hamburger from "../../../assets/hamburger.svg";
 import UserIcon from "../../../assets/UserIcon";
-import jobApplixLogoDesktop from "../../../assets/LogoEqualLight350.png";
+import jobApplixLogoMobile from "../../../assets/Icon100.png";
 
 import { DashboardContext } from "../DashboardContext";
 import {
@@ -17,7 +17,10 @@ import {
   HeaderUserIcon,
   HeaderUserImage
 } from "./styles";
-import jobApplixLogoMobile from "../../../assets/Icon100.png";
+
+import { MobileOff } from "../../../styles/mediaQueries";
+
+import BusinessSelector from "./BusinessSelector";
 
 function TopBar(props) {
   const dashboardContext = useContext(DashboardContext);
@@ -33,9 +36,12 @@ function TopBar(props) {
         onClick={e => props.history.push(dashboard)}
       />
       <HeaderLogoDesktop
-        src={jobApplixLogoDesktop}
+        src={jobApplixLogoMobile}
         onClick={e => props.history.push(dashboard)}
       />
+      <MobileOff>
+        <BusinessSelector />
+      </MobileOff>
       <HeaderUserIcon
         onClick={dashboardContext.toggleUserMenu}
         thin={!!props.user.image_url}

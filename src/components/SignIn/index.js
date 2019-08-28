@@ -112,6 +112,9 @@ function SignIn(props) {
                       error={touched.email && errors.email}
                       onBlur={handleBlur}
                     />
+                    {touched.email && errors.email && (
+                      <ErrorText>{errors.email}</ErrorText>
+                    )}
                   </FormGroup>
                   <FormGroup>
                     <Label htmlFor="password">
@@ -128,13 +131,10 @@ function SignIn(props) {
                       error={touched.password && errors.password}
                       onBlur={handleBlur}
                     />
+                    {touched.password && errors.password && (
+                      <ErrorText>{errors.password}</ErrorText>
+                    )}
                   </FormGroup>
-                  {touched.email && errors.email && (
-                    <ErrorText>{errors.email}</ErrorText>
-                  )}
-                  {touched.password && errors.password && (
-                    <ErrorText>{errors.password}</ErrorText>
-                  )}
 
                   <CheckboxContainer>
                     <Checkbox

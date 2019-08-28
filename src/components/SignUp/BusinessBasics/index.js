@@ -24,9 +24,7 @@ import {
 import { createBusinessBasics } from "../../../actions/businessActions";
 
 const BusinessBasicsSchema = Yup.object().shape({
-  businessName: Yup.string().required(
-    "Please Enter a Business or Organization Name"
-  ),
+  name: Yup.string().required("Please Enter a Business or Organization Name"),
   email: Yup.string().email("Please Enter a Valid Email"),
   phone: Yup.string(),
   website: Yup.string(),
@@ -45,9 +43,9 @@ function BusinessBasics(props) {
       </Instructions>
       <Formik
         validationSchema={BusinessBasicsSchema}
-        onSubmit={({ businessName, email, address, phone, website }) => {
+        onSubmit={({ name, email, address, phone, website }) => {
           props.createBusinessBasics({
-            businessName,
+            name,
             email,
             address,
             phone,
@@ -57,7 +55,7 @@ function BusinessBasics(props) {
           props.next();
         }}
         initialValues={{
-          businessName: "",
+          name: "",
           website: "",
           email: "",
           address: "",
@@ -74,23 +72,19 @@ function BusinessBasics(props) {
           isSubmitting
         }) => {
           const buttonDisabled =
-            !dirty || isSubmitting || (errors.email || errors.businessName);
+            !dirty || isSubmitting || (errors.email || errors.name);
           return (
             <Form>
               <FormGroup>
-                <Label htmlFor="businessName">
-                  Name of Business or Organization
-                </Label>
+                <Label htmlFor="name">Name of Business or Organization</Label>
                 <TextInput
-                  name="businessName"
-                  value={values.businessName}
+                  name="name"
+                  value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={touched.businessName && errors.businessName}
+                  error={touched.name && errors.name}
                 />
-                {touched.businessName && errors.businessName && (
-                  <Error>{errors.businessName}</Error>
-                )}
+                {touched.name && errors.name && <Error>{errors.name}</Error>}
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="website">Current Business Website</Label>

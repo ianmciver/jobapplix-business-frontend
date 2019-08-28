@@ -91,7 +91,7 @@ function CustomUrl(props) {
         validationSchema={BusinessBasicsSchema}
         onSubmit={({ url }) => {
           props.createBusinessBasics({
-            url
+            url: url.split(baseAddress)[1]
           });
           props.next();
         }}

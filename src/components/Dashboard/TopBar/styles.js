@@ -1,14 +1,14 @@
 import styled, { css } from "styled-components";
-import { backgroundGrey, backgroundWhite } from "../../../constants/colors";
 import { media } from "../../../styles/mediaQueries";
 
 export const HeaderContainer = styled.div`
-  background-color: ${backgroundGrey};
+  background-color: ${props => props.theme.backgroundGrey};
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 0 20px;
+  height: 50px;
   position: fixed;
   top: 0;
   left: 0;
@@ -22,7 +22,8 @@ export const HeaderLogoMobile = styled.img`
 `;
 
 export const HeaderLogoDesktop = styled.img`
-  height: 20px;
+  height: 30px;
+  padding-left: 15px;
   display: none;
   cursor: pointer;
   ${media.desktop`display: inline;`}
@@ -37,7 +38,7 @@ export const HeaderUserIcon = styled.div`
   height: 30px;
   width: 30px;
   border: ${props => (props.thin ? "1px" : "2px")} solid white;
-  background-color: ${backgroundWhite};
+  background-color: ${props => props.theme.backgroundWhite};
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -55,7 +56,7 @@ export const HeaderUserImage = styled.div`
     `};
   background-position: center;
   background-size: cover;
-  background-color: ${backgroundWhite};
+  background-color: ${props => props.theme.backgroundWhite};
   background-repeat: no-repeat;
   cursor: pointer;
 `;
