@@ -12,7 +12,7 @@ export const HeaderContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 100;
 `;
 
 export const HeaderLogoMobile = styled.img`
@@ -34,22 +34,39 @@ export const HeaderHamburger = styled.img`
   ${media.desktop`display: none;`}
 `;
 
+export const UserContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const HeaderUserIcon = styled.div`
-  height: 30px;
-  width: 30px;
-  border: ${props => (props.thin ? "1px" : "2px")} solid white;
-  background-color: ${props => props.theme.backgroundWhite};
+  height: 40px;
+  width: 40px;
+  border: ${props => css`1px solid ${props.theme.backgroundLight}`};
+  background-color: ${props => props.theme.backgroundNoteBox};
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   cursor: pointer;
+  position: relative;
+`;
+
+export const UserGreeting = styled.h3`
+  display: none;
+  ${media.desktop`
+    display: initial;
+    font-size: 1.6rem;
+    color: ${props => props.theme.textLight};
+    margin-right: 10px;
+  `}
 `;
 
 export const HeaderUserImage = styled.div`
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   ${props =>
     css`
       background: url(${props.image});

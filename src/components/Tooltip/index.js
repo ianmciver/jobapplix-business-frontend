@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Transition, CSSTransition } from "react-transition-group";
+import { Transition } from "react-transition-group";
 
 import {
   TooltipContainer,

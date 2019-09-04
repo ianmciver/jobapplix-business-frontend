@@ -26,7 +26,7 @@ import { DesktopOff } from "../../../../styles/mediaQueries";
 import Tooltip from "../../../Tooltip";
 import BusinessSelector from "../../TopBar/BusinessSelector";
 
-import CloseIcon from "../../../../assets/CloseIcon3";
+import CloseIcon from "../../../../assets/CloseIcon";
 import AppsIcon from "../../../../assets/AppsIcon";
 import PositionsIcon from "../../../../assets/PositionsIcon";
 import UsersIcon from "../../../../assets/UsersIcon";
@@ -43,6 +43,7 @@ function BusinessMenu(props) {
 
   const dashboardContext = useContext(DashboardContext);
   const navigateTo = url => e => {
+    e.stopPropagation();
     dashboardContext.toggleBusinessMenu();
     props.history.push(url);
   };
@@ -51,8 +52,9 @@ function BusinessMenu(props) {
       <ModalContainer
         show={dashboardContext.businessMenuOpen}
         onClick={dashboardContext.toggleBusinessMenu}
+        blur
       />
-      <MenuContainer open={dashboardContext.businessMenuOpen} left>
+      <MenuContainer open={dashboardContext.businessMenuOpen}>
         <DesktopOff>
           <JALogoContainer>
             <JALogo src={FullLogo} alt="Job Applix logo." />

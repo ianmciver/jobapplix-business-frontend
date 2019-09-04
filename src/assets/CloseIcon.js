@@ -1,16 +1,14 @@
 import React from "react";
-
-export default () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 50 50"
-    version="1.1"
-    width="50px"
-    height="50px"
-    fill="#FFFFFF"
-  >
-    <g id="surface1">
-      <path d="M 9.15625 6.3125 L 6.3125 9.15625 L 22.15625 25 L 6.21875 40.96875 L 9.03125 43.78125 L 25 27.84375 L 40.9375 43.78125 L 43.78125 40.9375 L 27.84375 25 L 43.6875 9.15625 L 40.84375 6.3125 L 25 22.15625 Z " />
-    </g>
+const lineStyle = {
+  fill: "#fff",
+  stroke: "#fff",
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  strokeWidth: "2px"
+};
+export default props => (
+  <svg viewBox="0 0 48 48" style={{ width: props.width, height: props.height }}>
+    <line style={lineStyle} x1="1" x2="47" y1="47" y2="1" />
+    <line style={lineStyle} x1="1" x2="47" y1="1" y2="47" />
   </svg>
 );

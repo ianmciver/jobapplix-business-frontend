@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { lighten, darken, transparentize } from "polished";
+import { transparentize } from "polished";
 
 import { media } from "../../../styles/mediaQueries";
 
@@ -18,26 +18,25 @@ export const JALogo = styled.img`
 export const ModalContainer = styled.div`
   display: ${props => (props.show ? "block" : "none")};
   background-color: ${props =>
-    transparentize(0.1, props.theme.backgroundWhite)};
+    props.blur
+      ? transparentize(0.1, props.theme.backgroundWhite)
+      : "transparent"};
   position: fixed;
   width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
   z-index: 99;
+  ${media.desktop`
+    background-color: transparent;
+    display: ${props => (props.userShow ? "block" : "none")};
+  `}
 `;
 
 export const MenuContainer = styled.div`
   position: fixed;
   height: 100vh;
-  ${props =>
-    props.left
-      ? css`
-          left: ${props => (props.open ? 0 : "-319px")};
-        `
-      : css`
-          right: ${props => (props.open ? 0 : "-319px")};
-        `}
+  left: ${props => (props.open ? 0 : "-319px")};
   border-right: 1px solid ${props => props.theme.backgroundNoteBox};
   z-index: 1000;
   transition: right 0.5s, left 0.5s;
@@ -45,12 +44,9 @@ export const MenuContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  ${props => media.desktop`
-    ${props.left &&
-      `
-        left: 0;
-        top: 50px;
-      `}
+  ${media.desktop`
+    left: 0;
+    top: 50px;
   `}
 `;
 

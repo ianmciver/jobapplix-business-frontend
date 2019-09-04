@@ -37,7 +37,7 @@ function UserMenu(props) {
   return (
     <>
       <ModalContainer
-        show={dashboardContext.userMenuOpen}
+        userShow={dashboardContext.userMenuOpen}
         onClick={dashboardContext.toggleUserMenu}
       />
       <MenuContainer open={dashboardContext.userMenuOpen}>

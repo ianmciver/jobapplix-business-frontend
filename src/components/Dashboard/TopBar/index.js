@@ -15,7 +15,9 @@ import {
   HeaderLogoDesktop,
   HeaderHamburger,
   HeaderUserIcon,
-  HeaderUserImage
+  HeaderUserImage,
+  UserGreeting,
+  UserContainer
 } from "./styles";
 
 import { MobileOff } from "../../../styles/mediaQueries";
@@ -42,16 +44,22 @@ function TopBar(props) {
       <MobileOff>
         <BusinessSelector />
       </MobileOff>
-      <HeaderUserIcon
-        onClick={dashboardContext.toggleUserMenu}
-        thin={!!props.user.image_url}
-      >
-        {props.user.image_url ? (
-          <HeaderUserImage image={props.user.image_url} />
-        ) : (
-          <UserIcon width="22.5px" height="25px" />
-        )}
-      </HeaderUserIcon>
+      <UserContainer>
+        <UserGreeting>
+          {props.user.name ? `Hi, ${props.user.name.split(" ")[0]}` : "Welcome"}
+          !
+        </UserGreeting>
+        <HeaderUserIcon
+          onClick={dashboardContext.toggleUserMenu}
+          thin={!!props.user.image_url}
+        >
+          {props.user.image_url ? (
+            <HeaderUserImage image={props.user.image_url} />
+          ) : (
+            <UserIcon width="22.5px" height="25px" />
+          )}
+        </HeaderUserIcon>
+      </UserContainer>
     </HeaderContainer>
   );
 }
