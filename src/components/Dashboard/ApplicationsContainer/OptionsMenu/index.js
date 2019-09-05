@@ -6,6 +6,9 @@ import Filter from "../../../../assets/Filter";
 import Arrow from "../../../../assets/Arrow";
 import Plus from "../../../../assets/Plus";
 import Minus from "../../../../assets/Minus";
+
+import FiltersGroup from "./FiltersGroup";
+
 import {
   OptionsMenuContainer,
   OptionGroup,
@@ -14,7 +17,6 @@ import {
   OptionItem,
   OptionItemTitle,
   OptionGroupTitleControl,
-  SubTitle,
   Control
 } from "./styles";
 
@@ -23,7 +25,6 @@ export default function OptionsMenu(props) {
   const [enter, setEnter] = useState(false);
 
   const [appGroupOpen, setAppGroupOpen] = useState(true);
-  const [filterGroupOpen, setFilterGroupOpen] = useState(false);
   const applicationContext = useContext(ApplicationsContext);
   const clickHandler = id => e => {
     applicationContext.setGroupSelected(id);
@@ -59,27 +60,7 @@ export default function OptionsMenu(props) {
               ))}
             </OptionItemsGroup>
           </OptionGroup>
-          <OptionGroup>
-            <OptionGroupTitle
-              onClick={() => setFilterGroupOpen(!filterGroupOpen)}
-            >
-              Filters
-              <OptionGroupTitleControl>
-                {filterGroupOpen ? <Minus /> : <Plus />}
-              </OptionGroupTitleControl>
-            </OptionGroupTitle>
-            <OptionItemsGroup open={filterGroupOpen}>
-              <OptionItem open={filterGroupOpen}>
-                <OptionItemTitle>Locations</OptionItemTitle>
-              </OptionItem>
-              <OptionItem open={filterGroupOpen}>
-                <OptionItemTitle>Positions</OptionItemTitle>
-              </OptionItem>
-              <OptionItem open={filterGroupOpen}>
-                <OptionItemTitle>Availability</OptionItemTitle>
-              </OptionItem>
-            </OptionItemsGroup>
-          </OptionGroup>
+          <FiltersGroup />
         </OptionsMenuContainer>
       )}
     </Transition>

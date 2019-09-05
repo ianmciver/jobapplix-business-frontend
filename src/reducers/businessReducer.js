@@ -29,7 +29,8 @@ const initialState = {
   role: 14,
   users: [],
   pendingUsers: [],
-  subDetails: {}
+  subDetails: {},
+  subBusinesses: []
 };
 
 export default function BusinessReducer(state = initialState, action) {

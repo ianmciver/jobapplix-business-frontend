@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { darken, transparentize, lighten } from "polished";
 
 import { media } from "../../../../styles/mediaQueries";
+import { Checkbox } from "../../../../styles/forms2";
 
 export const OptionsMenuContainer = styled.div`
   position: fixed;
@@ -12,6 +13,7 @@ export const OptionsMenuContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow: scroll;
   ${props =>
     props.showMenu
       ? css`
@@ -75,12 +77,12 @@ export const OptionGroupTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
   border-top: ${props =>
     css`1px solid ${lighten(0.7, props.theme.backgroundGrey)}`};
 `;
 
 export const OptionGroupTitleControl = styled.p`
-  cursor: pointer;
   width: 14px;
   height: 14px;
   svg {
@@ -124,4 +126,69 @@ export const OptionItem = styled.li`
 export const OptionItemTitle = styled.h3`
   font-size: 2rem;
   line-height: 2.4rem;
+`;
+
+export const FilterGroups = styled.div`
+  width: 100%;
+  padding: 20px;
+  border-left: 5px solid transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  opacity: ${props => (props.open ? 1 : 0)};
+  transition: all 200ms;
+  &:hover {
+    svg {
+      ${props =>
+        !props.subGroupOpen &&
+        css`
+          stroke: ${props.theme.backgroundBlue};
+          fill: ${props.theme.backgroundBlue};
+        `};
+    }
+    background-color: ${props =>
+      !props.subGroupOpen &&
+      css`
+        ${darken(0.5, props.theme.backgroundNoteBox)}
+      `};
+  }
+`;
+
+export const FilterGroupTitle = styled(OptionItemTitle)`
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  svg {
+    transform: rotate(${props => (props.subGroupOpen ? "90deg" : "0")});
+    margin-right: 10px;
+
+    &:hover {
+      stroke: ${props => props.theme.backgroundBlue};
+      fill: ${props => props.theme.backgroundBlue};
+    }
+  }
+`;
+
+export const FilterSubGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: inherit;
+  transform: scaleY(${props => (props.subGroupOpen ? 1 : 0)});
+  transition: transform 200ms;
+`;
+
+export const FilterItem = styled.div`
+  padding: 5px 10px;
+  width: 100%;
+  opacity: ${props => (props.subGroupOpen ? 1 : 0)};
+  transition: opacity 200ms;
+  &:first-of-type {
+    padding-top: 10px;
+  }
+`;
+
+export const FilterItemTitle = styled.div`
+  font-size: 1.4rem;
 `;

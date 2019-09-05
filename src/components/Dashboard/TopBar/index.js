@@ -12,6 +12,7 @@ import { DashboardContext } from "../DashboardContext";
 import {
   HeaderContainer,
   HeaderLogoMobile,
+  HeaderLogoDesktopContainer,
   HeaderLogoDesktop,
   HeaderHamburger,
   HeaderUserIcon,
@@ -37,10 +38,12 @@ function TopBar(props) {
         src={jobApplixLogoMobile}
         onClick={e => props.history.push(dashboard)}
       />
-      <HeaderLogoDesktop
-        src={jobApplixLogoMobile}
-        onClick={e => props.history.push(dashboard)}
-      />
+      <HeaderLogoDesktopContainer>
+        <HeaderLogoDesktop
+          src={jobApplixLogoMobile}
+          onClick={e => props.history.push(dashboard)}
+        />
+      </HeaderLogoDesktopContainer>
       <MobileOff>
         <BusinessSelector />
       </MobileOff>

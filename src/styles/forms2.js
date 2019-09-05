@@ -153,7 +153,7 @@ const StyledCheckbox = styled.div`
   border: ${props =>
     props.checked
       ? css`0 solid transparent`
-      : css`3px solid ${props => props.theme.backgroundBlue}`};
+      : css`2px solid ${props => props.theme.backgroundBlue}`};
   background-color: white;
   display: inline-block;
   width: 18px;
@@ -180,7 +180,7 @@ const CheckboxContainer = styled.div`
 export const Checkbox = props => {
   const hiddenBox = useRef(null);
   return (
-    <CheckboxContainer>
+    <CheckboxContainer style={props.style}>
       <HiddenCheckbox ref={hiddenBox} {...props} />
       <StyledCheckbox
         checked={props.checked}

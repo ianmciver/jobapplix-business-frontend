@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { transparentize } from "polished";
+import { lighten, transparentize } from "polished";
 
 import { media } from "../../../styles/mediaQueries";
 
@@ -26,7 +26,7 @@ export const ModalContainer = styled.div`
   height: 100vh;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 100;
   ${media.desktop`
     background-color: transparent;
     display: ${props => (props.userShow ? "block" : "none")};
@@ -41,9 +41,13 @@ export const MenuContainer = styled.div`
   z-index: 1000;
   transition: right 0.5s, left 0.5s;
   background-color: ${props => props.theme.backgroundGrey};
+  background-image: ${props =>
+    css`linear-gradient(to right, ${lighten(
+      0.1,
+      props.theme.backgroundGrey
+    )} 0, ${props.theme.backgroundGrey} 100%)`};
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   ${media.desktop`
     left: 0;
     top: 50px;
