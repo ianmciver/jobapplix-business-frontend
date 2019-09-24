@@ -46,22 +46,24 @@ export const FeaturesButton = styled.span`
 `;
 
 export const ApplicationsContainer = styled.div`
-  margin-top: 135px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 10px;
   width: 100%;
   background-color: ${backgroundWhite};
   ${media.desktop`
-    margin: 35px 10px 50px;
-    padding: 40px 80px;
+    margin-top: 35px;
+    margin-bottom: 50px;
     border-radius: 7px;
+    margin-left: 345px;
+    width: calc(100% - 355px);
   `}
 `;
 
 export const ApplicationsTitle = styled.h2`
-  font-size: 1.9rem;
+  font-size: 3.5rem;
   color: ${textDark};
-  text-transform: uppercase;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  align-self: flex-start;
 `;

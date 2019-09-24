@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FormButton } from "../../../styles/buttons";
+import { media } from "../../../styles/mediaQueries";
 import {
   textDark,
   textBlue,
@@ -13,18 +14,25 @@ export const ProfileContainer = styled.div`
   margin-top: 25px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 0 50px;
   width: 100%;
   max-width: 600px;
   position: relative;
+  ${media.desktop`
+    width: calc(100% - 160px);
+    max-width: 100%;
+    margin-top: 50px;
+    margin-left: 105px;
+    margin-right: 50px;
+  `}
 `;
 
 export const ProfileTitle = styled.h2`
-  font-size: 1.9rem;
-  color: ${textDark};
-  text-transform: uppercase;
+  font-size: 3.5rem;
+  color: ${props => props.theme.textDark};
+  /* text-transform: uppercase; */
   margin-bottom: 20px;
+  align-self: flex-start;
 `;
 
 export const UpdateButton = styled(FormButton)`

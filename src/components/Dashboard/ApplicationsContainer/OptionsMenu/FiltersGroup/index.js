@@ -18,7 +18,8 @@ import {
   FilterGroupTitle,
   FilterSubGroup,
   FilterItem,
-  FilterItemTitle
+  FilterItemTitle,
+  FilterSubItem
 } from "../styles";
 
 import { Checkbox } from "../../../../../styles/forms2";
@@ -60,7 +61,10 @@ function FiltersGroup(props) {
                   let selected =
                     appContext.selectedPositions.indexOf(position.id) >= 0;
                   return (
-                    <FilterItem subGroupOpen={positionsOpen} key={position.id}>
+                    <FilterSubItem
+                      subGroupOpen={positionsOpen}
+                      key={position.id}
+                    >
                       <FilterItemTitle>
                         <Checkbox
                           style={{ marginRight: "10px" }}
@@ -70,7 +74,7 @@ function FiltersGroup(props) {
                         />
                         <label htmlFor={position.name}>{position.name}</label>
                       </FilterItemTitle>
-                    </FilterItem>
+                    </FilterSubItem>
                   );
                 })}
               </FilterSubGroup>

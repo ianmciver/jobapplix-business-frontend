@@ -8,7 +8,7 @@ export const OptionsMenuContainer = styled.div`
   position: fixed;
   height: 100vh;
   width: 250px;
-  box-shadow: 1px 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 0 10px -5px rgba(0, 0, 0, 0.3);
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -161,6 +161,7 @@ export const FilterGroupTitle = styled(OptionItemTitle)`
   cursor: pointer;
   svg {
     transform: rotate(${props => (props.subGroupOpen ? "90deg" : "0")});
+    transition: transform 200ms;
     margin-right: 10px;
 
     &:hover {
@@ -187,6 +188,10 @@ export const FilterItem = styled.div`
   &:first-of-type {
     padding-top: 10px;
   }
+`;
+
+export const FilterSubItem = styled(FilterItem)`
+  padding: 10px 0 5px;
 `;
 
 export const FilterItemTitle = styled.div`

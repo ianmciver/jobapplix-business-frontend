@@ -9,7 +9,4 @@ export const DashboardBody = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: ${backgroundWhite};
-  ${media.desktop`
-    padding-left: 319px;
-  `};
 `;
