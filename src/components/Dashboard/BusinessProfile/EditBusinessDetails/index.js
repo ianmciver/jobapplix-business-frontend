@@ -157,9 +157,9 @@ function EditBusinessDetails(props) {
         <UrlContainer>
           <UrlInfo>Your business's JobApplix page will be found at: </UrlInfo>
           <UrlLink
-            href={`https://${url}.jobapplix.com`}
+            href={`https://apply.jobapplix.com/${url}`}
             target="_blank_"
-          >{`https://${url}.jobapplix.com`}</UrlLink>
+          >{`https://apply.jobapplix.com/${url}`}</UrlLink>
         </UrlContainer>
       ) : (
         <Error>Sorry, that URL has already been taken</Error>

@@ -34,9 +34,10 @@ export const Welcome = styled.h1`
 `;
 
 export const SubText = styled.h3`
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   text-align: center;
   margin: 20px 10px 10px;
+  line-height: 2.4rem;
 `;
 
 export const PositionButton = styled(NextButton)`

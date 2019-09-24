@@ -37,21 +37,3 @@ export const TextArea = styled.textarea`
   line-height: 1.6rem;
   margin-bottom: 20px;
 `;
-
-export const StripeInput = {
-  base: {
-    color: textDark,
-    fontSize: "18px",
-
-    "::placeholder": {
-      color: borderLight
-    }
-  }
-};
-
-export const StripeInputDiv = styled.div`
-  margin: 0 0 20px;
-  border-bottom: 1px solid ${borderGrey};
-  width: 100%;
-  padding-bottom: 3px;
-`;

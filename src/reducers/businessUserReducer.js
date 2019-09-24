@@ -1,7 +1,8 @@
 import {
   UPDATE_USER,
   FETCHING_USER_DATA,
-  FETCHING_USER_DATA_COMPLETE
+  FETCHING_USER_DATA_COMPLETE,
+  SELECT_BUSINESS
 } from "../actions/businessUserActions";
 
 import { FETCHING_ERROR } from "../actions/businessActions";
@@ -12,7 +13,9 @@ const initialState = {
   image_url: "",
   email: "",
   loading: true,
-  error: false
+  error: false,
+  businesses: [],
+  selectedBusiness: null
 };
 
 export default function BusinessUserReducer(state = initialState, action) {
@@ -25,6 +28,8 @@ export default function BusinessUserReducer(state = initialState, action) {
       return { ...state, loading: false, error: false };
     case FETCHING_ERROR:
       return { ...state, loading: false, error: true };
+    case SELECT_BUSINESS:
+      return { ...state, selected: action.selectedId };
     default:
       return state;
   }

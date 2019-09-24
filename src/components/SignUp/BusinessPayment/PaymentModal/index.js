@@ -9,17 +9,15 @@ import {
   ModalSeparator
 } from "./styles";
 import icon from "../../../../assets/Icon100.png";
-import closeIcon from "../../../../assets/closeIcon.svg";
+import CloseIcon from "../../../../assets/CloseIcon";
 
 export default function PaymentModal(props) {
   return (
     <ModalContainer onClick={props.closeModal}>
       <Modal onClick={e => e.stopPropagation()}>
-        <CloseButton
-          src={closeIcon}
-          alt="close the modal"
-          onClick={props.closeModal}
-        />
+        <CloseButton alt="close the modal" onClick={props.closeModal}>
+          <CloseIcon />
+        </CloseButton>
         <ModalLogo src={icon} alt="Job Applix logo" />
         <PlanGroup>
           <h2>The Monthly Plan</h2>

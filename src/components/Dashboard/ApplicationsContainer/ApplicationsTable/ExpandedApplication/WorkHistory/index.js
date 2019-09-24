@@ -16,7 +16,7 @@ export default function EduHistory(props) {
       {props.history.length ? (
         props.history.map((hist, index) => {
           return (
-            <div key={index}>
+            <div style={{ marginTop: 10 }} key={index}>
               <QuestionContainer>
                 <Question>Employer Name:</Question>
                 <Answer>{hist.employer_name || "None Given"}</Answer>

@@ -1,93 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { Formik } from "formik";
+import * as Yup from "yup";
 
-import { PasswordInput, ButtonContainer } from "./styles";
+import {
+  Form,
+  Label,
+  TextInput,
+  ButtonContainer,
+  NextButton,
+  FormGroup
+} from "../../../styles/forms2";
+
 import {
   Headline,
   SubHeadline,
-  NextButton,
   Error,
   Instructions
 } from "../SignUpContainer/styles";
-import { TextInput } from "../../../styles/forms";
+
 import { SignUpCTA } from "../../SignIn/styles";
 
 import { withFirebase } from "../../../Firebase";
 
 import { createUser } from "../../../actions/businessUserActions";
 
-import { isValidEmail } from "../../../helpers/validationFunctions";
+const SignupSchema = Yup.object().shape({
+  name: Yup.string().required("Your Name is Required"),
+  email: Yup.string()
+    .email("Please Enter a Invalid Email")
+    .required("An Email Address is Required"),
+  title: Yup.string(),
+  password: Yup.string()
+    .min(6, "Password Must be at Least 6 Characters Long")
+    .required("Password is Required"),
+  confirmPassword: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "Passwords Must Match"
+  )
+});
 
 function UserSignUp(props) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [title, setTitle] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [passMatch, setPassMatch] = useState(true);
-  const [passLength, setPassLength] = useState(true);
-  const [buttonDisabled, setButtonDisabled] = useState(true);
   const [error, setError] = useState("");
-  const [emailValid, setEmailValid] = useState(true);
-
-  useEffect(() => {
-    if (email.length > 0) {
-      isValidEmail(email, setEmailValid);
-    }
-  }, [email]);
-
-  useEffect(() => {
-    if (password !== confirmPassword) {
-      setPassMatch(false);
-    } else {
-      setPassMatch(true);
-    }
-    return () => {
-      setPassMatch(true);
-    };
-  }, [confirmPassword, password]);
-
-  useEffect(() => {
-    if (password.length > 5) {
-      setPassLength(true);
-    } else {
-      setPassMatch(true);
-    }
-    return () => {
-      setPassLength(false);
-    };
-  }, [password]);
-
-  useEffect(() => {
-    if (
-      name.length > 0 &&
-      email.length > 0 &&
-      emailValid &&
-      password.length > 0 &&
-      passMatch &&
-      passLength
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  });
-
-  const createFirebaseUser = e => {
-    e.preventDefault();
-    props.firebase
-      .doCreateUserWithEmailAndPassword(email, password)
-      .then(data => {
-        props.createUser(email, name, title, props.next);
-      })
-      .catch(err => {
-        setError(err.message);
-        setPassword("");
-        setConfirmPassword("");
-        setPassLength(true);
-      });
-  };
 
   return (
     <>
@@ -98,49 +53,128 @@ function UserSignUp(props) {
         can invite other users later.
       </Instructions>
       <Instructions>
-        **Note: this will be your own personal account, we'll add business stuff
+        Note: this will be your own personal account, we'll add business stuff
         next.
       </Instructions>
-      <TextInput
-        value={name}
-        onChange={e => setName(e.target.value)}
-        placeholder="FULL NAME*"
+      <Formik
+        initialValues={{
+          name: "",
+          email: "",
+          title: "",
+          password: "",
+          confirmPassword: ""
+        }}
+        validationSchema={SignupSchema}
+        onSubmit={(values, formik) => {
+          formik.setSubmitting(true);
+          props.firebase
+            .doCreateUserWithEmailAndPassword(values.email, values.password)
+            .then(data => {
+              props.createUser(
+                values.email,
+                values.name,
+                values.title,
+                props.next
+              );
+            })
+            .catch(err => {
+              formik.resetForm();
+              formik.setSubmitting(false);
+              setError(err.message);
+            });
+        }}
+        render={({
+          values,
+          touched,
+          errors,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+          dirty
+        }) => {
+          const buttonDisabled =
+            !dirty ||
+            isSubmitting ||
+            (errors.email ||
+              errors.password ||
+              errors.confirmPassword ||
+              errors.name) ||
+            values.password !== values.confirmPassword;
+          return (
+            <Form>
+              <FormGroup>
+                <Label htmlFor="name">Full Name</Label>
+                <TextInput
+                  name="name"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.name && errors.name}
+                />
+                {touched.name && errors.name && <Error>{errors.name}</Error>}
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="email">Email</Label>
+                <TextInput
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.email && errors.email}
+                />
+                {touched.email && errors.email && <Error>{errors.email}</Error>}
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="title">Your Title</Label>
+                <TextInput
+                  name="title"
+                  value={values.title}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="password">Password</Label>
+                <TextInput
+                  name="password"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  type="password"
+                  error={
+                    touched.password &&
+                    (errors.confirmPassword || errors.password)
+                  }
+                />
+                {touched.password && errors.password && (
+                  <Error>{errors.password}</Error>
+                )}
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <TextInput
+                  name="confirmPassword"
+                  value={values.confirmPassword}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  type="password"
+                  match={errors.confirmPassword}
+                />
+              </FormGroup>
+              {touched.confirmPassword && errors.confirmPassword && (
+                <Error>{errors.confirmPassword}</Error>
+              )}
+              {error ? <Error>{error}</Error> : null}
+              <ButtonContainer>
+                <NextButton disabled={buttonDisabled} onClick={handleSubmit}>
+                  {isSubmitting ? "LOADING..." : "NEXT STEP"} &rarr;
+                </NextButton>
+              </ButtonContainer>
+            </Form>
+          );
+        }}
       />
-      <TextInput
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        placeholder="EMAIL*"
-      />
-      <TextInput
-        value={title}
-        onChange={e => setTitle(e.target.value)}
-        placeholder="YOUR TITLE"
-      />
-      <PasswordInput
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        placeholder="PASSWORD*"
-        type="password"
-        match={passMatch}
-      />
-      <PasswordInput
-        value={confirmPassword}
-        onChange={e => setConfirmPassword(e.target.value)}
-        placeholder="CONFIRM PASSWORD*"
-        type="password"
-        match={passMatch}
-      />
-      {!emailValid && <Error>Please Enter a Valid Email</Error>}
-      {passMatch ? null : <Error>Passwords do not match</Error>}
-      {passLength ? null : (
-        <Error>Password must be at least 6 characters long.</Error>
-      )}
-      {error ? <Error>{error}</Error> : null}
-      <ButtonContainer>
-        <NextButton disabled={buttonDisabled} onClick={createFirebaseUser}>
-          NEXT STEP
-        </NextButton>
-      </ButtonContainer>
       <SignUpCTA>
         Already have an account? <Link to="/signin">Sign in now!</Link>
       </SignUpCTA>

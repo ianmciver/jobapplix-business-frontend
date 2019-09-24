@@ -36,7 +36,9 @@ export default function ApplicationsTable() {
         return (
           <ApplicationsRowContent bgcolor={bgcolor} key={app.app_id}>
             <ApplicationRow
-              colOne={`${lastName.answer_text}, ${firstName.answer_text}`}
+              colOne={`${lastName ? lastName.answer_text : ""}, ${
+                firstName ? firstName.answer_text : ""
+              }`}
               colTwo={app.position_name}
               colThree={() => (
                 <GroupsDropdown selected={groupName.title} appId={app.app_id} />

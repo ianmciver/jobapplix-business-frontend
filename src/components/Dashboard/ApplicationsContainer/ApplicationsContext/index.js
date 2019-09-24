@@ -46,12 +46,12 @@ function ApplicationsProvider(props) {
   });
   const groups = [
     { id: 1000, title: "All" },
-    { id: 0, title: "New" },
-    { id: 1, title: "Hired" },
-    { id: 2, title: "High Potential" },
-    { id: 3, title: "Pile" },
-    { id: 4, title: "In Progress" },
-    { id: 5, title: "Not Hired" }
+    { id: 1, title: "New" },
+    { id: 2, title: "Hired" },
+    { id: 3, title: "In Progress" },
+    { id: 5, title: "Pile" },
+    { id: 4, title: "High Potential" },
+    { id: 6, title: "Not Hired" }
   ];
 
   const changeApplicationGroup = async (id, groupId) => {

@@ -30,6 +30,7 @@ export default function ExpandedApplication(props) {
       {appContext.selectedApp && appContext.selectedApp.app_id ? (
         <>
           {questionGroups.map(g => {
+            console.log(g);
             if (g.groupName === "basic") {
               return (
                 <GeneralInformation
@@ -45,7 +46,7 @@ export default function ExpandedApplication(props) {
           })}
           {app.includeAvailability &&
             app.availability &&
-            app.availability.length && (
+            app.availability.length > 0 && (
               <Availability
                 availability={app.availability[0]}
                 shiftTimes={app.shiftTimes}

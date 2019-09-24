@@ -16,11 +16,12 @@ import {
   SubTotal
 } from "./styles";
 
+import { ButtonContainer, NextButton } from "../../../../styles/forms2";
+
 import { Error } from "../../SignUpContainer/styles";
 import SubscriptionModal from "../../../Dashboard/SubscriptionDetails/SubscriptionModal";
 
 import Form from "./Form";
-import { NextButton } from "../../SignUpContainer/styles";
 
 import { processPaymentDetails } from "../../../../actions/businessActions";
 
@@ -29,9 +30,6 @@ const PaymentForm = props => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [cardComplete, setCardComplete] = useState("");
-  const [cvcComplete, setCvcComplete] = useState("");
-  const [zipComplete, setZipComplete] = useState("");
-  const [expComplete, setExpComplete] = useState("");
   const [emailValid, setEmailValid] = useState(true);
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
@@ -42,19 +40,12 @@ const PaymentForm = props => {
   }, [email]);
 
   useEffect(() => {
-    if (
-      name.length > 1 &&
-      emailValid &&
-      cardComplete &&
-      cvcComplete &&
-      zipComplete &&
-      expComplete
-    ) {
+    if (name.length > 1 && emailValid && cardComplete) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
     }
-  }, [name, emailValid, cardComplete, cvcComplete, zipComplete, expComplete]);
+  }, [name, emailValid, cardComplete]);
 
   const submitPayment = async e => {
     let { token } = await props.stripe.createToken({ name, email });
@@ -79,9 +70,6 @@ const PaymentForm = props => {
           setEmail={setEmail}
           emailValid={emailValid}
           setCardComplete={setCardComplete}
-          setCvcComplete={setCvcComplete}
-          setZipComplete={setZipComplete}
-          setExpComplete={setExpComplete}
         />
         <FinePrintContainer>
           <FinePrint>terms</FinePrint>
@@ -93,15 +81,16 @@ const PaymentForm = props => {
           {props.subType === "yearly" ? "$349.99" : "$34.99"} will be charged on
           {` ${format(addDays(new Date(), 30), "MM/DD/YYYY")}`}
         </SubTotal>
-        {!emailValid && <Error>Please Enter a Valid Email</Error>}
-        <NextButton onClick={submitPayment} disabled={buttonDisabled}>
-          SUBMIT
-        </NextButton>
+        <ButtonContainer>
+          <NextButton onClick={submitPayment} disabled={buttonDisabled}>
+            SUBMIT &rarr;
+          </NextButton>
+        </ButtonContainer>
       </FormContainer>
       {processing && (
         <SubscriptionModal
           title="PROCESSING"
-          message="Your payment is being processed, this may take a minute."
+          message="Your card is being processed, this may take a minute."
         />
       )}
     </>

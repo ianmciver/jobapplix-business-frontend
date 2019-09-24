@@ -1,8 +1,11 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
+import UserCheckHOC from "../UserCheckHOC";
+
 import UserSignUp from "../UserSignUp";
 import BusinessBasics from "../BusinessBasics";
+import CustomUrl from "../CustomUrl";
 import BusinessDescription from "../BusinessDescription";
 import BusinessPayment from "../BusinessPayment";
 import BusinessLogo from "../BusinessLogo";
@@ -16,13 +19,10 @@ import { signup } from "../../../constants/routes";
 
 export default function SignUpContainer(props) {
   const nextScreen = () => {
-    let location = props.location.pathname.split("/");
-    let step = location[location.length - 1];
-    if (step === "signup") {
-      props.history.push(`${signup}/1`);
-    } else {
-      props.history.push(`${signup}/${Number(step) + 1}`);
-    }
+    const { state } = props.location;
+    const newState = state ? Number(state) + 1 : 1;
+
+    props.history.push({ pathname: signup, state: newState.toString() });
   };
 
   return (
@@ -30,29 +30,49 @@ export default function SignUpContainer(props) {
       <Header />
       <Container>
         <Route
-          exact
           path={signup}
-          render={props => <UserSignUp next={nextScreen} />}
-        />
-        <Route
-          path={`${signup}/1`}
-          render={props => <BusinessBasics next={nextScreen} />}
-        />
-        <Route
-          path={`${signup}/2`}
-          render={props => <BusinessDescription next={nextScreen} />}
-        />
-        <Route
-          path={`${signup}/3`}
-          render={props => <BusinessPayment next={nextScreen} />}
-        />
-        <Route
-          path={`${signup}/4`}
-          render={props => <BusinessLogo next={nextScreen} />}
-        />
-        <Route
-          path={`${signup}/5`}
-          render={props => <SignUpComplete next={nextScreen} {...props} />}
+          render={props => {
+            const { location } = props;
+            if (!location.state) {
+              return <UserSignUp next={nextScreen} />;
+            } else if (location.state === "1") {
+              return (
+                <UserCheckHOC>
+                  <BusinessBasics next={nextScreen} />
+                </UserCheckHOC>
+              );
+            } else if (location.state === "2") {
+              return (
+                <UserCheckHOC>
+                  <CustomUrl next={nextScreen} />
+                </UserCheckHOC>
+              );
+            } else if (location.state === "3") {
+              return (
+                <UserCheckHOC>
+                  <BusinessDescription next={nextScreen} />
+                </UserCheckHOC>
+              );
+            } else if (location.state === "4") {
+              return (
+                <UserCheckHOC>
+                  <BusinessPayment next={nextScreen} />
+                </UserCheckHOC>
+              );
+            } else if (location.state === "5") {
+              return (
+                <UserCheckHOC>
+                  <BusinessLogo next={nextScreen} />
+                </UserCheckHOC>
+              );
+            } else if (location.state === "6") {
+              return (
+                <UserCheckHOC>
+                  <SignUpComplete {...props} />
+                </UserCheckHOC>
+              );
+            }
+          }}
         />
       </Container>
       <Footer />

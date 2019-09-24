@@ -1,139 +1,139 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
+import { Formik } from "formik";
+import * as Yup from "yup";
 
 import Progress from "../ProgressBar";
 
-import { TextInput } from "../../../styles/forms";
+import {
+  Form,
+  FormGroup,
+  Label,
+  TextInput,
+  ButtonContainer,
+  NextButton
+} from "../../../styles/forms2";
+
 import {
   Headline,
   SubHeadline,
   Instructions,
-  NextButton,
-  Error,
-  JobApplixAddress,
-  AddressLine
+  Error
 } from "../SignUpContainer/styles";
 
-import {
-  createBusinessBasics,
-  checkUrlForAvailability
-} from "../../../actions/businessActions";
+import { createBusinessBasics } from "../../../actions/businessActions";
+
+const BusinessBasicsSchema = Yup.object().shape({
+  name: Yup.string().required("Please Enter a Business or Organization Name"),
+  email: Yup.string().email("Please Enter a Valid Email"),
+  phone: Yup.string(),
+  website: Yup.string(),
+  address: Yup.string()
+});
 
 function BusinessBasics(props) {
-  const [businessName, setBusinessName] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState("");
-  const [website, setWebsite] = useState("");
-  const [url, setUrl] = useState("");
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [urlAvailable, setUrlAvailable] = useState(true);
-
-  useEffect(() => {
-    if (businessName.length > 0 && url.length > 0 && urlAvailable) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [businessName, url, urlAvailable]);
-
-  const validateUrl = () => {
-    checkUrlForAvailability(url)
-      .then(res => {
-        if (res.data.url) {
-          setUrlAvailable(true);
-        } else {
-          setUrlAvailable(false);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  const restrictURLChars = e => {
-    const allowableChars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-_";
-    let newEntry = e.target.value
-      .split("")
-      .filter(char => allowableChars.includes(char))
-      .join("");
-    setUrl(newEntry);
-  };
-
-  const buttonClickHandler = () => {
-    props.createBusinessBasics(
-      businessName,
-      email,
-      address,
-      phone,
-      website,
-      url
-    );
-
-    props.next();
-  };
-
   return (
     <>
       <Headline>CREATE A BUSINESS</Headline>
-      <Progress progress={"20%"} />
+      <Progress progress={"16%"} />
       <SubHeadline>Business Information</SubHeadline>
       <Instructions>
         Great! Now let's create a business account. All the information here
         will appear on your public facing JobApplix webpage.
       </Instructions>
-      <TextInput
-        placeholder="BUSINESS NAME*"
-        value={businessName}
-        onChange={e => setBusinessName(e.target.value)}
-      />
-      <TextInput
-        placeholder="BUSINESS WEBSITE"
-        value={website}
-        onChange={e => setWebsite(e.target.value)}
-      />
-      <TextInput
-        placeholder="BUSINESS EMAIL"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
-      <TextInput
-        placeholder="ADDRESS"
-        value={address}
-        onChange={e => setAddress(e.target.value)}
-      />
-      <TextInput
-        placeholder="PHONE NUMBER"
-        value={phone}
-        onChange={e => setPhone(e.target.value)}
-      />
+      <Formik
+        validationSchema={BusinessBasicsSchema}
+        onSubmit={({ name, email, address, phone, website }) => {
+          props.createBusinessBasics({
+            name,
+            email,
+            address,
+            phone,
+            website
+          });
 
-      <Instructions>
-        **Note: Your Custom JobApplix Address can only be letters and numbers.
-        This will be the address applicants will go to find your JobApplix
-        application. You can see a preview of your new address at the bottom of
-        the page.
-      </Instructions>
-      <TextInput
-        placeholder="UNIQUE JOBAPPLIX ADDRESS*"
-        value={url}
-        onChange={restrictURLChars}
-        onBlur={validateUrl}
+          props.next();
+        }}
+        initialValues={{
+          name: "",
+          website: "",
+          email: "",
+          address: "",
+          phone: ""
+        }}
+        render={({
+          values,
+          touched,
+          errors,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          dirty,
+          isSubmitting
+        }) => {
+          const buttonDisabled =
+            !dirty || isSubmitting || (errors.email || errors.name);
+          return (
+            <Form>
+              <FormGroup>
+                <Label htmlFor="name">Name of Business or Organization</Label>
+                <TextInput
+                  name="name"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.name && errors.name}
+                />
+                {touched.name && errors.name && <Error>{errors.name}</Error>}
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="website">Current Business Website</Label>
+                <TextInput
+                  name="website"
+                  value={values.website}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.website && errors.website}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="email">Business Email</Label>
+                <TextInput
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.email && errors.email}
+                />
+                {touched.email && errors.email && <Error>{errors.email}</Error>}
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="address">Business Address</Label>
+                <TextInput
+                  name="address"
+                  value={values.address}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="phone">Business Phone Number</Label>
+                <TextInput
+                  name="phone"
+                  value={values.phone}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </FormGroup>
+              <ButtonContainer>
+                <NextButton onClick={handleSubmit} disabled={buttonDisabled}>
+                  NEXT STEP &rarr;
+                </NextButton>
+              </ButtonContainer>
+            </Form>
+          );
+        }}
       />
-      {urlAvailable ? (
-        <>
-          <AddressLine>
-            Your business's JobApplix page will be found at:{" "}
-          </AddressLine>
-          <JobApplixAddress>{`https://apply.jobapplix.com/${url}`}</JobApplixAddress>
-        </>
-      ) : (
-        <Error>Sorry, that JobApplix Address has already been taken</Error>
-      )}
-      <NextButton onClick={buttonClickHandler} disabled={buttonDisabled}>
-        NEXT STEP
-      </NextButton>
     </>
   );
 }

@@ -29,4 +29,5 @@ export const DetailTitle = styled.h2`
 
 export const DetailValue = styled.h3`
   font-size: 1.6rem;
+  white-space: pre-line;
 `;

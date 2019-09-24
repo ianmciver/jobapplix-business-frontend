@@ -16,7 +16,11 @@ function BusinessDetails(props) {
       </DetailGroup>
       <DetailGroup>
         <DetailTitle>JobApplix URL:</DetailTitle>
-        <DetailValue>https://{props.business.url}.jobapplix.com</DetailValue>
+        <DetailValue>
+          <a href={`https://apply.jobapplix.com/${props.business.url}`}>
+            https://apply.jobapplix.com/{props.business.url}
+          </a>
+        </DetailValue>
       </DetailGroup>
       <DetailGroup>
         <DetailTitle>Business Email:</DetailTitle>

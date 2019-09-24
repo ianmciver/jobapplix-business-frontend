@@ -5,7 +5,8 @@ import { firebase } from "../index";
 import {
   FETCHING_USER_DATA,
   FETCHING_USER_DATA_COMPLETE,
-  UPDATE_USER
+  UPDATE_USER,
+  SELECT_BUSINESS
 } from "./businessUserActions";
 
 export const CREATE_BUSINESS_BASICS = "CREATE_BUSINESS_BASICS";
@@ -19,17 +20,10 @@ export const UPDATE_USER_ROLE = "UPDATE_USER_ROLE";
 export const CREATE_POSITION = "CREATE_POSITION";
 export const FETCHING_ERROR = "FETCHING_ERROR";
 
-export const createBusinessBasics = (
-  name,
-  email,
-  address,
-  phone,
-  website,
-  url
-) => {
+export const createBusinessBasics = itemsToUpdate => {
   return {
     type: CREATE_BUSINESS_BASICS,
-    payload: { name, email, address, phone, website, url }
+    payload: { ...itemsToUpdate }
   };
 };
 
@@ -114,14 +108,22 @@ export const uploadFileToS3 = (file, next) => {
 export const getBusinessSummary = errorCallback => {
   return async (dispatch, getState, API_URL) => {
     const token = await firebase.doGetCurrentUserIdToken();
+    let selectedBusinessId;
     axios
-      .get(`${API_URL}/businesses/summary?token=${token}`)
+      .get(`${API_URL}/businesses/user?token=${token}`)
+      .then(({ data }) => {
+        dispatch({ type: UPDATE_USER, user: data.user });
+        let selectedPreference = data.user.businesses.find(
+          item => item.prefered_business
+        );
+        selectedBusinessId = selectedPreference || data.user.businesses[0].id;
+        dispatch({ type: SELECT_BUSINESS, selected: selectedBusinessId });
+        return axios.get(
+          `${API_URL}/businesses/summary?token=${token}&bid=${selectedBusinessId}`
+        );
+      })
       .then(({ data }) => {
         dispatch({ type: UPDATE_BUSINESS, payload: data.business });
-        return axios.get(`${API_URL}/businesses/user?token=${token}`);
-      })
-      .then(res => {
-        dispatch({ type: UPDATE_USER, user: res.data.user });
         dispatch({ type: FETCHING_USER_DATA_COMPLETE });
       })
       .catch(err => {

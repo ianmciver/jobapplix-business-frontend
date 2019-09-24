@@ -5,12 +5,14 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import { StripeProvider } from "react-stripe-elements";
 import thunk from "redux-thunk";
+import { ThemeProvider } from "styled-components";
 
 import App from "./App";
 import Firebase, { FirebaseContext } from "./Firebase";
 import reducers from "./reducers";
 import "./index.css";
 import { API_URL } from "./constants/urls";
+import theme from "./styles/theme";
 
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -33,7 +35,9 @@ ReactDOM.render(
     <Router>
       <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}>
         <FirebaseContext.Provider value={firebase}>
-          <App />
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
         </FirebaseContext.Provider>
       </StripeProvider>
     </Router>

@@ -1,156 +1,125 @@
 import styled, { css } from "styled-components";
+import { lighten, transparentize } from "polished";
+
 import { media } from "../../../styles/mediaQueries";
-import {
-  borderBlue,
-  backgroundWhite,
-  borderLight,
-  textBlue,
-  textDark,
-  borderQuestion
-} from "../../../constants/colors";
+
+export const JALogoContainer = styled.div`
+  width: 250px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const JALogo = styled.img`
+  width: 150px;
+`;
 
 export const ModalContainer = styled.div`
   display: ${props => (props.show ? "block" : "none")};
+  background-color: ${props =>
+    props.blur
+      ? transparentize(0.1, props.theme.backgroundWhite)
+      : "transparent"};
   position: fixed;
   width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 100;
+  ${media.desktop`
+    background-color: transparent;
+    display: ${props => (props.userShow ? "block" : "none")};
+  `}
 `;
 
 export const MenuContainer = styled.div`
   position: fixed;
   height: 100vh;
-  ${props =>
-    props.left
-      ? css`
-          left: ${props => (props.open ? 0 : "-319px")};
-        `
-      : css`
-          right: ${props => (props.open ? 0 : "-319px")};
-        `}
-  width: 100%;
-  max-width: 319px;
-  ${props =>
-    props.left
-      ? css`
-          border-right: 25px solid ${borderBlue};
-        `
-      : css`
-          border-left: 25px solid ${borderBlue};
-        `}
-
+  left: ${props => (props.open ? 0 : "-319px")};
+  border-right: 1px solid ${props => props.theme.backgroundNoteBox};
   z-index: 1000;
   transition: right 0.5s, left 0.5s;
-  background-color: ${backgroundWhite};
+  background-color: ${props => props.theme.backgroundGrey};
+  background-image: ${props =>
+    css`linear-gradient(to right, ${lighten(
+      0.1,
+      props.theme.backgroundGrey
+    )} 0, ${props.theme.backgroundGrey} 100%)`};
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  ${props => media.desktop`
-    ${props.left &&
-      `
-      left: 0;
-      top: 50px;
-      border-right: 5px solid ${borderBlue};
-      `}
+  ${media.desktop`
+    left: 0;
+    top: 50px;
   `}
 `;
 
-export const CloseIcon = styled.div`
-  position: absolute;
-  top: 20px;
-  ${props =>
-    props.left
-      ? css`
-          right: -21px;
-        `
-      : css`
-          left: -21px;
-        `}
-
+export const CloseIconContainer = styled.div`
+  position: fixed;
+  top: 10px;
+  right: 10px;
   cursor: pointer;
-  ${props =>
-    props.left &&
-    css`
-      transform: rotate(180deg);
-    `}
-  ${props => media.desktop`
-    ${props.left && `display: none`}
+  width: 50px;
+  height: 50px;
+  background-color: ${props => props.theme.backgroundGrey};
+  border: 2px solid ${props => props.theme.backgroundNoteBox};
+  border-radius: 50%;
+  display: ${props => (props.show ? "flex" : "none")};
+  justify-content: center;
+  align-items: center;
+  transform: rotate(180deg);
+  ${media.desktop`
+    display: none;
   `}
-`;
-
-// Experimental styles to follow:
-export const BusinessLogoContainer = styled.div`
-  width: 90%;
-  height: 40px;
-  margin: 30px 10px 10px;
-  border: 1px solid ${borderLight};
-  background-color: ${backgroundWhite};
-  border-radius: 5px;
-  padding: 5px 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  svg {
-    transform: rotate(90deg);
-  }
-`;
-export const LogoNameHolder = styled.div`
-  display: flex;
-  align-items: center;
-`;
-export const BusinessLogo = styled.div`
-  width: 30px;
-  height: 30px;
-  ${props =>
-    css`
-      background: url(${props.image});
-    `};
-  background-position: center;
-  background-size: cover;
-  background-color: ${backgroundWhite};
-  background-repeat: no-repeat;
-`;
-
-export const BusinessName = styled.h2`
-  font-size: 1.8rem;
-  margin-left: 5px;
 `;
 
 // Menu items:
+export const MenuIconWrapper = styled.div`
+  height: 80px;
+  padding: 10px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 5px solid transparent;
+  margin-right: 10px;
+  ${media.desktop`
+    padding: 40px 30px;
+    width: 100%;
+    margin-right: 0;
+  `};
+`;
+
+export const MenuIcon = styled.div`
+  svg {
+    fill: ${props => props.theme.textLight};
+    width: 30px;
+    height: 30px;
+  }
+`;
 
 export const MenuItem = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 25px 30px;
-  border-bottom: 1px solid ${borderQuestion};
   justify-content: flex-start;
   cursor: pointer;
-
+  position: relative;
   &:hover {
-    h3 {
-      color: ${textBlue};
-    }
-
-    svg {
-      fill: ${textBlue};
+    background-color: ${props => props.theme.backgroundNoteBox};
+    ${MenuIconWrapper} {
+      border-left: 5px solid ${props => props.theme.backgroundBlue};
     }
   }
 `;
 
 export const MenuItemTitle = styled.h3`
   text-transform: uppercase;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: ${textDark};
-`;
-
-export const MenuIcon = styled.div`
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
+  font-size: 1.3rem;
+  /* font-weight: 700; */
+  color: ${props => props.theme.textLight};
+  text-align: center;
+  ${media.desktop`
+    display: none;
+  `};
 `;

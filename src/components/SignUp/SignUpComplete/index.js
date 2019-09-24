@@ -9,6 +9,7 @@ import {
   SubText,
   PositionButton
 } from "./styles";
+import { ButtonContainer, NextButton } from "../../../styles/forms2";
 import { dashboard, createPosition } from "../../../constants/routes";
 
 export default function SignUpComplete(props) {
@@ -32,13 +33,13 @@ export default function SignUpComplete(props) {
         Now, let's keep this momentum rolling and create your first position and
         custom application!
       </SubText>
-      <PositionButton onClick={navigateToPostition}>
+      <NextButton onClick={navigateToPostition}>
         CREATE FIRST POSITION
-      </PositionButton>
+      </NextButton>
       <SubText>Or, head on over to your business portal.</SubText>
-      <PositionButton onClick={navigateToDash}>
-        SIGN IN TO BUSINESS PORTAL
-      </PositionButton>
+      <NextButton onClick={navigateToDash}>
+        SIGN IN TO BUSINESS PORTAL &rarr;
+      </NextButton>
     </CompleteContainer>
   );
 }

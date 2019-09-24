@@ -15,6 +15,7 @@ export const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #fafafa;
 `;
 
 export const SignInContainer = styled.div`
@@ -46,9 +47,10 @@ export const CheckboxContainer = styled.div`
   align-self: flex-start;
   display: flex;
   align-items: center;
-
-  span {
+  margin-top: 10px;
+  label {
     font-size: 1.1rem;
+    margin-left: 5px;
   }
 `;
 
@@ -76,7 +78,7 @@ export const SignUpCTA = styled.span`
   align-self: flex-start;
   font-size: 1.1rem;
   color: ${textDark};
-  margin-bottom: 10px;
+  margin-left: 10px;
   a {
     color: ${textBlue};
     font-weight: 700;
