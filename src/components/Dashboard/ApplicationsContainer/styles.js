@@ -65,5 +65,6 @@ export const ApplicationsTitle = styled.h2`
   color: ${textDark};
   margin-bottom: 30px;
   margin-left: 30px;
+
   align-self: flex-start;
 `;

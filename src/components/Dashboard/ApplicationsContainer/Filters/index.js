@@ -2,7 +2,7 @@ import React from "react";
 
 import FilterContainer from "./FilterContainer";
 import PositionsFilter from "./PositionsFilter";
-import AvailabilityFilter from "./AvailabilityFilter";
+import AvailabilityFilter from "../OptionsMenu/FiltersGroup/AvailabilityFilter";
 
 import { FiltersModal, FiltersContainer, Instructions } from "./styles";
 

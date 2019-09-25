@@ -44,6 +44,7 @@ function ApplicationsProvider(props) {
     wed_second: false,
     wed_third: false
   });
+  const [availabilityFilterOpen, setAvailabilityFilterOpen] = useState(false);
   const groups = [
     { id: 1000, title: "All" },
     { id: 1, title: "New" },
@@ -131,9 +132,7 @@ function ApplicationsProvider(props) {
       } else {
         setSelectedApp({});
         let response = await axios.get(
-          `${API_URL}/applications?token=${token}&bid=${
-            props.businessId
-          }&appid=${id}`
+          `${API_URL}/applications?token=${token}&bid=${props.businessId}&appid=${id}`
         );
         const app = formatApplication(response.data.application);
         setSelectedApp(app);
@@ -209,7 +208,9 @@ function ApplicationsProvider(props) {
         selectedPositions,
         selectPosition,
         toggleAvailability,
-        availabilityFilter
+        availabilityFilter,
+        availabilityFilterOpen,
+        setAvailabilityFilterOpen
       }}
     >
       {props.children}

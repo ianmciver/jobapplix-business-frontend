@@ -38,7 +38,7 @@ export const MenuContainer = styled.div`
   height: 100vh;
   left: ${props => (props.open ? 0 : "-319px")};
   border-right: 1px solid ${props => props.theme.backgroundNoteBox};
-  z-index: 1000;
+  z-index: 999;
   transition: right 0.5s, left 0.5s;
   background-color: ${props => props.theme.backgroundGrey};
   background-image: ${props =>

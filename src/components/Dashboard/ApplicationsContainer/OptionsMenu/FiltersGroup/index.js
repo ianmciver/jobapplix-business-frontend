@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import { ApplicationsContext } from "../../ApplicationsContext";
 
+import AvailabilityFilter from "./AvailabilityFilter";
+
 import Chevron from "../../../../../assets/Chevron";
 import Expand from "../../../../../assets/Expand";
 import Plus from "../../../../../assets/Plus";
@@ -82,7 +84,9 @@ function FiltersGroup(props) {
           </FilterGroups>
         )}
         <FilterGroups open={filterGroupOpen}>
-          <FilterGroupTitle>
+          <FilterGroupTitle
+            onClick={e => appContext.setAvailabilityFilterOpen(true)}
+          >
             <Expand width="16px" height="16px" />
             Availability
           </FilterGroupTitle>
