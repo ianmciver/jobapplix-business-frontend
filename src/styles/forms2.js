@@ -49,6 +49,7 @@ export const NextButton = styled.button`
   border: 0;
   border-radius: 5px;
   letter-spacing: 2px;
+  outline: none;
   background-color: #4dd0e1;
   background-image: linear-gradient(
     to right,

@@ -9,6 +9,7 @@ export const PositionsListContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 1000px;
   ${media.desktop`
     /* padding: 0 50px; */
     width: calc(100% - 180px);

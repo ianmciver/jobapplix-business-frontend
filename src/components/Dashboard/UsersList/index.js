@@ -70,7 +70,7 @@ function UsersList(props) {
       <UsersListDescription>
         These are all of the users associated with your business. If you have
         the proper authorization you may change a users auth level. You may also
-        invite a new user here.
+        invite a new user to your organization.
       </UsersListDescription>
       <CreateButton
         onClick={e => props.history.push(`${dashboard}${inviteUserUrl}`)}

@@ -67,7 +67,7 @@ export default function OptionsMenu(props) {
           </OptionsMenuContainer>
         )}
       </Transition>
-      {applicationContext.availabilityFilterOpen && <AvailabilityFilter />}
+      <AvailabilityFilter />
     </>
   );
 }

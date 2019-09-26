@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { darken, lighten } from "polished";
 import { media } from "../../../styles/mediaQueries";
 
 import {
@@ -12,6 +12,7 @@ import {
 export const UsersListContainer = styled.div`
   margin-top: 25px;
   width: 100%;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
   margin-left: 30px;
@@ -71,11 +72,16 @@ export const CreateButton = styled.div`
   align-self: flex-start;
   display: flex;
   align-items: center;
-  margin: 30px 30px 0;
+  margin: 30px 30px 30px 0;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px -1px rgba(0, 0, 0, 0.2);
+  border: 1px solid transparent;
+
   svg {
     width: 15px;
     height: 15px;
-    fill: ${textBlue};
+    fill: ${props => props.theme.textBlue};
     margin-right: 7px;
   }
 
@@ -83,9 +89,22 @@ export const CreateButton = styled.div`
     font-size: 1.4rem;
     text-transform: uppercase;
     font-weight: 700px;
-    color: ${textBlue};
+    color: ${props => props.theme.textBlue};
   }
-  ${media.desktop`margin: 30px 0 0;`};
+
+  &:hover {
+    svg {
+      fill: ${props => darken(0.1, props.theme.textBlue)};
+    }
+    span {
+      color: ${props => darken(0.1, props.theme.textBlue)};
+    }
+    border: 1px solid ${props => lighten(0.4, props.theme.textBlue)};
+  }
+
+  &:hover:active {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  }
 `;
 
 export const CancelInvite = styled.div`

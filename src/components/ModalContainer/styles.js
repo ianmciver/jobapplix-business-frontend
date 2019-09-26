@@ -9,9 +9,16 @@ export const Container = styled.div`
   min-height: 100vh;
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.9);
-  display: flex;
+  display: ${props =>
+    props.state === "entering" ||
+    props.state === "entered" ||
+    props.state === "exiting"
+      ? `flex`
+      : `none`};
   justify-content: center;
   align-items: center;
+  opacity: ${props => (props.state === "entered" ? 1 : 0)};
+  transition: opacity 300ms;
 `;
 
 export const CloseIconContainer = styled.div`

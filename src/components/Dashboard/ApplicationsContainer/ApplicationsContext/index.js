@@ -13,6 +13,30 @@ export const ApplicationsContext = createContext({
   changeApplicationGroup: () => {}
 });
 
+const initialAvailability = {
+  fri_first: false,
+  fri_second: false,
+  fri_third: false,
+  mon_first: false,
+  mon_second: false,
+  mon_third: false,
+  sat_first: false,
+  sat_second: false,
+  sat_third: false,
+  sun_first: false,
+  sun_second: false,
+  sun_third: false,
+  thurs_first: false,
+  thurs_second: false,
+  thurs_third: false,
+  tues_first: false,
+  tues_second: false,
+  tues_third: false,
+  wed_first: false,
+  wed_second: false,
+  wed_third: false
+};
+
 function ApplicationsProvider(props) {
   const firebase = useContext(FirebaseContext);
   const [selectedGroupId, setSelectedGroupId] = useState(1000);
@@ -21,29 +45,9 @@ function ApplicationsProvider(props) {
   const [selectedApp, setSelectedApp] = useState({});
   const [selectedAppId, setSelectedAppId] = useState(-1);
   const [applicationCache, setApplicationCache] = useState({});
-  const [availabilityFilter, setAvailabilityFilter] = useState({
-    fri_first: false,
-    fri_second: false,
-    fri_third: false,
-    mon_first: false,
-    mon_second: false,
-    mon_third: false,
-    sat_first: false,
-    sat_second: false,
-    sat_third: false,
-    sun_first: false,
-    sun_second: false,
-    sun_third: false,
-    thurs_first: false,
-    thurs_second: false,
-    thurs_third: false,
-    tues_first: false,
-    tues_second: false,
-    tues_third: false,
-    wed_first: false,
-    wed_second: false,
-    wed_third: false
-  });
+  const [availabilityFilter, setAvailabilityFilter] = useState(
+    initialAvailability
+  );
   const [availabilityFilterOpen, setAvailabilityFilterOpen] = useState(false);
   const groups = [
     { id: 1000, title: "All" },
@@ -188,6 +192,10 @@ function ApplicationsProvider(props) {
     setAvailabilityFilter(newAvailFilter);
   };
 
+  const resetAvailability = () => {
+    setAvailabilityFilter(initialAvailability);
+  };
+
   useEffect(() => {
     setGroupSelected(selectedGroupId);
   }, [props.applications, selectedPositions, availabilityFilter]);
@@ -210,7 +218,8 @@ function ApplicationsProvider(props) {
         toggleAvailability,
         availabilityFilter,
         availabilityFilterOpen,
-        setAvailabilityFilterOpen
+        setAvailabilityFilterOpen,
+        resetAvailability
       }}
     >
       {props.children}
