@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
+import InviteUser from "./InviteUser";
 import ActiveDropdown from "../PositionsList/ActiveDropdown";
-
 import CheckBoxCheck from "../../../assets/checkboxCheck";
 
 import {
@@ -45,6 +45,7 @@ export const roleToNumerical = {
 };
 
 function UsersList(props) {
+  const [inviteUserOpen, setInviteUserOpen] = useState(false);
   useEffect(() => {
     if (props.users.length < 1) {
       props.getListOfBusinessUsers();
@@ -72,9 +73,7 @@ function UsersList(props) {
         the proper authorization you may change a users auth level. You may also
         invite a new user to your organization.
       </UsersListDescription>
-      <CreateButton
-        onClick={e => props.history.push(`${dashboard}${inviteUserUrl}`)}
-      >
+      <CreateButton onClick={e => setInviteUserOpen(true)}>
         <CheckBoxCheck />
         <span>Invite a new user</span>
       </CreateButton>
@@ -113,6 +112,10 @@ function UsersList(props) {
           );
         })}
       </UserTable>
+      <InviteUser
+        open={inviteUserOpen}
+        close={() => setInviteUserOpen(false)}
+      />
     </UsersListContainer>
   );
 }

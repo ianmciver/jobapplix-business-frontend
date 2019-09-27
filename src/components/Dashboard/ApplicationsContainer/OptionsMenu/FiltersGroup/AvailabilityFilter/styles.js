@@ -61,6 +61,7 @@ export const CancelButton = styled(NextButton)`
   margin-right: 20px;
   background-image: none;
   background-color: ${props => props.theme.backgroundGrey};
+  height: 40px;
   &:hover {
     background-color: ${props => lighten(0.1, props.theme.backgroundGrey)};
   }

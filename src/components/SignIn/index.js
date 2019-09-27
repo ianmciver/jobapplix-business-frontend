@@ -9,7 +9,6 @@ import { dashboard } from "../../constants/routes";
 import {
   SignInContainer,
   CheckboxContainer,
-  SignInButton,
   SignUpCTA,
   ErrorText,
   AppContainer,
