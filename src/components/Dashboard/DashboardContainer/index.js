@@ -13,7 +13,6 @@ import CreatePositionContainer from "../Position/CreatePositionContainer";
 import UpdatePositionContainer from "../Position/UpdatePositionContainer";
 import PositionsList from "../PositionsList";
 import UsersList from "../UsersList";
-import InviteUser from "../InviteUser";
 import TopBar from "../TopBar";
 import Loading from "../Loading";
 import UserMenu from "../Menus/UserMenu";
@@ -30,7 +29,6 @@ import {
   positionsList,
   usersList,
   updatePositionUrl,
-  inviteUserUrl,
   businessProfile,
   userProfile,
   subscription,
@@ -104,10 +102,6 @@ function DashboardContainer(props) {
               component={PositionsList}
             />
             <Route path={`${dashboard}${usersList}`} component={UsersList} />
-            <Route
-              path={`${dashboard}${inviteUserUrl}`}
-              component={InviteUser}
-            />
             <Route
               path={`${dashboard}${businessProfile}`}
               component={BusinessProfile}

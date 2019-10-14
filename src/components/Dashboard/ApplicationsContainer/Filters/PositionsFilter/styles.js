@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { textLight, borderWhite } from "../../../../../constants/colors";
-
 export const PositionContainer = styled.div`
   width: 100%;
   display: flex;
@@ -13,7 +11,7 @@ export const PositionCheckBox = styled.div`
   width: 24px;
   height: 24px;
   margin-right: 10px;
-  border: 1px solid ${borderWhite};
+  border: 1px solid ${props => props.theme.borderWhite};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,6 +27,6 @@ export const PositionCheckBox = styled.div`
 
 export const PositionName = styled.span`
   font-size: 1.5rem;
-  color: ${textLight};
+  color: ${props => props.theme.textLight};
   padding-left: 10px;
 `;

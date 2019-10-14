@@ -1,22 +1,12 @@
 import styled from "styled-components";
 
-import {
-  textLight,
-  textBlue,
-  borderAvailGraph,
-  backgroundBlue35percent,
-  backgroundNoteBox,
-  textUnselected,
-  backgroundBlue
-} from "../../../../../../constants/colors";
-
 export const DividerBar = styled.div`
   margin-bottom: 20px;
-  border-bottom: 1px solid ${borderAvailGraph};
+  border-bottom: 1px solid ${props => props.theme.borderAvailGraph};
 `;
 export const NoteSubHeader = styled.p`
   font-size: 1.2rem;
-  color: ${textBlue};
+  color: ${props => props.theme.textBlue};
   font-style: italic;
 `;
 
@@ -44,27 +34,27 @@ export const NoteAuthor = styled.p`
 
 export const NoteBox = styled.textarea`
   width: 100%;
-  border: 2px solid ${backgroundBlue35percent};
-  background-color: ${backgroundNoteBox};
+  border: 2px solid ${props => props.theme.backgroundBlue35percent};
+  background-color: ${props => props.theme.backgroundNoteBox};
   padding: 7px;
   height: 150px;
   outline: none;
   &::placeholder {
-    color: ${textUnselected};
+    color: ${props => props.theme.textUnselected};
     font-size: 1.2rem;
   }
 
   &:focus {
-    border-color: ${backgroundBlue};
+    border-color: ${props => props.theme.backgroundBlue};
   }
 `;
 
 export const AddNoteButton = styled.button`
   font-size: 1.4rem;
-  background: ${backgroundBlue};
+  background: ${props => props.theme.backgroundBlue};
   /* width: 116px; */
   padding: 13px;
-  color: ${textLight};
+  color: ${props => props.theme.textLight};
   text-transform: uppercase;
   outline: none;
   margin: 10px 0;

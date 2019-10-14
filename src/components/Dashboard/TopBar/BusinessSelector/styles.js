@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { lighten, darken } from "polished";
 
 import { media } from "../../../../styles/mediaQueries";
 
@@ -19,7 +18,7 @@ export const BusinessSelectorContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
-  cursor: pointer;
+  /* cursor: pointer; */
   align-self: flex-end;
 
   ${media.desktop`
@@ -48,6 +47,7 @@ export const LogoContainer = styled.div`
   background-image: ${props => props.image && css`url(${props.image})`};
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center;
   margin-right: 10px;
 `;
 

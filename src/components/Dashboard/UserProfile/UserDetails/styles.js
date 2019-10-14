@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import {} from "../../../../constants/colors";
-
 export const DetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -11,6 +9,7 @@ export const UserLogo = styled.img`
   max-width: 75%;
   max-height: 100px;
   margin-bottom: 20px;
+  align-self: flex-start;
 `;
 
 export const DetailGroup = styled.div`

@@ -6,27 +6,25 @@ import { media } from "../../../styles/mediaQueries";
 
 export const PositionsListContainer = styled.div`
   margin-top: 25px;
+  width: 100%;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  margin-left: 30px;
   ${media.desktop`
-    /* padding: 0 50px; */
-    width: calc(100% - 180px);
+  width: calc(100% - 205px);
     margin-top: 50px;
-    margin-left: 125px;
+    margin-left: 155px;
     margin-right: 50px;
-  `}
+  `};
 `;
 
 export const PositionsListTitle = styled.h2`
   font-size: 3.5rem;
   color: ${props => props.theme.textDark};
-  /* text-transform: uppercase; */
   margin-bottom: 20px;
   align-self: flex-start;
-  ${media.desktop`
-    margin-left: 30px;
-  `}
+  ${media.desktop``};
 `;
 
 export const PositionsListDescription = styled.p`
@@ -34,14 +32,11 @@ export const PositionsListDescription = styled.p`
   color: ${props => props.theme.textDark};
   line-height: 1.6rem;
   max-width: 600px;
-  /* text-align: center; */
   margin-bottom: 30px;
-  margin-left: 30px;
 `;
 
 export const PositionTable = styled.div`
-  width: 100%;
-  padding: 20px 30px;
+  padding: 20px 0;
 `;
 
 export const PositionContainer = styled.div`
@@ -75,7 +70,7 @@ export const CreateButton = styled.div`
   align-self: flex-start;
   display: flex;
   align-items: center;
-  margin: 30px 30px 0 30px;
+  margin-top: 30px;
   padding: 10px 15px;
   border-radius: 5px;
   box-shadow: 0 5px 10px -1px rgba(0, 0, 0, 0.2);

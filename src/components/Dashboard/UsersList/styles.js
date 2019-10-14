@@ -1,17 +1,11 @@
 import styled from "styled-components";
-
+import { darken, lighten } from "polished";
 import { media } from "../../../styles/mediaQueries";
-
-import {
-  textDark,
-  textBlue,
-  borderQuestion,
-  borderRed
-} from "../../../constants/colors";
 
 export const UsersListContainer = styled.div`
   margin-top: 25px;
   width: 100%;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
   margin-left: 30px;
@@ -25,14 +19,14 @@ export const UsersListContainer = styled.div`
 
 export const UsersListTitle = styled.h2`
   font-size: 3.5rem;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
   margin-bottom: 20px;
   align-self: flex-start;
 `;
 
 export const UsersListDescription = styled.p`
   font-size: 1.2rem;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
   line-height: 1.6rem;
   width: 100%;
   max-width: 600px;
@@ -48,7 +42,7 @@ export const UserContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${borderQuestion};
+  border-bottom: 1px solid ${props => props.theme.borderQuestion};
   padding: 10px 0;
 `;
 
@@ -71,11 +65,16 @@ export const CreateButton = styled.div`
   align-self: flex-start;
   display: flex;
   align-items: center;
-  margin: 30px 30px 0;
+  margin: 30px 30px 30px 0;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px -1px rgba(0, 0, 0, 0.2);
+  border: 1px solid transparent;
+
   svg {
     width: 15px;
     height: 15px;
-    fill: ${textBlue};
+    fill: ${props => props.theme.textBlue};
     margin-right: 7px;
   }
 
@@ -83,9 +82,22 @@ export const CreateButton = styled.div`
     font-size: 1.4rem;
     text-transform: uppercase;
     font-weight: 700px;
-    color: ${textBlue};
+    color: ${props => props.theme.textBlue};
   }
-  ${media.desktop`margin: 30px 0 0;`};
+
+  &:hover {
+    svg {
+      fill: ${props => darken(0.1, props.theme.textBlue)};
+    }
+    span {
+      color: ${props => darken(0.1, props.theme.textBlue)};
+    }
+    border: 1px solid ${props => lighten(0.4, props.theme.textBlue)};
+  }
+
+  &:hover:active {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  }
 `;
 
 export const CancelInvite = styled.div`
@@ -95,6 +107,6 @@ export const CancelInvite = styled.div`
   cursor: pointer;
 
   svg {
-    fill: ${borderRed};
+    fill: ${props => props.theme.borderRed};
   }
 `;

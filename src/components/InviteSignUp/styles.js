@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { TextInput } from "../../styles/forms";
-import { borderGrey, borderRed } from "../../constants/colors";
 
 export const Container = styled.div`
   padding: 30px;
@@ -11,7 +10,7 @@ export const Container = styled.div`
 
   .no-match {
     line-height: 1.5rem;
-    color: ${borderRed};
+    color: ${props => props.theme.borderRed};
     margin: 10px 0;
   }
 `;
@@ -37,8 +36,10 @@ export const FormContainer = styled.div`
 `;
 
 export const PasswordInput = styled(TextInput)`
-  border-color: ${props => (props.match ? borderGrey : borderRed)};
+  border-color: ${props =>
+    props.match ? props.theme.borderGrey : props.theme.borderRed};
   &:focus {
-    border-color: ${props => (props.match ? borderGrey : borderRed)};
+    border-color: ${props =>
+      props.match ? props.theme.borderGrey : props.theme.borderRed};
   }
 `;

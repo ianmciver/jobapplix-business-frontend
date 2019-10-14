@@ -1,16 +1,5 @@
 import styled from "styled-components";
 
-import {
-  textDark,
-  textLight,
-  textBlue,
-  textDarkBlue,
-  borderGrey,
-  borderLight,
-  borderRed,
-  backgroundLight
-} from "../../../constants/colors";
-
 import { FormButton } from "../../../styles/buttons";
 
 export const Container = styled.div`
@@ -27,7 +16,7 @@ export const Container = styled.div`
 
 export const Headline = styled.h1`
   font-size: 2.3rem;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
   font-weight: 700;
   margin-bottom: 10px;
   text-align: center;
@@ -45,7 +34,7 @@ export const Instructions = styled.span`
 `;
 
 export const Error = styled.p`
-  color: ${borderRed};
+  color: ${props => props.theme.borderRed};
   font-size: 1.2rem;
   padding: 5px 0;
 `;
@@ -53,18 +42,18 @@ export const Error = styled.p`
 export const NextButton = styled(FormButton)`
   align-self: flex-start;
   font-weight: 700;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
   padding: 7px 14px;
 
   &:hover {
-    background-color: ${borderGrey};
-    color: ${textLight};
+    background-color: ${props => props.theme.borderGrey};
+    color: ${props => props.theme.textLight};
   }
 
   &:disabled {
-    border-color: ${borderLight};
-    color: ${borderLight};
-    background-color: ${backgroundLight};
+    border-color: ${props => props.theme.borderLight};
+    color: ${props => props.theme.borderLight};
+    background-color: ${props => props.theme.backgroundLight};
   }
 `;
 export const AddressLine = styled.span`
@@ -73,8 +62,9 @@ export const AddressLine = styled.span`
   line-height: 2rem;
   text-align: center;
 `;
+
 export const JobApplixAddress = styled.span`
   font-size: 1.6rem;
-  color: ${textDarkBlue};
+  color: ${props => props.theme.textDarkBlue};
   margin-bottom: 15px;
 `;

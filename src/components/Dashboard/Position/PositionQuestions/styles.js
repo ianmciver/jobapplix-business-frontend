@@ -1,15 +1,5 @@
 import styled from "styled-components";
 
-import {
-  textDark,
-  textBlue,
-  textLight,
-  backgroundBlue,
-  borderBlue,
-  borderRed,
-  borderLight,
-  backgroundLight
-} from "../../../../constants/colors";
 import { FormButton } from "../../../../styles/buttons";
 
 export const PositionQuestionsContainer = styled.div`
@@ -19,7 +9,7 @@ export const PositionQuestionsContainer = styled.div`
 export const InstructionSpan = styled.p`
   margin: 10px 30px;
   font-size: 1.3rem;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
 `;
 
 export const ItalicsSpan = styled(InstructionSpan)`
@@ -29,26 +19,29 @@ export const ItalicsSpan = styled(InstructionSpan)`
 export const PositionNextButton = styled(FormButton)`
   align-self: flex-start;
   font-weight: 700;
-  color: ${props => (props.cancel ? borderRed : textBlue)};
+  color: ${props =>
+    props.cancel ? props.theme.borderRed : props.theme.textBlue};
   padding: 7px 14px;
-  border-color: ${props => (props.cancel ? borderRed : borderBlue)};
+  border-color: ${props =>
+    props.cancel ? props.theme.borderRed : props.theme.borderBlue};
   margin: 20px 0 30px 30px;
   display: inline-block;
   &:hover {
-    background-color: ${props => (props.cancel ? borderRed : backgroundBlue)};
-    color: ${textLight};
+    background-color: ${props =>
+      props.cancel ? props.theme.borderRed : props.theme.backgroundBlue};
+    color: ${props => props.theme.textLight};
   }
 
   &:disabled {
-    border-color: ${borderLight};
-    color: ${borderLight};
-    background-color: ${backgroundLight};
+    border-color: ${props => props.theme.borderLight};
+    color: ${props => props.theme.borderLight};
+    background-color: ${props => props.theme.backgroundLight};
   }
 `;
 
 export const PositionName = styled.p`
   font-size: 1.2rem;
-  color: ${textBlue};
+  color: ${props => props.theme.textBlue};
   font-style: italic;
   text-align: center;
   margin-bottom: 20px;

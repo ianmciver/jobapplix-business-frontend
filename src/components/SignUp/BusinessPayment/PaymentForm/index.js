@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
 import { format, addDays } from "date-fns";
 
 import { injectStripe } from "react-stripe-elements";
 
 import { isValidEmail } from "../../../../helpers/validationFunctions";
+
+import { API_URL } from "../../../../constants/urls";
 
 import {
   SubType,
@@ -16,9 +19,15 @@ import {
   SubTotal
 } from "./styles";
 
-import { ButtonContainer, NextButton } from "../../../../styles/forms2";
+import {
+  ButtonContainer,
+  NextButton,
+  FormGroup,
+  Label,
+  TextInput,
+  Error
+} from "../../../../styles/forms2";
 
-import { Error } from "../../SignUpContainer/styles";
 import SubscriptionModal from "../../../Dashboard/SubscriptionDetails/SubscriptionModal";
 
 import Form from "./Form";
@@ -32,6 +41,9 @@ const PaymentForm = props => {
   const [cardComplete, setCardComplete] = useState("");
   const [emailValid, setEmailValid] = useState(true);
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [coupon, setCoupon] = useState("");
+  const [couponMessage, setCouponMessage] = useState("");
+  const [couponChecked, setCouponChecked] = useState(false);
 
   useEffect(() => {
     if (email.length > 0) {
@@ -50,7 +62,25 @@ const PaymentForm = props => {
   const submitPayment = async e => {
     let { token } = await props.stripe.createToken({ name, email });
     setProcessing(true);
-    props.processPaymentDetails(token.id, props.subType, props.nextScreen);
+    props.processPaymentDetails(
+      token.id,
+      props.subType,
+      coupon,
+      props.nextScreen
+    );
+  };
+
+  const checkCoupon = () => {
+    axios
+      .get(`${API_URL}/businesses/checkcoupon?coupon=${coupon}`)
+      .then(res => {
+        if (res.data.err) {
+          setCouponMessage(res.data.err);
+        } else {
+          setCouponMessage("");
+        }
+        setCouponChecked(true);
+      });
   };
 
   return (
@@ -61,7 +91,7 @@ const PaymentForm = props => {
       <FormContainer>
         <p className="sub-details">
           JobApplix {props.subType} Subscription |{" "}
-          {props.subType === "yearly" ? "$349.99" : "$34.99"}
+          {props.subType === "yearly" ? "$399.99" : "$39.99"}
         </p>
         <Form
           name={name}
@@ -76,11 +106,32 @@ const PaymentForm = props => {
           <FinePrintSeparator>|</FinePrintSeparator>
           <FinePrint>privacy</FinePrint>
         </FinePrintContainer>
-        <Total>total charge today: $0</Total>
-        <SubTotal>
-          {props.subType === "yearly" ? "$349.99" : "$34.99"} will be charged on
-          {` ${format(addDays(new Date(), 30), "MM/DD/YYYY")}`}
-        </SubTotal>
+        <FormGroup>
+          <Label htmlFor="coupon">Coupon Code (optional):</Label>
+          <TextInput
+            value={coupon}
+            onChange={e => setCoupon(e.target.value)}
+            name="coupon"
+            onBlur={checkCoupon}
+            error={couponMessage}
+          />
+          {couponMessage && <Error>{couponMessage}</Error>}
+        </FormGroup>
+        {(!coupon || couponMessage || !couponChecked) && (
+          <Total>
+            total charge today:{" "}
+            {props.subType === "yearly" ? "$399.99" : "$39.99"}
+          </Total>
+        )}
+        {coupon && !couponMessage && couponChecked && (
+          <Total>total charge today: $0</Total>
+        )}
+        {coupon && !couponMessage && couponChecked && (
+          <SubTotal>
+            {props.subType === "yearly" ? "$399.99" : "$39.99"} will be charged
+            {` on ${format(addDays(new Date(), 30), "MM/DD/YYYY")}`}
+          </SubTotal>
+        )}
         <ButtonContainer>
           <NextButton onClick={submitPayment} disabled={buttonDisabled}>
             SUBMIT &rarr;

@@ -2,36 +2,51 @@ import React from "react";
 import { connect } from "react-redux";
 import { format } from "date-fns";
 
-import { BusinessLogo, DetailGroup, DetailTitle, DetailValue } from "./styles";
+import {
+  BusinessLogo,
+  DetailGroup,
+  DetailContainer,
+  DetailTitle,
+  DetailValue,
+  BusinessLogoContainer
+} from "./styles";
 
 function BusinessDetails(props) {
+  console.log(props.business.subDetails);
   return (
     <>
-      <BusinessLogo
-        src={props.business.image_url}
-        alt={`${props.business.name}'s logo`}
-      />
-      <DetailGroup>
-        <DetailTitle>Subscription Type:</DetailTitle>
-        <DetailValue>{props.business.sub_type}</DetailValue>
-      </DetailGroup>
-      <DetailGroup>
-        <DetailTitle>Last Payment:</DetailTitle>
-        <DetailValue>
-          {format(props.business.subDetails.current_period_start, "MM/DD/YYYY")}
-        </DetailValue>
-      </DetailGroup>
-      <DetailGroup>
-        <DetailTitle>Next Scheduled Payment:</DetailTitle>
-        <DetailValue>
-          {format(props.business.subDetails.current_period_end, "MM/DD/YYYY")}
-        </DetailValue>
-      </DetailGroup>
-      <DetailGroup>
-        <DetailTitle>Payment Amount:</DetailTitle>
-        <DetailValue>{`$${props.business.subDetails.amount /
-          100}`}</DetailValue>
-      </DetailGroup>
+      <BusinessLogoContainer>
+        <BusinessLogo
+          src={props.business.image_url}
+          alt={`${props.business.name}'s logo`}
+        />
+      </BusinessLogoContainer>
+      <DetailContainer>
+        <DetailGroup>
+          <DetailTitle>Subscription Type:</DetailTitle>
+          <DetailValue>{props.business.sub_type}</DetailValue>
+        </DetailGroup>
+        <DetailGroup>
+          <DetailTitle>Last Payment:</DetailTitle>
+          <DetailValue>
+            {format(
+              props.business.subDetails.current_period_start,
+              "MM/DD/YYYY"
+            )}
+          </DetailValue>
+        </DetailGroup>
+        <DetailGroup>
+          <DetailTitle>Next Scheduled Payment:</DetailTitle>
+          <DetailValue>
+            {format(props.business.subDetails.current_period_end, "MM/DD/YYYY")}
+          </DetailValue>
+        </DetailGroup>
+        <DetailGroup>
+          <DetailTitle>Payment Amount:</DetailTitle>
+          <DetailValue>{`$${props.business.subDetails.amount /
+            100}`}</DetailValue>
+        </DetailGroup>
+      </DetailContainer>
     </>
   );
 }
@@ -39,3 +54,10 @@ function BusinessDetails(props) {
 export default connect(state => ({ business: state.business }))(
   BusinessDetails
 );
+
+/* Ideas for info on this page:
+
+- days until trial ends
+- payment history !!! Use the 'paymentHistory' key on the subDetails. 
+
+*/

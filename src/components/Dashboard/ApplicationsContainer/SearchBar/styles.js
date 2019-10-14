@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import {
-  backgroundBlue,
-  borderLight,
-  backgroundWhite
-} from "../../../../constants/colors";
+
 export const TransitionContainer = styled.div`
   height: ${props => (props.open ? `50px` : 0)};
   overflow: hidden;
@@ -15,13 +11,13 @@ export const TransitionContainer = styled.div`
 export const SearchBarContainer = styled.div`
   display: flex;
   width: 100%;
-  background-color: ${backgroundBlue};
+  background-color: ${props => props.theme.backgroundBlue};
   padding: 10px;
 `;
 
 export const SearchBar = styled.input`
   outline: none;
-  border: 1px solid ${borderLight};
+  border: 1px solid ${props => props.theme.borderLight};
   border-radius: 5px;
   width: 75%;
   height: 30px;
@@ -35,8 +31,8 @@ export const SearchButton = styled.button`
   height: 30px;
   font-size: 1.6rem;
   outline: none;
-  border: 1px solid ${borderLight};
+  border: 1px solid ${props => props.theme.borderLight};
   border-radius: 5px;
   font-weight: 700;
-  background-color: ${backgroundWhite};
+  background-color: ${props => props.theme.backgroundWhite};
 `;

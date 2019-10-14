@@ -1,29 +1,22 @@
 import styled from "styled-components";
 
-import {
-  backgroundWhite,
-  borderLight,
-  textDark,
-  textBlue
-} from "../../../../constants/colors";
-
 export const MenuContainer = styled.div`
   position: fixed;
   top: 63px;
   right: 5px;
-  background-color: ${backgroundWhite};
+  background-color: ${props => props.theme.backgroundWhite};
   width: 250px;
   z-index: 1001;
   border-radius: 5px;
   display: ${props => (props.open ? "flex" : "none")};
   flex-direction: column;
   align-items: flex-start;
-  box-shadow: 0 1px 6px -2px ${textDark};
+  box-shadow: 0 1px 6px -2px ${props => props.theme.textDark};
   padding: 20px;
 `;
 
 export const Notch = styled.div`
-  border-bottom: 20px solid ${backgroundWhite};
+  border-bottom: 20px solid ${props => props.theme.backgroundWhite};
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
   position: absolute;
@@ -39,7 +32,7 @@ export const SubjectNameContainer = styled.div`
 
 export const SubjectName = styled.h2`
   font-size: 2rem;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
 `;
 
 export const SubjectTitle = styled.h3`
@@ -48,7 +41,7 @@ export const SubjectTitle = styled.h3`
 `;
 
 export const Separator = styled.div`
-  border-bottom: 1px solid ${borderLight};
+  border-bottom: 1px solid ${props => props.theme.borderLight};
   margin: 10px 0;
   width: 100%;
 `;
@@ -60,17 +53,17 @@ export const MenuItem = styled.div`
   margin: 13px 0;
   &:hover {
     span {
-      color: ${textBlue};
+      color: ${props => props.theme.textBlue};
     }
     svg {
-      fill: ${textBlue};
+      fill: ${props => props.theme.textBlue};
     }
   }
 `;
 
 export const MenuText = styled.span`
   font-size: 1.4rem;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
 `;
 
 export const MenuIcon = styled.div`

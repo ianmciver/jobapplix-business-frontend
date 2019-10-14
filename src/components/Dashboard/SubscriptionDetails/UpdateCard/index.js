@@ -88,12 +88,12 @@ function UpdateCard(props) {
       />
       {!emailValid && <Error>Please Enter a Valid Email</Error>}
       <ButtonContainer>
-        <UpdateButton onClick={updateCardHandler} disabled={buttonDisabled}>
-          UPDATE CARD
-        </UpdateButton>
         <CancelButton onClick={e => props.history.goBack()}>
           Cancel
         </CancelButton>
+        <UpdateButton onClick={updateCardHandler} disabled={buttonDisabled}>
+          UPDATE CARD
+        </UpdateButton>
       </ButtonContainer>
       {modalOpen ? (
         processing ? (

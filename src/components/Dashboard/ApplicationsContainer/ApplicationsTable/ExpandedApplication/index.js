@@ -30,7 +30,6 @@ export default function ExpandedApplication(props) {
       {appContext.selectedApp && appContext.selectedApp.app_id ? (
         <>
           {questionGroups.map(g => {
-            console.log(g);
             if (g.groupName === "basic") {
               return (
                 <GeneralInformation

@@ -1,15 +1,7 @@
 import styled, { css } from "styled-components";
-
-import { FormButton } from "../../../../styles/buttons";
-import {
-  textBlue,
-  backgroundWhite,
-  borderLight,
-  borderGrey,
-  textLight,
-  backgroundLight,
-  borderRed
-} from "../../../../constants/colors";
+import { lighten } from "polished";
+import { NextButton } from "../../../../styles/forms2";
+import { media } from "../../../../styles/mediaQueries";
 
 export const SubjectImageContainer = styled.div`
   display: flex;
@@ -38,12 +30,12 @@ export const SubjectImage = styled.div`
     `};
   background-position: center;
   background-size: contain;
-  background-color: ${backgroundWhite};
+  background-color: ${props => props.theme.backgroundWhite};
   background-repeat: no-repeat;
 `;
 
 export const AddImageText = styled.p`
-  color: ${textBlue};
+  color: ${props => props.theme.textBlue};
   font-size: 1.2rem;
   margin-top: 5px;
 `;
@@ -66,34 +58,37 @@ export const UrlInfo = styled.p`
 export const UrlLink = styled.a`
   font-size: 1.4rem;
   text-decoration: none;
-  color: ${textBlue};
+  color: ${props => props.theme.textBlue};
+`;
+
+export const Error = styled.p`
+  color: ${props => props.theme.borderRed};
+  font-size: 1.2rem;
+  padding: 5px 0;
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
-  margin: 20px 0 30px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 90px;
+  width: 100%;
+  ${media.desktop`
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  `}
 `;
 
-export const SubmitButton = styled(FormButton)`
-  font-weight: 700;
-  color: ${props => (props.cancel ? borderRed : borderGrey)};
-  padding: 7px 14px;
-  border-color: ${props => (props.cancel ? borderRed : borderGrey)};
-  margin: 10px;
+export const CancelButton = styled(NextButton)`
+  margin-right: 20px;
+  background-image: none;
+  background-color: ${props => props.theme.backgroundGrey};
+  height: 40px;
   &:hover {
-    background-color: ${props => (props.cancel ? borderRed : borderGrey)};
-    color: ${textLight};
-  }
-
-  &:disabled {
-    border-color: ${borderLight};
-    color: ${borderLight};
-    background-color: ${backgroundLight};
+    background-color: ${props => lighten(0.1, props.theme.backgroundGrey)};
   }
 `;
 
-export const Error = styled.p`
-  color: ${borderRed};
-  font-size: 1.2rem;
-  padding: 5px 0;
-`;
+export const SubmitButton = styled(NextButton)``;

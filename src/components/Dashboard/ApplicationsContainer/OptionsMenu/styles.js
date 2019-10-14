@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { darken, transparentize, lighten } from "polished";
 
 import { media } from "../../../../styles/mediaQueries";
-import { Checkbox } from "../../../../styles/forms2";
 
 export const OptionsMenuContainer = styled.div`
   position: fixed;

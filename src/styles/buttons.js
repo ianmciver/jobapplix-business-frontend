@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
-import { borderGrey } from "../constants/colors";
-
 export const FormButton = styled.button`
-  border: 2px solid ${props => props.borderColor || borderGrey};
+  border: 2px solid ${props => props.borderColor || props.theme.borderGrey};
   display: flex;
   justify-content: center;
   align-items: center;

@@ -5,11 +5,6 @@ export const Form = styled.form`
   width: 100%;
 `;
 
-export const FormGroup = styled.div`
-  margin-bottom: 20px;
-  width: 100%;
-`;
-
 export const Label = styled.label`
   color: #000111;
   font-size: 13px;
@@ -35,6 +30,29 @@ export const TextInput = styled.input`
   }
 `;
 
+export const FormGroup = styled.div`
+  margin-bottom: 20px;
+  width: 100%;
+
+  .formTextInput {
+    display: block;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    border-color: ${props => props.error && `#e57373`};
+
+    &:focus {
+      outline: none;
+      border-color: ${props => props.theme.backgroundGreen};
+    }
+  }
+`;
+
 export const ButtonContainer = styled.div`
   margin: 15px 0;
   width: 100%;
@@ -49,6 +67,7 @@ export const NextButton = styled.button`
   border: 0;
   border-radius: 5px;
   letter-spacing: 2px;
+  outline: none;
   background-color: #4dd0e1;
   background-image: linear-gradient(
     to right,

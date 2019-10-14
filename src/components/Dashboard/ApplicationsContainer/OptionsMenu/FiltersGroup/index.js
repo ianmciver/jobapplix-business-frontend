@@ -17,7 +17,6 @@ import {
   FilterGroups,
   FilterGroupTitle,
   FilterSubGroup,
-  FilterItem,
   FilterItemTitle,
   FilterSubItem
 } from "../styles";
@@ -27,7 +26,7 @@ import { Checkbox } from "../../../../../styles/forms2";
 function FiltersGroup(props) {
   const [filterGroupOpen, setFilterGroupOpen] = useState(false);
   const [positionsOpen, setPositionsOpen] = useState(false);
-  const [locationsOpen, setLocationsOpen] = useState(false);
+  // const [locationsOpen, setLocationsOpen] = useState(false);
   const appContext = useContext(ApplicationsContext);
   return (
     <OptionGroup>
@@ -82,7 +81,9 @@ function FiltersGroup(props) {
           </FilterGroups>
         )}
         <FilterGroups open={filterGroupOpen}>
-          <FilterGroupTitle>
+          <FilterGroupTitle
+            onClick={e => appContext.setAvailabilityFilterOpen(true)}
+          >
             <Expand width="16px" height="16px" />
             Availability
           </FilterGroupTitle>

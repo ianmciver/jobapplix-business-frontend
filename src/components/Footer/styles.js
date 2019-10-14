@@ -1,16 +1,7 @@
 import styled from "styled-components";
 
-import {
-  backgroundGrey,
-  backgroundDark,
-  borderDark,
-  textMedium,
-  textLight,
-  textGreen
-} from "../../constants/colors";
-
 export const FooterContainer = styled.footer`
-  background-color: ${backgroundGrey};
+  background-color: ${props => props.theme.backgroundGrey};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,13 +16,13 @@ export const FooterLogo = styled.img`
 
 export const FooterSeparator = styled.div`
   width: 80%;
-  border-top: 1px solid ${borderDark};
+  border-top: 1px solid ${props => props.theme.borderDark};
   margin: 10px 0 20px;
 `;
 
 export const Copywrite = styled.div`
   font-size: 1.1rem;
-  color: ${textMedium};
+  color: ${props => props.theme.textMedium};
 `;
 
 // Navigation:
@@ -44,11 +35,11 @@ export const FooterNav = styled.nav`
 `;
 
 export const FooterNavItem = styled.a`
-  color: ${textLight};
+  color: ${props => props.theme.textLight};
   font-size: 1.4rem;
   line-height: 2.4rem;
   &:hover {
-    color: ${textGreen};
+    color: ${props => props.theme.textGreen};
   }
 `;
 
@@ -66,7 +57,7 @@ export const SocialMediaIcon = styled.div`
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background-color: ${backgroundDark};
+  background-color: ${props => props.theme.backgroundDark};
   display: flex;
   justify-content: center;
   align-items: center;

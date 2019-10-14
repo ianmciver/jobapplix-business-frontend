@@ -1,98 +1,58 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { lighten } from "polished";
 
-import { FormButton } from "../../../../styles/buttons";
-import {
-  textBlue,
-  backgroundWhite,
-  borderLight,
-  borderGrey,
-  textLight,
-  backgroundLight,
-  borderRed
-} from "../../../../constants/colors";
+import { NextButton } from "../../../../styles/forms2";
 
 export const SubjectImageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   outline: none;
   width: 100%;
-  margin-bottom: 10px;
+  margin: 30px 0 10px;
 `;
 
 export const SubjectImageHolder = styled.div`
-  width: 75%;
-  height: 100px;
+  max-width: 100%;
+  max-height: 200px;
   display: flex;
-  justify-content: center;
   align-items: center;
   overflow: hidden;
+  cursor: pointer;
+  margin-bottom: 10px;
 `;
 
-export const SubjectImage = styled.div`
-  width: 100%;
-  height: 100px;
-  ${props =>
-    css`
-      background: url(${props.image});
-    `};
-  background-position: center;
-  background-size: contain;
-  background-color: ${backgroundWhite};
-  background-repeat: no-repeat;
+export const SubjectImage = styled.img`
+  max-width: 100%;
+  max-height: 200px;
 `;
 
 export const AddImageText = styled.p`
-  color: ${textBlue};
+  color: ${props => props.theme.textBlue};
   font-size: 1.2rem;
-  margin-top: 5px;
-`;
-
-export const InputLabel = styled.p`
-  font-size: 1rem;
-  align-self: flex-start;
-`;
-
-export const UrlContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-export const UrlInfo = styled.p`
-  font-size: 1.2rem;
-  line-height: 1.8rem;
-`;
-
-export const UrlLink = styled.a`
-  font-size: 1.4rem;
-  text-decoration: none;
-  color: ${textBlue};
+  margin: 5px 0 30px;
+  cursor: pointer;
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
+  justify-content: flex-end;
   margin: 20px 0 30px;
 `;
 
-export const SubmitButton = styled(FormButton)`
-  font-weight: 700;
-  color: ${props => (props.cancel ? borderRed : borderGrey)};
-  padding: 7px 14px;
-  border-color: ${props => (props.cancel ? borderRed : borderGrey)};
-  margin: 10px;
+export const CancelButton = styled(NextButton)`
+  margin-right: 20px;
+  background-image: none;
+  background-color: ${props => props.theme.backgroundGrey};
+  height: 40px;
   &:hover {
-    background-color: ${props => (props.cancel ? borderRed : borderGrey)};
-    color: ${textLight};
-  }
-
-  &:disabled {
-    border-color: ${borderLight};
-    color: ${borderLight};
-    background-color: ${backgroundLight};
+    background-color: ${props => lighten(0.1, props.theme.backgroundGrey)};
   }
 `;
 
+export const ConfirmButton = styled(NextButton)``;
+
 export const Error = styled.p`
-  color: ${borderRed};
+  color: ${props => props.theme.borderRed};
   font-size: 1.2rem;
+  padding: 5px 0;
 `;

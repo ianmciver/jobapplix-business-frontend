@@ -1,19 +1,14 @@
 import styled from "styled-components";
 
-import {
-  positionBuilderText,
-  borderMedium
-} from "../../../../constants/colors";
-
 export const ShiftTimesContainer = styled.div`
   display: flex;
   flex-direction: column;
-  color: ${positionBuilderText};
+  color: ${props => props.theme.positionBuilderText};
 `;
 
 export const DividerLine = styled.div`
   width: 40%;
-  border-bottom: 1px solid ${borderMedium};
+  border-bottom: 1px solid ${props => props.theme.borderMedium};
   align-self: flex-start;
 `;
 

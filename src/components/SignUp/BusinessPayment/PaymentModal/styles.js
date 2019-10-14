@@ -1,18 +1,12 @@
 import styled from "styled-components";
 
-import {
-  textLight,
-  borderBlue,
-  backgroundGreyOpacity94
-} from "../../../../constants/colors";
-
 export const ModalContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: ${backgroundGreyOpacity94};
+  background-color: ${props => props.theme.backgroundGreyOpacity94};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,8 +16,8 @@ export const ModalContainer = styled.div`
 export const Modal = styled.div`
   width: 87.5%;
   max-width: 700px;
-  border: 3px solid ${borderBlue};
-  background-color: ${backgroundGreyOpacity94};
+  border: 3px solid ${props => props.theme.borderBlue};
+  background-color: ${props => props.theme.backgroundGreyOpacity94};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,7 +37,7 @@ export const CloseButton = styled.div`
 
 export const ModalSeparator = styled.div`
   width: 15vw;
-  border: 2px solid ${borderBlue};
+  border: 2px solid ${props => props.theme.borderBlue};
   margin: 20px 0 10px;
 `;
 
@@ -51,7 +45,7 @@ export const PlanGroup = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: ${textLight};
+  color: ${props => props.theme.textLight};
   h2 {
     font-size: 1.7rem;
     margin: 15px;

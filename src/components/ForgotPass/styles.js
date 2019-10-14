@@ -1,14 +1,6 @@
 import styled from "styled-components";
 import { media } from "../../styles/mediaQueries";
 
-import {
-  textDark,
-  textLight,
-  textBlue,
-  borderRed,
-  backgroundBlue,
-  borderGrey
-} from "../../constants/colors";
 import { FormButton } from "../../styles/buttons";
 
 export const AppContainer = styled.div`
@@ -36,7 +28,7 @@ export const SignInCard = styled.div`
   width: 100%;
   h1 {
     font-size: 2.3rem;
-    color: ${textDark};
+    color: ${props => props.theme.textDark};
     font-weight: 700;
     padding-bottom: 20px;
   }
@@ -55,9 +47,9 @@ export const CheckboxContainer = styled.div`
 export const Checkbox = styled.div`
   width: 17px;
   height: 17px;
-  border: 2px solid ${borderGrey};
+  border: 2px solid ${props => props.theme.borderGrey};
   background-color: ${props =>
-    props.checked ? backgroundBlue : "transparent"};
+    props.checked ? props.theme.backgroundBlue : "transparent"};
   margin-right: 10px;
   cursor: pointer;
 `;
@@ -65,20 +57,20 @@ export const Checkbox = styled.div`
 export const SignInButton = styled(FormButton)`
   align-self: flex-start;
   margin: 20px 0;
-  color: textDark;
+  color: ${props => props.theme.textDark};
   &:hover {
-    background-color: ${borderGrey};
-    color: ${textLight};
+    background-color: ${props => props.theme.borderGrey};
+    color: ${props => props.theme.textLight};
   }
 `;
 
 export const SignUpCTA = styled.span`
   align-self: flex-start;
   font-size: 1.1rem;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
   margin-bottom: 10px;
   a {
-    color: ${textBlue};
+    color: ${props => props.theme.textBlue};
     font-weight: 700;
     cursor: pointer;
   }
@@ -86,7 +78,7 @@ export const SignUpCTA = styled.span`
 
 export const ErrorText = styled.span`
   margin-bottom: 10px;
-  color: ${borderRed};
+  color: ${props => props.theme.borderRed};
   font-style: italic;
   font-size: 1rem;
 `;
