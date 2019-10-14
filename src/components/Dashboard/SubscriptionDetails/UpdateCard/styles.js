@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { FormButton } from "../../../../styles/buttons";
+import { lighten } from "polished";
+import { NextButton } from "../../../../styles/forms2";
+import { media } from "../../../../styles/mediaQueries";
 import {
   textDark,
   borderGrey,
@@ -13,17 +15,24 @@ export const ProfileContainer = styled.div`
   margin-top: 25px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 0 50px;
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  ${media.desktop`
+    width: calc(100% - 160px);
+    max-width: 1000px;
+    margin-top: 50px;
+    margin-left: 105px;
+    margin-right: 50px;
+  `}
 `;
 
 export const ProfileTitle = styled.h2`
-  font-size: 1.9rem;
-  line-height: 2.3rem;
-  color: ${textDark};
-  text-transform: uppercase;
+  font-size: 3.5rem;
+  color: ${props => props.theme.textDark};
   margin-bottom: 20px;
-  text-align: center;
+  align-self: flex-start;
 `;
 
 export const Details = styled.p`
@@ -33,37 +42,27 @@ export const Details = styled.p`
 `;
 
 export const ButtonContainer = styled.div`
-  width: 100%;
   display: flex;
-  padding: 10px 30px 0;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
+  height: 90px;
+  width: 100%;
+  ${media.desktop`
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  `}
 `;
 
-export const UpdateButton = styled(FormButton)`
-  align-self: flex-start;
-  font-weight: 700;
-  color: ${borderGrey};
-  padding: 7px 14px;
-  border-color: ${borderGrey};
-  margin: 20px 0 1px 0;
-  display: inline-block;
+export const CancelButton = styled(NextButton)`
+  margin-right: 20px;
+  background-image: none;
+  background-color: ${props => props.theme.backgroundGrey};
+  height: 40px;
   &:hover {
-    background-color: ${borderGrey};
-    color: ${textLight};
-  }
-
-  &:disabled {
-    border-color: ${borderLight};
-    color: ${borderLight};
-    background-color: ${backgroundLight};
+    background-color: ${props => lighten(0.1, props.theme.backgroundGrey)};
   }
 `;
 
-export const CancelButton = styled(UpdateButton)`
-  border-color: ${borderRed};
-  color: ${borderRed};
-
-  &:hover {
-    background-color: ${borderRed};
-  }
-`;
+export const UpdateButton = styled(NextButton)``;

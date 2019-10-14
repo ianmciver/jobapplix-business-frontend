@@ -46,12 +46,6 @@ export default function PaymentOptions(props) {
             <Detail>
               <DetailText>
                 <DetailMarker />
-                No Commitment 30 Day Free Trial
-              </DetailText>
-            </Detail>
-            <Detail>
-              <DetailText>
-                <DetailMarker />
                 Custom URL for your business
               </DetailText>
             </Detail>
@@ -101,12 +95,6 @@ export default function PaymentOptions(props) {
             <Price>$349.99 / yr</Price>
           </PriceContainer>
           <DetailsContainer>
-            <Detail>
-              <DetailText>
-                <DetailMarker />
-                No Commitment 30 Day Free Trial
-              </DetailText>
-            </Detail>
             <Detail>
               <DetailText>
                 <DetailMarker />

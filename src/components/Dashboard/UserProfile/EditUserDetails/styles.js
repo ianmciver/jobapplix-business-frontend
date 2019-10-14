@@ -1,13 +1,10 @@
 import styled, { css } from "styled-components";
-
-import { FormButton } from "../../../../styles/buttons";
+import { lighten } from "polished";
+import { NextButton } from "../../../../styles/forms2";
+import { media } from "../../../../styles/mediaQueries";
 import {
   textBlue,
   backgroundWhite,
-  borderLight,
-  borderGrey,
-  textLight,
-  backgroundLight,
   borderRed
 } from "../../../../constants/colors";
 
@@ -69,31 +66,34 @@ export const UrlLink = styled.a`
   color: ${textBlue};
 `;
 
-export const ButtonContainer = styled.div`
-  display: flex;
-  margin: 20px 0 30px;
-`;
-
-export const SubmitButton = styled(FormButton)`
-  font-weight: 700;
-  color: ${props => (props.cancel ? borderRed : borderGrey)};
-  padding: 7px 14px;
-  border-color: ${props => (props.cancel ? borderRed : borderGrey)};
-  margin: 10px;
-  &:hover {
-    background-color: ${props => (props.cancel ? borderRed : borderGrey)};
-    color: ${textLight};
-  }
-
-  &:disabled {
-    border-color: ${borderLight};
-    color: ${borderLight};
-    background-color: ${backgroundLight};
-  }
-`;
-
 export const Error = styled.p`
   color: ${borderRed};
   font-size: 1.2rem;
   padding: 5px 0;
 `;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 90px;
+  width: 100%;
+  ${media.desktop`
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  `}
+`;
+
+export const CancelButton = styled(NextButton)`
+  margin-right: 20px;
+  background-image: none;
+  background-color: ${props => props.theme.backgroundGrey};
+  height: 40px;
+  &:hover {
+    background-color: ${props => lighten(0.1, props.theme.backgroundGrey)};
+  }
+`;
+
+export const SubmitButton = styled(NextButton)``;

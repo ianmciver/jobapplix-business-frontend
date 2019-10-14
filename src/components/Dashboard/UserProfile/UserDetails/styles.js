@@ -11,6 +11,7 @@ export const UserLogo = styled.img`
   max-width: 75%;
   max-height: 100px;
   margin-bottom: 20px;
+  align-self: flex-start;
 `;
 
 export const DetailGroup = styled.div`

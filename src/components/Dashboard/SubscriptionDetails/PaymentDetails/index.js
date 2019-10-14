@@ -54,3 +54,10 @@ function BusinessDetails(props) {
 export default connect(state => ({ business: state.business }))(
   BusinessDetails
 );
+
+/* Ideas for info on this page:
+
+- days until trial ends
+- payment history !!! Use the 'paymentHistory' key on the subDetails. 
+
+*/

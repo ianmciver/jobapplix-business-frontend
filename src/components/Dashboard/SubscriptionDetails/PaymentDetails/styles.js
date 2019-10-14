@@ -16,6 +16,7 @@ export const BusinessLogoContainer = styled.div`
 export const BusinessLogo = styled.img`
   max-width: 100%;
   max-height: 200px;
+  margin: 20px 0;
 `;
 
 export const DetailGroup = styled.div`
