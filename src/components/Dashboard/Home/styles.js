@@ -2,41 +2,34 @@ import styled from "styled-components";
 
 import { media } from "../../../styles/mediaQueries";
 
-import {
-  borderBlue,
-  borderLight,
-  borderGrey,
-  textBlue,
-  textDark,
-  backgroundWhite,
-  textLight
-} from "../../../constants/colors";
-
 export const HomeContainer = styled.div`
-  width: 100%;
-  max-width: 800px;
+  margin-top: 25px;
+  width: calc(100% - 60px);
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background-color: ${backgroundWhite};
+  margin-left: 30px;
+  margin-right: 30px;
   ${media.desktop`
-    border-radius: 7px;
-    box-shadow: 0 1px 5px -2px ${textDark};
+    width: calc(100% - 205px);
     margin-top: 50px;
-  `}
+    margin-left: 155px;
+    margin-right: 50px;
+  `};
 `;
 
 export const GreetingContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 30px;
-  border-bottom: 3px solid ${borderBlue};
+  padding-bottom: 20px;
   width: 100%;
 `;
 
 export const Welcome = styled.p`
-  font-size: 2rem;
-  color: ${textBlue};
+  font-size: 3.5rem;
+  color: ${props => props.theme.textDark};
+  margin-bottom: 20px;
+  align-self: flex-start;
 `;
 
 export const Greeting = styled.p`
@@ -51,7 +44,7 @@ export const OverviewContainer = styled.div`
 
 export const Overview = styled.div`
   padding: 20px 30px 10px;
-  border-bottom: 2px solid ${borderLight};
+  border-bottom: 2px solid ${props => props.theme.borderLight};
 
   p {
     font-size: 2rem;
@@ -62,7 +55,7 @@ export const Overview = styled.div`
 export const PositionContainer = styled.div`
   width: 100%;
   padding: 15px 30px;
-  border-bottom: 1px solid ${borderLight};
+  border-bottom: 1px solid ${props => props.theme.borderLight};
 `;
 
 export const PositionNameContainer = styled.div`
@@ -84,7 +77,7 @@ export const PositionNameContainer = styled.div`
 
   p {
     font-size: 1.2rem;
-    color: ${textBlue};
+    color: ${props => props.theme.textBlue};
   }
 `;
 
@@ -103,7 +96,7 @@ export const StatContainer = styled.div`
 
 export const StatNumber = styled.h4`
   font-size: 3.4rem;
-  color: ${textBlue};
+  color: ${props => props.theme.textBlue};
   font-weight: 700;
 `;
 
@@ -118,15 +111,15 @@ export const ActionButton = styled.button`
   text-transform: uppercase;
   font-weight: 700;
   outline: none;
-  background-color: ${backgroundWhite};
-  border: 1px solid ${borderGrey};
+  background-color: ${props => props.theme.backgroundWhite};
+  border: 1px solid ${props => props.theme.borderGrey};
   border-radius: 28px;
   padding: 0 23px;
   height: 56px;
   cursor: pointer;
   &:hover {
-    border-color: ${borderBlue};
-    background-color: ${borderBlue};
-    color: ${textLight};
+    border-color: ${props => props.theme.borderBlue};
+    background-color: ${props => props.theme.borderBlue};
+    color: ${props => props.theme.textLight};
   }
 `;

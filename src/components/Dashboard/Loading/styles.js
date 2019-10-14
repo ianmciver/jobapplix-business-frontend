@@ -1,5 +1,4 @@
 import styled, { keyframes, css } from "styled-components";
-import { backgroundDark } from "../../../constants/colors";
 
 export const LoadingContainer = styled.div`
   width: 100vw;
@@ -7,7 +6,7 @@ export const LoadingContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background-color: ${backgroundDark};
+  background-color: ${props => props.theme.backgroundDark};
   display: flex;
   flex-direction: column;
   justify-content: center;

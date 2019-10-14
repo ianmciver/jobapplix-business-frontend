@@ -2,14 +2,6 @@ import styled from "styled-components";
 import { lighten } from "polished";
 import { NextButton } from "../../../../styles/forms2";
 import { media } from "../../../../styles/mediaQueries";
-import {
-  textDark,
-  borderGrey,
-  textLight,
-  borderLight,
-  backgroundLight,
-  borderRed
-} from "../../../../constants/colors";
 
 export const ProfileContainer = styled.div`
   margin-top: 25px;

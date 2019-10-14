@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import {} from "../../../../constants/colors";
-
 export const DetailsContainer = styled.div`
   display: flex;
   flex-direction: column;

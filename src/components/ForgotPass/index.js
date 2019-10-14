@@ -8,8 +8,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 import { FirebaseContext } from "../../Firebase";
-// import { dashboard } from "../../constants/routes";
-import { AppContainer, Error } from "../SignIn/styles";
+import { AppContainer } from "../SignIn/styles";
 import {
   Form,
   FormGroup,
@@ -18,13 +17,7 @@ import {
   ButtonContainer,
   NextButton
 } from "../../styles/forms2";
-import {
-  SignInContainer,
-  SignInButton,
-  SignUpCTA,
-  ErrorText,
-  SignInCard
-} from "./styles";
+import { SignInContainer, SignUpCTA, ErrorText, SignInCard } from "./styles";
 
 import Header from "../Header";
 import Footer from "../Footer";
@@ -36,17 +29,16 @@ const EmailValidation = Yup.object().shape({
 });
 
 function SignIn(props) {
-  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [complete, setComplete] = useState(false);
   const firebase = useContext(FirebaseContext);
 
-  const sendEmail = async () => {
+  const sendEmail = async values => {
     let newUUID = await axios.get(
-      `${API_URL}/businesses/userreset?email=${email}`
+      `${API_URL}/businesses/userreset?email=${values.email}`
     );
     firebase
-      .doPasswordReset(email, {
+      .doPasswordReset(values.email, {
         url: `http://localhost:3000/resetpass/${newUUID}`
       })
       .then(res => {
@@ -74,6 +66,7 @@ function SignIn(props) {
             <Formik
               initialValues={{ email: "" }}
               validationSchema={EmailValidation}
+              onSubmit={sendEmail}
               render={({
                 values,
                 errors,
@@ -102,7 +95,7 @@ function SignIn(props) {
                     <ErrorText>{errors.email}</ErrorText>
                   )}
                   <ButtonContainer>
-                    <NextButton padding="7px 14px" onClick={sendEmail}>
+                    <NextButton padding="7px 14px" onClick={handleSubmit}>
                       RESET PASSWORD
                     </NextButton>
                   </ButtonContainer>

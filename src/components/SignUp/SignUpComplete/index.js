@@ -2,14 +2,8 @@ import React from "react";
 
 import JALogo from "../../../assets/Icon100.png";
 
-import {
-  CompleteContainer,
-  Logo,
-  Welcome,
-  SubText,
-  PositionButton
-} from "./styles";
-import { ButtonContainer, NextButton } from "../../../styles/forms2";
+import { CompleteContainer, Logo, Welcome, SubText } from "./styles";
+import { NextButton } from "../../../styles/forms2";
 import { dashboard, createPosition } from "../../../constants/routes";
 
 export default function SignUpComplete(props) {

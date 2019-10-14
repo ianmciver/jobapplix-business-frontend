@@ -2,16 +2,6 @@ import styled, { css } from "styled-components";
 
 import { media } from "../../../../styles/mediaQueries";
 
-import {
-  textLight,
-  borderMedium69,
-  borderMedium,
-  borderRed,
-  borderLight,
-  borderGrey,
-  backgroundLight
-} from "../../../../constants/colors";
-
 import { TextInput } from "../../../../styles/forms";
 import { FormButton } from "../../../../styles/buttons";
 
@@ -57,12 +47,12 @@ export const TextArea = styled.textarea`
   height: 188px;
   width: 100%;
   border-width: 2px;
-  border-color: ${borderMedium69};
+  border-color: ${props => props.theme.borderMedium69};
   background-color: transparent;
   outline: none;
 
   &:focus {
-    border-color: ${borderMedium};
+    border-color: ${props => props.theme.borderMedium};
   }
 
   ${media.desktop`
@@ -73,9 +63,11 @@ export const TextArea = styled.textarea`
 export const PositionNextButton = styled(FormButton)`
   align-self: flex-start;
   font-weight: 700;
-  color: ${props => (props.cancel ? borderRed : borderGrey)};
+  color: ${props =>
+    props.cancel ? props.theme.borderRed : props.theme.borderGrey};
   padding: 7px 14px;
-  border-color: ${props => (props.cancel ? borderRed : borderGrey)};
+  border-color: ${props =>
+    props.cancel ? props.theme.borderRed : props.theme.borderGrey};
   margin-bottom: 30px;
   ${props =>
     props.cancel &&
@@ -84,13 +76,14 @@ export const PositionNextButton = styled(FormButton)`
     `}
   display: inline-block;
   &:hover {
-    background-color: ${props => (props.cancel ? borderRed : borderGrey)};
-    color: ${textLight};
+    background-color: ${props =>
+      props.cancel ? props.theme.borderRed : props.theme.borderGrey};
+    color: ${props => props.theme.textLight};
   }
 
   &:disabled {
-    border-color: ${borderLight};
-    color: ${borderLight};
-    background-color: ${backgroundLight};
+    border-color: ${props => props.theme.borderLight};
+    color: ${props => props.theme.borderLight};
+    background-color: ${props => props.theme.backgroundLight};
   }
 `;

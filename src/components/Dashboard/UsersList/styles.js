@@ -2,13 +2,6 @@ import styled from "styled-components";
 import { darken, lighten } from "polished";
 import { media } from "../../../styles/mediaQueries";
 
-import {
-  textDark,
-  textBlue,
-  borderQuestion,
-  borderRed
-} from "../../../constants/colors";
-
 export const UsersListContainer = styled.div`
   margin-top: 25px;
   width: 100%;
@@ -26,14 +19,14 @@ export const UsersListContainer = styled.div`
 
 export const UsersListTitle = styled.h2`
   font-size: 3.5rem;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
   margin-bottom: 20px;
   align-self: flex-start;
 `;
 
 export const UsersListDescription = styled.p`
   font-size: 1.2rem;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
   line-height: 1.6rem;
   width: 100%;
   max-width: 600px;
@@ -49,7 +42,7 @@ export const UserContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${borderQuestion};
+  border-bottom: 1px solid ${props => props.theme.borderQuestion};
   padding: 10px 0;
 `;
 
@@ -114,6 +107,6 @@ export const CancelInvite = styled.div`
   cursor: pointer;
 
   svg {
-    fill: ${borderRed};
+    fill: ${props => props.theme.borderRed};
   }
 `;

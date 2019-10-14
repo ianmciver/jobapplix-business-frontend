@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { borderGrey, backgroundBlue } from "../../../constants/colors";
-
 export const ProgressBarContainer = styled.div`
   width: 60%;
   margin-bottom: 10px;

@@ -1,7 +1,5 @@
 import styled, { css } from "styled-components";
 
-import { media } from "../../../../../../styles/mediaQueries";
-
 export const ItemContainer = styled.div`
   width: 100%;
   height: 50px;

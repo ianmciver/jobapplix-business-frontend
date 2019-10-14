@@ -12,8 +12,6 @@ import {
   updateUserRole
 } from "../../../actions/businessActions";
 
-import { dashboard, inviteUserUrl } from "../../../constants/routes";
-
 import {
   UsersListContainer,
   UsersListTitle,

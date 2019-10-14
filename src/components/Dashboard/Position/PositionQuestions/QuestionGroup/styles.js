@@ -1,37 +1,28 @@
 import styled, { css } from "styled-components";
 
-import {
-  backgroundQuestion,
-  backgroundWhite,
-  borderQuestion,
-  textMedium,
-  textBlue
-} from "../../../../../constants/colors";
-
 export const QuestionGroupContainer = styled.div`
   width: 100%;
-  /* border-bottom: 1px solid ${borderQuestion}; */
-  background-color: ${backgroundWhite};
+  background-color: ${props => props.theme.backgroundWhite};
   padding: 15px 30px;
   display: flex;
   align-items: center;
   flex-direction: column;
 
   &:nth-of-type(even) {
-    background-color: ${backgroundQuestion};
+    background-color: ${props => props.theme.backgroundQuestion};
   }
 
   svg {
     width: 18px;
     height: 18px;
-    fill: ${textMedium};
+    fill: ${props => props.theme.textMedium};
     transition: transform 300ms;
     cursor: pointer;
     flex-shrink: 0;
   }
 
   .selected {
-    fill: ${textBlue};
+    fill: ${props => props.theme.textBlue};
     transform: rotate(45deg);
   }
 `;
@@ -49,7 +40,7 @@ export const QuestionTitle = styled.span`
   ${props =>
     props.open &&
     css`
-      color: ${textBlue};
+      color: ${props.theme.textBlue};
     `}
 `;
 

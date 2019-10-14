@@ -1,16 +1,14 @@
 import styled from "styled-components";
 
-import { textLight, textBlue, borderRed } from "../../../../constants/colors";
-
 import { FormButton } from "../../../../styles/buttons";
 
 export const Header = styled.h1`
   font-size: 1.8rem;
-  color: ${textLight};
+  color: ${props => props.theme.textLight};
 `;
 
 export const Message = styled.p`
-  color: ${textLight};
+  color: ${props => props.theme.textLight};
   padding: 30px;
   font-size: 1.2rem;
   line-height: 1.6rem;
@@ -26,14 +24,14 @@ export const ButtonContainer = styled.div`
 export const ConfirmButton = styled(FormButton)`
   align-self: flex-start;
   font-weight: 700;
-  color: ${textBlue};
+  color: ${props => props.theme.textBlue};
   padding: 7px 14px;
-  border-color: ${textBlue};
+  border-color: ${props => props.theme.textBlue};
   margin: 20px 0 1px 0;
   display: inline-block;
   &:hover {
-    background-color: ${textBlue};
-    color: ${textLight};
+    background-color: ${props => props.theme.textBlue};
+    color: ${props => props.theme.textLight};
   }
 
   &:first-of-type {
@@ -42,10 +40,10 @@ export const ConfirmButton = styled(FormButton)`
 `;
 
 export const CancelButton = styled(ConfirmButton)`
-  border-color: ${borderRed};
-  color: ${borderRed};
+  border-color: ${props => props.theme.borderRed};
+  color: ${props => props.theme.borderRed};
 
   &:hover {
-    background-color: ${borderRed};
+    background-color: ${props => props.theme.borderRed};
   }
 `;

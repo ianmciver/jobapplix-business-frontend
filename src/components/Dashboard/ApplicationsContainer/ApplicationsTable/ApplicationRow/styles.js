@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { textDark } from "../../../../../constants/colors";
-
 import { media } from "../../../../../styles/mediaQueries";
 
 export const ApplicationRowContainer = styled.div`
@@ -49,6 +47,6 @@ export const ApplicationsGroupColumnTitle = styled.span`
   text-align: ${props => props.center && props.center};
   font-size: 1.4rem;
   text-transform: uppercase;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
   position: relative;
 `;

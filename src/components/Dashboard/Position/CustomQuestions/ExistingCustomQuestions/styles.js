@@ -1,11 +1,5 @@
 import styled from "styled-components";
 
-import {
-  borderGrey,
-  backgroundGrey,
-  textLight,
-  textDark
-} from "../../../../../constants/colors";
 import { NextButton } from "../../../../SignUp/SignUpContainer/styles";
 
 export const ExistingQuestionsContainer = styled.div`
@@ -17,7 +11,7 @@ export const ExistingQuestionsContainer = styled.div`
   h2 {
     font-size: 1.4rem;
     font-weight: 700;
-    color: ${textDark};
+    color: ${props => props.theme.textDark};
     margin-bottom: 10px;
   }
 
@@ -27,12 +21,12 @@ export const ExistingQuestionsContainer = styled.div`
 `;
 
 export const AddCustomButton = styled(NextButton)`
-  border-color: ${borderGrey};
-  color: ${textDark};
+  border-color: ${props => props.theme.borderGrey};
+  color: ${props => props.theme.textDark};
   background-color: transparent;
   margin-top: 20px;
   &:hover {
-    background-color: ${backgroundGrey};
-    color: ${textLight};
+    background-color: ${props => props.theme.backgroundGrey};
+    color: ${props => props.theme.textLight};
   }
 `;

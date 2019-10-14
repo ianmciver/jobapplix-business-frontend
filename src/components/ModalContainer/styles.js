@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-import { transparentize } from "polished";
 export const Container = styled.div`
   position: fixed;
   top: 0;

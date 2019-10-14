@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 
 import { ApplicationsContext } from "../../ApplicationsContext";
 
-import AvailabilityFilter from "./AvailabilityFilter";
-
 import Chevron from "../../../../../assets/Chevron";
 import Expand from "../../../../../assets/Expand";
 import Plus from "../../../../../assets/Plus";
@@ -19,7 +17,6 @@ import {
   FilterGroups,
   FilterGroupTitle,
   FilterSubGroup,
-  FilterItem,
   FilterItemTitle,
   FilterSubItem
 } from "../styles";
@@ -29,7 +26,7 @@ import { Checkbox } from "../../../../../styles/forms2";
 function FiltersGroup(props) {
   const [filterGroupOpen, setFilterGroupOpen] = useState(false);
   const [positionsOpen, setPositionsOpen] = useState(false);
-  const [locationsOpen, setLocationsOpen] = useState(false);
+  // const [locationsOpen, setLocationsOpen] = useState(false);
   const appContext = useContext(ApplicationsContext);
   return (
     <OptionGroup>

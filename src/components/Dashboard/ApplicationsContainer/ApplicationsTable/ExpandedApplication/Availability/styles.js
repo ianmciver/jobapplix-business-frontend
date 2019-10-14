@@ -1,10 +1,5 @@
 import styled, { css } from "styled-components";
 
-import {
-  borderAvailGraph,
-  textMedium
-} from "../../../../../../constants/colors";
-
 export const AvailabilityChart = styled.div`
   width: 100%;
   display: grid;
@@ -32,7 +27,7 @@ export const GridItem = styled.div`
   ${props =>
     props.line &&
     css`
-      border-bottom: 1px solid ${borderAvailGraph};
+      border-bottom: 1px solid ${props => props.theme.borderAvailGraph};
     `}
 
   ${props =>
@@ -51,5 +46,5 @@ export const SelectedCheck = styled.svg`
   width: 15px;
   height: 15px;
   transform: rotate(45deg);
-  fill: ${textMedium};
+  fill: ${props => props.theme.textMedium};
 `;

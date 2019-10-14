@@ -1,7 +1,5 @@
 import styled, { css } from "styled-components";
 
-import { borderMedium, textDark } from "../../../../../constants/colors";
-
 export const QuestionContainer = styled.div`
   width: 100%;
   display: flex;
@@ -13,7 +11,10 @@ export const QuestionCheckBox = styled.div`
   width: 24px;
   height: 24px;
   margin-right: 10px;
-  border: ${props => (props.default ? "none" : css`1px solid ${borderMedium}`)};
+  border: ${props =>
+    props.default
+      ? "none"
+      : css`1px solid ${props => props.theme.borderMedium}`};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,7 +32,7 @@ export const QuestionTextContainer = styled.div``;
 export const QuestionText = styled.p`
   font-size: 1.2rem;
   line-height: 1.5rem;
-  color: ${textDark};
+  color: ${props => props.theme.textDark};
   margin-bottom: 3px;
 `;
 

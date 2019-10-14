@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { connect } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import Cleave from "cleave.js/react";
@@ -11,8 +11,7 @@ import {
   FormGroup,
   TextArea,
   TextInput,
-  Label,
-  NextButton
+  Label
 } from "../../../../styles/forms2";
 
 import {

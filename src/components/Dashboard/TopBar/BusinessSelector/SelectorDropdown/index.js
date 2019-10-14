@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 
 import SelectorDropdownItem from "./SelectorDropdownItem";
 import { DropdownContainer } from "./styles";

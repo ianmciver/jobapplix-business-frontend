@@ -1,11 +1,5 @@
 import styled, { css } from "styled-components";
 
-import {
-  backgroundAppTable,
-  textBlue,
-  backgroundWhite
-} from "../../../../../../constants/colors";
-
 export const ChevronWrapper = styled.div`
   width: 16px;
   height: 16px;
@@ -15,7 +9,10 @@ export const ChevronWrapper = styled.div`
 export const MultiSelector = styled.div`
   height: 33px;
   overflow: ${props => (props.open ? "visible" : "hidden")};
-  border: ${props => (props.open ? "none" : `1px solid ${backgroundAppTable}`)};
+  border: ${props =>
+    props.open
+      ? "none"
+      : `1px solid ${props => props.theme.backgroundAppTable}`};
   border-radius: 5px;
   position: relative;
   display: inline-flex;
@@ -40,9 +37,10 @@ export const MultiWindow = styled.div`
 
 export const MultiList = styled.div`
   position: relative;
-  border: ${props => (props.open ? `1px solid ${backgroundAppTable}` : "none")};
+  border: ${props =>
+    props.open ? `1px solid ${props.theme.backgroundAppTable}` : "none"};
   border-radius: 5px;
-  background-color: ${backgroundWhite};
+  background-color: ${props => props.theme.backgroundWhite};
   overflow: hidden;
   height: ${props => props.length * 33}px;
   top: ${props =>
@@ -63,8 +61,8 @@ export const MultiOption = styled.div`
   align-items: center;
   font-size: 1.2rem;
   &:hover {
-    background-color: ${textBlue};
-    color: ${backgroundWhite};
+    background-color: ${props => props.theme.textBlue};
+    color: ${props => props.theme.backgroundWhite};
   }
   cursor: pointer;
 `;

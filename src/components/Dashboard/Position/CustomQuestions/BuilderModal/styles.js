@@ -1,11 +1,9 @@
 import styled from "styled-components";
 
-import { backgroundWhite } from "../../../../../constants/colors";
-
 export const BuilderModalContainer = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: ${backgroundWhite};
+  background-color: ${props => props.theme.backgroundWhite};
   display: flex;
   justify-content: center;
   position: fixed;

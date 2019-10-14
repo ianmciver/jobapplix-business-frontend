@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import SelectorDropdown from "./SelectorDropdown";
 import Chevron from "../../../../assets/Chevron";
 import {
-  MobileOff,
   BusinessSelectorContainer,
   OpenSelector,
   LogoContainer,

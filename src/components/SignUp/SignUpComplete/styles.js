@@ -1,12 +1,6 @@
 import styled from "styled-components";
 import { media } from "../../../styles/mediaQueries";
 
-import {
-  textBlue,
-  textLight,
-  backgroundBlue,
-  borderBlue
-} from "../../../constants/colors";
 import { NextButton } from "../SignUpContainer/styles";
 
 export const CompleteContainer = styled.div`
@@ -25,7 +19,7 @@ export const Logo = styled.img`
 `;
 
 export const Welcome = styled.h1`
-  color: ${textBlue};
+  color: ${props => props.theme.textBlue};
   font-size: 3.4rem;
   font-weight: 700;
   text-align: center;
@@ -42,11 +36,11 @@ export const SubText = styled.h3`
 
 export const PositionButton = styled(NextButton)`
   align-self: center;
-  color: ${textBlue};
-  border-color: ${borderBlue};
+  color: ${props => props.theme.textBlue};
+  border-color: ${props => props.theme.borderBlue};
   margin-bottom: 20px;
   &:hover {
-    background-color: ${backgroundBlue};
-    color: ${textLight};
+    background-color: ${props => props.theme.backgroundBlue};
+    color: ${props => props.theme.textLight};
   }
 `;

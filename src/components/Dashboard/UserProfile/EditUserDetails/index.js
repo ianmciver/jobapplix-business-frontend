@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useContext } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { connect } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import { Formik } from "formik";

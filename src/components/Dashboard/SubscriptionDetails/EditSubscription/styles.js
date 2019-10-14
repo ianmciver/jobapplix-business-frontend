@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { lighten } from "polished";
 
 import { NextButton } from "../../../../styles/forms2";
-import { media } from "../../../../styles/mediaQueries";
 
 export const ProfileContainer = styled.div``;
 

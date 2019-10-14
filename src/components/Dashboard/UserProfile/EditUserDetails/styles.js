@@ -2,11 +2,6 @@ import styled, { css } from "styled-components";
 import { lighten } from "polished";
 import { NextButton } from "../../../../styles/forms2";
 import { media } from "../../../../styles/mediaQueries";
-import {
-  textBlue,
-  backgroundWhite,
-  borderRed
-} from "../../../../constants/colors";
 
 export const SubjectImageContainer = styled.div`
   display: flex;
@@ -35,12 +30,12 @@ export const SubjectImage = styled.div`
     `};
   background-position: center;
   background-size: contain;
-  background-color: ${backgroundWhite};
+  background-color: ${props => props.theme.backgroundWhite};
   background-repeat: no-repeat;
 `;
 
 export const AddImageText = styled.p`
-  color: ${textBlue};
+  color: ${props => props.theme.textBlue};
   font-size: 1.2rem;
   margin-top: 5px;
 `;
@@ -63,11 +58,11 @@ export const UrlInfo = styled.p`
 export const UrlLink = styled.a`
   font-size: 1.4rem;
   text-decoration: none;
-  color: ${textBlue};
+  color: ${props => props.theme.textBlue};
 `;
 
 export const Error = styled.p`
-  color: ${borderRed};
+  color: ${props => props.theme.borderRed};
   font-size: 1.2rem;
   padding: 5px 0;
 `;

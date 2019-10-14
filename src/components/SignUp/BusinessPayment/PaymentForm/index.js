@@ -18,7 +18,6 @@ import {
 
 import { ButtonContainer, NextButton } from "../../../../styles/forms2";
 
-import { Error } from "../../SignUpContainer/styles";
 import SubscriptionModal from "../../../Dashboard/SubscriptionDetails/SubscriptionModal";
 
 import Form from "./Form";
