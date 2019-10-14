@@ -40,7 +40,7 @@ export default function PaymentOptions(props) {
             <Title>MONTHLY</Title>
           </TitleContainer>
           <PriceContainer>
-            <Price>$34.99 / mo</Price>
+            <Price>$39.99 / mo</Price>
           </PriceContainer>
           <DetailsContainer>
             <Detail>
@@ -92,7 +92,7 @@ export default function PaymentOptions(props) {
             <Title>YEARLY</Title>
           </TitleContainer>
           <PriceContainer>
-            <Price>$349.99 / yr</Price>
+            <Price>$399.99 / yr</Price>
           </PriceContainer>
           <DetailsContainer>
             <Detail>

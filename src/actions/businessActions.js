@@ -61,7 +61,7 @@ export const checkUrlForAvailability = url => {
   return axios.get(`${API_URL}/businesses/validateurl?url=${url}`);
 };
 
-export const processPaymentDetails = (stripe_token, len, next) => {
+export const processPaymentDetails = (stripe_token, len, coupon, next) => {
   return async (dispatch, getState, API_URL) => {
     const { id } = getState().business;
     const token = await firebase.doGetCurrentUserIdToken();
@@ -69,7 +69,8 @@ export const processPaymentDetails = (stripe_token, len, next) => {
       .post(`${API_URL}/businesses/subscribe?bid=${id}`, {
         token,
         stripe_token,
-        len
+        len,
+        coupon
       })
       .then(res => {
         next();

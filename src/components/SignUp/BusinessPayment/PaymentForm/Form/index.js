@@ -14,6 +14,7 @@ import {
 
 export default function PaymentForm(props) {
   const [cardInputFocused, setCardInputFocused] = useState(false);
+  const [coupon, setCoupon] = useState("");
   const [cardError, setCardError] = useState("");
   const onStripeElementChange = e => {
     if (e.error && e.error.message) {

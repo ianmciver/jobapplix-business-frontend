@@ -31,7 +31,7 @@ export const FormContainer = styled.div`
 export const FinePrintContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 export const FinePrint = styled.a`
