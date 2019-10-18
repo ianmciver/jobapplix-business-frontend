@@ -61,6 +61,7 @@ export const fetchUser = () => {
   return async (dispatch, getState, API_URL) => {
     dispatch({ type: FETCHING_USER_DATA });
     const token = await firebase.doGetCurrentUserIdToken();
+    console.log(token);
     axios
       .get(`${API_URL}/businesses/user?token=${token}`)
       .then(res => {
