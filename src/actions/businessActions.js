@@ -109,7 +109,6 @@ export const uploadFileToS3 = (file, next) => {
 export const getBusinessSummary = errorCallback => {
   return async (dispatch, getState, API_URL) => {
     const token = await firebase.doGetCurrentUserIdToken();
-    console.log(API_URL);
     let selectedBusinessId;
     axios
       .get(`${API_URL}/businesses/user?token=${token}`)
@@ -118,7 +117,6 @@ export const getBusinessSummary = errorCallback => {
         let selectedPreference = data.user.businesses.find(
           item => item.prefered_business
         );
-        console.log(data.user);
         selectedBusinessId = selectedPreference || data.user.businesses[0].id;
         dispatch({ type: SELECT_BUSINESS, selected: selectedBusinessId });
         return axios.get(

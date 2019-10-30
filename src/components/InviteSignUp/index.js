@@ -1,25 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import { Formik } from "formik";
+import * as Yup from "yup";
+
+import { AppContainer } from "../SignIn/styles";
+import { Container } from "../SignUp/SignUpContainer/styles";
+
+import {
+  Form,
+  Label,
+  TextInput,
+  ButtonContainer,
+  NextButton,
+  FormGroup
+} from "../../styles/forms2";
+
+import {
+  Headline,
+  Error,
+  Instructions
+} from "../SignUp/SignUpContainer/styles";
 
 import { createUserFromPending } from "../../actions/businessUserActions";
 import { API_URL } from "../../constants/urls";
 import Loading from "../Dashboard/Loading";
 import Header from "../Header";
-import { TextInput } from "../../styles/forms";
-import { NextButton } from "../SignUp/SignUpContainer/styles";
 import { dashboard } from "../../constants/routes";
 
 import { withFirebase } from "../../Firebase";
 
-import {
-  Container,
-  WelcomeHeader,
-  BusinessLogo,
-  Description,
-  FormContainer,
-  PasswordInput
-} from "./styles";
+import { WelcomeHeader, BusinessLogo, Description } from "./styles";
+
+const SignupSchema = Yup.object().shape({
+  name: Yup.string().required("Your Name is Required"),
+  email: Yup.string()
+    .email("Please Enter a Invalid Email")
+    .required("An Email Address is Required"),
+  title: Yup.string(),
+  password: Yup.string()
+    .min(6, "Password Must be at Least 6 Characters Long")
+    .required("Password is Required"),
+  confirmPassword: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "Passwords Must Match"
+  )
+});
 
 // app.jobapplix.com/invitesignup/:id
 function InviteSignUp(props) {
@@ -29,13 +55,6 @@ function InviteSignUp(props) {
   const [email, setEmail] = useState(""); //email
   const [id, setId] = useState(""); //id
 
-  const [name, setName] = useState(""); //name
-  const [title, setTitle] = useState(""); //title
-  const [password, setPassword] = useState(""); //password
-  const [confirmPassword, setConfirmPassword] = useState(""); //password confirm
-  const [passMatch, setPassMatch] = useState(true);
-  const [passLength, setPassLength] = useState(true);
-  const [buttonDisabled, setButtonDisabled] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -44,7 +63,7 @@ function InviteSignUp(props) {
       .then(({ data }) => {
         if (data === "") {
           setError(
-            "Sorry, it looks like this link is invalid. If you clicked a link from your email it may have expired. Please contact your JobApplix aministrator to generate a new link."
+            "Sorry, it looks like this link is invalid. If you clicked a link from your email it may have expired. Please contact your JobApplix administrator to generate a new link."
           );
           setLoading(false);
         } else {
@@ -57,120 +76,158 @@ function InviteSignUp(props) {
       });
   }, []);
 
-  useEffect(() => {
-    if (password !== confirmPassword) {
-      setPassMatch(false);
-    } else {
-      setPassMatch(true);
-    }
-    return () => {
-      setPassMatch(true);
-    };
-  }, [confirmPassword, password]);
-
-  useEffect(() => {
-    if (password.length > 5) {
-      setPassLength(true);
-    } else {
-      setPassMatch(true);
-    }
-    return () => {
-      setPassLength(false);
-    };
-  }, [password]);
-
-  useEffect(() => {
-    if (
-      name.length > 0 &&
-      email.length > 0 &&
-      password.length > 0 &&
-      passMatch &&
-      passLength
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  });
-  const createFirebaseUser = e => {
-    e.preventDefault();
+  const createFirebaseUser = (values, e) => {
     props.firebase
-      .doCreateUserWithEmailAndPassword(email, password)
+      .doCreateUserWithEmailAndPassword(values.email, values.password)
       .then(() => {
-        props.createUserFromPending(email, name, title, id, () =>
-          props.history.push(`${dashboard}`)
+        props.createUserFromPending(
+          values.email,
+          values.name,
+          values.title,
+          id,
+          () => props.history.push(`${dashboard}`)
         );
       })
       .catch(err => {
         setError(err.message);
       });
   };
+
   return (
     <>
       {loading && <Loading />}
       <Header />
-      <Container>
-        {error ? (
-          <>
-            <WelcomeHeader>Sorry!</WelcomeHeader>
-            <Description>{error}</Description>
-          </>
-        ) : (
-          <>
-            <WelcomeHeader>Welcome!</WelcomeHeader>
-            <BusinessLogo src={businessLogo} alt={`${businessName} logo`} />
-            <Description>
-              You have been invited to {businessName}'s JobApplix group.
-              Complete your account details here to join the group.
-            </Description>
-            <FormContainer>
-              <TextInput
-                value={name}
-                onChange={e => setName(e.target.value)}
-                placeholder="YOUR FULL NAME*"
+      <AppContainer>
+        <Container>
+          {error && (
+            <>
+              <WelcomeHeader>Sorry!</WelcomeHeader>
+              <Description>{error}</Description>
+            </>
+          )}
+          {!error && !loading && (
+            <>
+              <Headline>Welcome!</Headline>
+              <BusinessLogo src={businessLogo} alt={`${businessName} logo`} />
+              <Instructions>
+                You have been invited to {businessName}'s JobApplix group.
+                Complete your account details here to join the group.
+              </Instructions>
+              <Formik
+                initialValues={{
+                  name: "",
+                  email: email,
+                  title: "",
+                  password: "",
+                  confirmPassword: ""
+                }}
+                validationSchema={SignupSchema}
+                onSubmit={createFirebaseUser}
+                render={({
+                  values,
+                  touched,
+                  errors,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isSubmitting,
+                  dirty
+                }) => {
+                  const buttonDisabled =
+                    !dirty ||
+                    isSubmitting ||
+                    (errors.email ||
+                      errors.password ||
+                      errors.confirmPassword ||
+                      errors.name) ||
+                    values.password !== values.confirmPassword;
+                  return (
+                    <Form>
+                      <FormGroup>
+                        <Label htmlFor="name">Full Name</Label>
+                        <TextInput
+                          name="name"
+                          value={values.name}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.name && errors.name}
+                        />
+                        {touched.name && errors.name && (
+                          <Error>{errors.name}</Error>
+                        )}
+                      </FormGroup>
+                      <FormGroup>
+                        <Label htmlFor="email">Email</Label>
+                        <TextInput
+                          name="email"
+                          value={values.email}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.email && errors.email}
+                        />
+                        {touched.email && errors.email && (
+                          <Error>{errors.email}</Error>
+                        )}
+                      </FormGroup>
+                      <FormGroup>
+                        <Label htmlFor="title">Your Title</Label>
+                        <TextInput
+                          name="title"
+                          value={values.title}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label htmlFor="password">Password</Label>
+                        <TextInput
+                          name="password"
+                          value={values.password}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          type="password"
+                          error={
+                            touched.password &&
+                            (errors.confirmPassword || errors.password)
+                          }
+                        />
+                        {touched.password && errors.password && (
+                          <Error>{errors.password}</Error>
+                        )}
+                      </FormGroup>
+                      <FormGroup>
+                        <Label htmlFor="confirmPassword">
+                          Confirm Password
+                        </Label>
+                        <TextInput
+                          name="confirmPassword"
+                          value={values.confirmPassword}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          type="password"
+                          match={errors.confirmPassword}
+                        />
+                        {touched.confirmPassword && errors.confirmPassword && (
+                          <Error>{errors.confirmPassword}</Error>
+                        )}
+                      </FormGroup>
+                      {error ? <Error>{error}</Error> : null}
+                      <ButtonContainer>
+                        <NextButton
+                          disabled={buttonDisabled}
+                          onClick={handleSubmit}
+                        >
+                          {isSubmitting ? "LOADING..." : "REGISTER"} &rarr;
+                        </NextButton>
+                      </ButtonContainer>
+                    </Form>
+                  );
+                }}
               />
-              <TextInput
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="EMAIL*"
-              />
-              <TextInput
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-                placeholder="YOUR TITLE"
-              />
-              <PasswordInput
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                placeholder="PASSWORD*"
-                type="password"
-                match={passMatch}
-              />
-              <PasswordInput
-                value={confirmPassword}
-                onChange={e => setConfirmPassword(e.target.value)}
-                placeholder="CONFIRM PASSWORD*"
-                type="password"
-                match={passMatch}
-              />
-              <NextButton
-                disabled={buttonDisabled}
-                onClick={createFirebaseUser}
-              >
-                COMPLETE SIGN UP
-              </NextButton>
-              {passMatch ? null : (
-                <p className="no-match">Passwords do not match</p>
-              )}
-              {passLength ? null : (
-                <p className="no-match">
-                  Password must be at least 6 characters long.
-                </p>
-              )}
-            </FormContainer>
-          </>
-        )}
-      </Container>
+            </>
+          )}
+        </Container>
+      </AppContainer>
     </>
   );
 }
