@@ -5,7 +5,14 @@ import { injectStripe } from "react-stripe-elements";
 import { processReactivatePayment } from "../../../actions/businessActions";
 
 import Form from "../../SignUp/BusinessPayment/PaymentForm/Form";
-import SubscriptionModal from "../SubscriptionDetails/SubscriptionModal";
+
+import ModalContainer from "../../ModalContainer";
+import ModalCard from "../../ModalContainer/ModalCard";
+import {
+  ModalCardHeader,
+  ModalCardBody,
+  ModalCardFooter
+} from "../../ModalContainer/ModalCard/styles";
 
 import { dashboard, businessProfile } from "../../../constants/routes";
 
@@ -15,7 +22,8 @@ import {
   ProfileTitle,
   ButtonContainer,
   EditButton,
-  UpdateButton
+  UpdateButton,
+  InfoBody
 } from "./styles";
 
 function ReactivateSubscription(props) {
@@ -37,11 +45,11 @@ function ReactivateSubscription(props) {
     setModalOpen(true);
     props.processReactivatePayment(token.id, subType, () => {
       setProcessing(false);
-      props.history.replace(`${dashboard}${businessProfile}`);
     });
   };
 
   const leave = () => {
+    setModalOpen(false);
     props.history.push(`${dashboard}${businessProfile}`);
   };
 
@@ -66,7 +74,7 @@ function ReactivateSubscription(props) {
           </ProfileDescription>
           <ButtonContainer>
             <EditButton onClick={e => setDetailsOpen(true)}>
-              <span>🎉 REACTIVATE MY ACCOUNT!</span>
+              <span> REACTIVATE MY ACCOUNT!</span>
             </EditButton>
           </ButtonContainer>
         </>
@@ -112,22 +120,43 @@ function ReactivateSubscription(props) {
           ) : null}
         </>
       )}
-      {modalOpen ? (
-        processing ? (
-          <SubscriptionModal
-            title="PROCESSING"
-            message="Your payment is being processed, this may take a moment."
-          />
-        ) : (
-          <SubscriptionModal
-            title="PAYMENT METHOD UPDATED"
-            message="Your payment method has been successfully updated. You will not be charged until your next billing period end."
-            confirmText="OK."
-            closeModal={leave}
-            confirmHandler={leave}
-          />
-        )
-      ) : null}
+
+      <ModalContainer open={modalOpen && processing}>
+        <ModalCard
+          open={modalOpen && processing}
+          onClick={e => e.stopPropagation()}
+        >
+          <ModalCardHeader>Processing Payment</ModalCardHeader>
+          <ModalCardBody>
+            <InfoBody>
+              Your payment is being processed, this may take a moment. Please do
+              not navigate off this page until the payment is complete.
+            </InfoBody>
+          </ModalCardBody>
+        </ModalCard>
+      </ModalContainer>
+
+      <ModalContainer open={modalOpen && !processing} onClick={leave}>
+        <ModalCard
+          open={modalOpen && !processing}
+          onClick={e => e.stopPropagation()}
+        >
+          <ModalCardHeader>🎊 Payment Successfully Received 🎉</ModalCardHeader>
+          <ModalCardBody>
+            <InfoBody>
+              Welcome back! You payment has been received and your account has
+              been reactivated! You are now able to use the full set of
+              JobApplix features. Please take a moment to look over your
+              business details and make sure everything is up to date.
+            </InfoBody>
+          </ModalCardBody>
+          <ModalCardFooter>
+            <UpdateButton onClick={leave}>
+              Review Business Details &rarr;
+            </UpdateButton>
+          </ModalCardFooter>
+        </ModalCard>
+      </ModalContainer>
     </ProfileContainer>
   );
 }
