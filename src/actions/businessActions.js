@@ -61,7 +61,13 @@ export const checkUrlForAvailability = url => {
   return axios.get(`${API_URL}/businesses/validateurl?url=${url}`);
 };
 
-export const processPaymentDetails = (stripe_token, len, coupon, next) => {
+export const processPaymentDetails = (
+  stripe_token,
+  len,
+  coupon,
+  next,
+  errorHandler
+) => {
   return async (dispatch, getState, API_URL) => {
     const { id } = getState().business;
     const token = await firebase.doGetCurrentUserIdToken();
@@ -73,23 +79,6 @@ export const processPaymentDetails = (stripe_token, len, coupon, next) => {
         coupon
       })
       .then(res => {
-        next();
-      });
-  };
-};
-
-export const processReactivatePayment = (stripe_token, len, next) => {
-  return async (dispatch, getState, API_URL) => {
-    const { id } = getState().business;
-    const token = await firebase.doGetCurrentUserIdToken();
-    axios
-      .post(`${API_URL}/businesses/subscribe?bid=${id}`, {
-        token,
-        stripe_token,
-        len
-      })
-      .then(res => {
-        console.log(res);
         dispatch({
           type: UPDATE_BUSINESS,
           payload: {
@@ -97,6 +86,9 @@ export const processReactivatePayment = (stripe_token, len, next) => {
           }
         });
         next();
+      })
+      .catch(err => {
+        errorHandler();
       });
   };
 };
@@ -316,7 +308,7 @@ export const updateSubscription = (subType, next) => {
   };
 };
 
-export const updatePaymentMethod = (stripe_token, next) => {
+export const updatePaymentMethod = (stripe_token, next, errorHandler) => {
   return async (dispatch, getState, API_URL) => {
     const token = await firebase.doGetCurrentUserIdToken();
     const { id } = getState().business;
@@ -328,7 +320,9 @@ export const updatePaymentMethod = (stripe_token, next) => {
       .then(() => {
         next();
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        errorHandler();
+      });
   };
 };
 

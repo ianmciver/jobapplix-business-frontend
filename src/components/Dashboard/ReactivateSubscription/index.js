@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { injectStripe } from "react-stripe-elements";
 
-import { processReactivatePayment } from "../../../actions/businessActions";
+import { processPaymentDetails } from "../../../actions/businessActions";
 
 import Form from "../../SignUp/BusinessPayment/PaymentForm/Form";
 
@@ -38,14 +38,25 @@ function ReactivateSubscription(props) {
   const [emailValid, setEmailValid] = useState(true);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState(false);
 
   const updateCardHandler = async () => {
     let { token } = await props.stripe.createToken({ name, email });
     setProcessing(true);
     setModalOpen(true);
-    props.processReactivatePayment(token.id, subType, () => {
-      setProcessing(false);
-    });
+    props.processPaymentDetails(
+      token.id,
+      subType,
+      undefined,
+      () => {
+        setProcessing(false);
+      },
+      () => {
+        setProcessing(false);
+        setModalOpen(false);
+        setError(true);
+      }
+    );
   };
 
   const leave = () => {
@@ -107,6 +118,7 @@ function ReactivateSubscription(props) {
                 emailValid={emailValid}
                 setEmailValid={setEmailValid}
                 setCardComplete={setCardComplete}
+                error={error}
               />
               <ButtonContainer>
                 <UpdateButton
@@ -163,5 +175,5 @@ function ReactivateSubscription(props) {
 
 export default connect(
   null,
-  { processReactivatePayment }
+  { processPaymentDetails }
 )(injectStripe(ReactivateSubscription));

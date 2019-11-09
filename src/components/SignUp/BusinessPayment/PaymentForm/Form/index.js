@@ -78,6 +78,12 @@ export default function PaymentForm(props) {
           />
         </StripeInputDiv>
         {cardError && <Error>{cardError}</Error>}
+        {props.error && (
+          <Error>
+            There was an error processing your card. Please check the details
+            and try again.
+          </Error>
+        )}
       </FormGroup>
     </Form>
   );

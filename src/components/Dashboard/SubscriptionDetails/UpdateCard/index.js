@@ -37,6 +37,7 @@ function UpdateCard(props) {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (email.length > 0) {
@@ -54,12 +55,19 @@ function UpdateCard(props) {
 
   const updateCardHandler = async () => {
     let { token } = await props.stripe.createToken({ name, email });
-    console.log(token);
     setProcessing(true);
     setModalOpen(true);
-    props.updatePaymentMethod(token.id, () => {
-      setProcessing(false);
-    });
+    props.updatePaymentMethod(
+      token.id,
+      () => {
+        setProcessing(false);
+      },
+      () => {
+        setProcessing(false);
+        setModalOpen(false);
+        setError(true);
+      }
+    );
   };
 
   const leave = () => {
@@ -81,6 +89,7 @@ function UpdateCard(props) {
         emailValid={emailValid}
         setEmailValid={setEmailValid}
         setCardComplete={setCardComplete}
+        error={error}
       />
       <ButtonContainer>
         <CancelButton onClick={e => props.history.goBack()}>

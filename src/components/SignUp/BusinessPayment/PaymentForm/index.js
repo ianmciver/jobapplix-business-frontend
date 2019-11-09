@@ -50,6 +50,7 @@ const PaymentForm = props => {
   const [coupon, setCoupon] = useState("");
   const [couponMessage, setCouponMessage] = useState("");
   const [couponChecked, setCouponChecked] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (name.length > 1 && emailValid && cardComplete) {
@@ -66,7 +67,11 @@ const PaymentForm = props => {
       token.id,
       props.subType,
       coupon,
-      props.nextScreen
+      props.nextScreen,
+      () => {
+        setProcessing(false);
+        setError(true);
+      }
     );
   };
 
@@ -101,6 +106,7 @@ const PaymentForm = props => {
           emailValid={emailValid}
           setEmailValid={setEmailValid}
           setCardComplete={setCardComplete}
+          error={error}
         />
         <FinePrintContainer>
           <FinePrint>terms</FinePrint>
