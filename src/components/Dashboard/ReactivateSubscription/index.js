@@ -60,8 +60,8 @@ function ReactivateSubscription(props) {
   };
 
   const leave = () => {
-    setModalOpen(false);
     props.history.push(`${dashboard}${businessProfile}`);
+    setModalOpen(false);
   };
 
   useEffect(() => {
