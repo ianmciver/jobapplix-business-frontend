@@ -42,7 +42,6 @@ function EditSubscription(props) {
       <ProfileTitle>Update Subscription Details</ProfileTitle>
       <CancelSubButton
         onClick={() => {
-          console.log("Is this happeneing?");
           setCancelModalOpen(true);
         }}
       >

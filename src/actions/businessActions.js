@@ -78,6 +78,29 @@ export const processPaymentDetails = (stripe_token, len, coupon, next) => {
   };
 };
 
+export const processReactivatePayment = (stripe_token, len, next) => {
+  return async (dispatch, getState, API_URL) => {
+    const { id } = getState().business;
+    const token = await firebase.doGetCurrentUserIdToken();
+    axios
+      .post(`${API_URL}/businesses/subscribe?bid=${id}`, {
+        token,
+        stripe_token,
+        len
+      })
+      .then(res => {
+        console.log(res);
+        dispatch({
+          type: UPDATE_BUSINESS,
+          payload: {
+            ...res.data.business
+          }
+        });
+        next();
+      });
+  };
+};
+
 export const uploadFileToS3 = (file, next) => {
   return async (dispatch, getState, API_URL) => {
     const token = await firebase.doGetCurrentUserIdToken();
@@ -260,7 +283,16 @@ export const cancelSubscription = next => {
     return axios
       .delete(`${API_URL}/businesses/subscribe?bid=${id}&token=${token}`)
       .then(() => {
-        dispatch({ type: UPDATE_BUSINESS, payload: { active: false } });
+        dispatch({
+          type: UPDATE_BUSINESS,
+          payload: {
+            active: false,
+            canceled: true,
+            stripe_customer_id: null,
+            stripe_sub_id: null,
+            sub_type: null
+          }
+        });
         next();
       })
       .catch(err => console.log(err));
@@ -309,7 +341,6 @@ export const updateUserRole = (uid, role) => {
         `${API_URL}/businesses/assignuser/${role}?bid=${id}&uid=${uid}&token=${token}`
       )
       .then(res => {
-        console.log(res);
         dispatch({ type: UPDATE_USER_ROLE, payload: { id: uid, role } });
       })
       .catch(err => {

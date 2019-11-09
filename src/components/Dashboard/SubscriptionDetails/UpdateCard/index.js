@@ -26,9 +26,6 @@ function UpdateCard(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [cardComplete, setCardComplete] = useState("");
-  const [cvcComplete, setCvcComplete] = useState("");
-  const [zipComplete, setZipComplete] = useState("");
-  const [expComplete, setExpComplete] = useState("");
   const [emailValid, setEmailValid] = useState(true);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -41,19 +38,12 @@ function UpdateCard(props) {
   }, [email]);
 
   useEffect(() => {
-    if (
-      name.length > 1 &&
-      emailValid &&
-      cardComplete &&
-      cvcComplete &&
-      zipComplete &&
-      expComplete
-    ) {
-      setButtonDisabled(false);
-    } else {
+    if (name.length > 1 && emailValid && cardComplete) {
       setButtonDisabled(true);
+    } else {
+      setButtonDisabled(false);
     }
-  }, [name, emailValid, cardComplete, cvcComplete, zipComplete, expComplete]);
+  }, [name, emailValid, cardComplete]);
 
   const updateCardHandler = async () => {
     let { token } = await props.stripe.createToken({ name, email });
@@ -67,6 +57,7 @@ function UpdateCard(props) {
   const leave = () => {
     props.history.push(`${dashboard}${businessProfile}`);
   };
+
   return (
     <ProfileContainer>
       <ProfileTitle>UPDATE PAYMENT METHOD</ProfileTitle>
@@ -82,11 +73,7 @@ function UpdateCard(props) {
         emailValid={emailValid}
         setEmailValid={setEmailValid}
         setCardComplete={setCardComplete}
-        setCvcComplete={setCvcComplete}
-        setZipComplete={setZipComplete}
-        setExpComplete={setExpComplete}
       />
-      {!emailValid && <Error>Please Enter a Valid Email</Error>}
       <ButtonContainer>
         <CancelButton onClick={e => props.history.goBack()}>
           Cancel
