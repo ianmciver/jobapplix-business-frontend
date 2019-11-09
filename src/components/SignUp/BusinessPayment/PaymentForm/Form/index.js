@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-
 import { CardElement } from "react-stripe-elements";
+import * as yup from "yup";
 
 import {
   TextInput,
@@ -12,10 +12,32 @@ import {
   Error
 } from "../../../../../styles/forms2";
 
+const emailValidation = yup.object().shape({
+  email: yup
+    .string()
+    .email()
+    .required()
+});
+
 export default function PaymentForm(props) {
   const [cardInputFocused, setCardInputFocused] = useState(false);
-  const [coupon, setCoupon] = useState("");
   const [cardError, setCardError] = useState("");
+
+  const [emailValid, setEmailValid] = useState(true);
+
+  const checkEmailValidationAndSetEmail = e => {
+    emailValidation
+      .isValid({
+        email: e.target.value
+      })
+      .then(valid => {
+        props.setEmailValid(valid);
+        setEmailValid(valid);
+      });
+
+    props.setEmail(e.target.value);
+  };
+
   const onStripeElementChange = e => {
     if (e.error && e.error.message) {
       setCardError(e.error.message);
@@ -41,9 +63,9 @@ export default function PaymentForm(props) {
         <Label>Email</Label>
         <TextInput
           value={props.email}
-          onChange={e => props.setEmail(e.target.value)}
+          onChange={checkEmailValidationAndSetEmail}
         />
-        {!props.emailValid && <Error>Please Enter a Valid Email</Error>}
+        {!emailValid && <Error>Please Enter a Valid Email</Error>}
       </FormGroup>
       <FormGroup>
         <Label>Card Information</Label>
@@ -56,6 +78,12 @@ export default function PaymentForm(props) {
           />
         </StripeInputDiv>
         {cardError && <Error>{cardError}</Error>}
+        {props.error && (
+          <Error>
+            There was an error processing your card. Please check the details
+            and try again.
+          </Error>
+        )}
       </FormGroup>
     </Form>
   );

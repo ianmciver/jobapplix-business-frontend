@@ -212,8 +212,6 @@ function EditBusinessDetails(props) {
                 }}
                 value={values.phone}
                 onChange={e => {
-                  console.log(e.target.value);
-                  console.log(values.phone);
                   handleChange(e);
                 }}
               />

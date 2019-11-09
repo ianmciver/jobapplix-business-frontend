@@ -12,7 +12,6 @@ import {
 } from "./styles";
 
 function BusinessDetails(props) {
-  console.log(props.business.subDetails);
   return (
     <>
       <BusinessLogoContainer>

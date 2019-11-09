@@ -61,3 +61,8 @@ export const SubTotal = styled.h4`
   text-transform: uppercase;
   margin-bottom: 20px;
 `;
+
+export const InfoBody = styled.span`
+  font-size: 1.6rem;
+  line-height: 3rem;
+`;

@@ -32,7 +32,7 @@ const SignupSchema = Yup.object().shape({
     .email("Please Enter a Invalid Email")
     .required("An Email Address is Required"),
   title: Yup.string(),
-  password: Yup.string()
+  password: Yup.string() 
     .min(6, "Password Must be at Least 6 Characters Long")
     .required("Password is Required"),
   confirmPassword: Yup.string().oneOf(

@@ -15,10 +15,17 @@ import {
   Details,
   ButtonContainer,
   UpdateButton,
-  CancelButton
+  CancelButton,
+  InfoBody
 } from "./styles";
 
-import { Error } from "../../../SignUp/SignUpContainer/styles";
+import ModalContainer from "../../../ModalContainer";
+import ModalCard from "../../../ModalContainer/ModalCard";
+import {
+  ModalCardHeader,
+  ModalCardBody,
+  ModalCardFooter
+} from "../../../ModalContainer/ModalCard/styles";
 
 import { dashboard, businessProfile } from "../../../../constants/routes";
 
@@ -26,13 +33,11 @@ function UpdateCard(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [cardComplete, setCardComplete] = useState("");
-  const [cvcComplete, setCvcComplete] = useState("");
-  const [zipComplete, setZipComplete] = useState("");
-  const [expComplete, setExpComplete] = useState("");
   const [emailValid, setEmailValid] = useState(true);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (email.length > 0) {
@@ -41,32 +46,34 @@ function UpdateCard(props) {
   }, [email]);
 
   useEffect(() => {
-    if (
-      name.length > 1 &&
-      emailValid &&
-      cardComplete &&
-      cvcComplete &&
-      zipComplete &&
-      expComplete
-    ) {
+    if (name.length > 1 && emailValid && cardComplete) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
     }
-  }, [name, emailValid, cardComplete, cvcComplete, zipComplete, expComplete]);
+  }, [name, emailValid, cardComplete]);
 
   const updateCardHandler = async () => {
     let { token } = await props.stripe.createToken({ name, email });
     setProcessing(true);
     setModalOpen(true);
-    props.updatePaymentMethod(token.id, () => {
-      setProcessing(false);
-    });
+    props.updatePaymentMethod(
+      token.id,
+      () => {
+        setProcessing(false);
+      },
+      () => {
+        setProcessing(false);
+        setModalOpen(false);
+        setError(true);
+      }
+    );
   };
 
   const leave = () => {
     props.history.push(`${dashboard}${businessProfile}`);
   };
+
   return (
     <ProfileContainer>
       <ProfileTitle>UPDATE PAYMENT METHOD</ProfileTitle>
@@ -82,11 +89,8 @@ function UpdateCard(props) {
         emailValid={emailValid}
         setEmailValid={setEmailValid}
         setCardComplete={setCardComplete}
-        setCvcComplete={setCvcComplete}
-        setZipComplete={setZipComplete}
-        setExpComplete={setExpComplete}
+        error={error}
       />
-      {!emailValid && <Error>Please Enter a Valid Email</Error>}
       <ButtonContainer>
         <CancelButton onClick={e => props.history.goBack()}>
           Cancel
@@ -95,22 +99,45 @@ function UpdateCard(props) {
           UPDATE CARD
         </UpdateButton>
       </ButtonContainer>
-      {modalOpen ? (
-        processing ? (
-          <SubscriptionModal
-            title="PROCESSING"
-            message="Your payment is being processed, this may take a moment."
-          />
-        ) : (
-          <SubscriptionModal
-            title="PAYMENT METHOD UPDATED"
-            message="Your payment method has been successfully updated. You will not be charged until your next billing period end."
-            confirmText="OK."
-            closeModal={leave}
-            confirmHandler={leave}
-          />
-        )
-      ) : null}
+      <ModalContainer
+        open={modalOpen && processing}
+        onClick={() => {
+          return;
+        }}
+      >
+        <ModalCard
+          open={modalOpen && processing}
+          onClick={e => e.stopPropagation()}
+        >
+          <ModalCardHeader>Processing Payment</ModalCardHeader>
+          <ModalCardBody>
+            <InfoBody>
+              Your payment is being processed, this may take a moment. Please do
+              not navigate off this page until the payment is complete.
+            </InfoBody>
+          </ModalCardBody>
+        </ModalCard>
+      </ModalContainer>
+
+      <ModalContainer open={modalOpen && !processing} onClick={leave}>
+        <ModalCard
+          open={modalOpen && !processing}
+          onClick={e => e.stopPropagation()}
+        >
+          <ModalCardHeader>Payment Successfully Received</ModalCardHeader>
+          <ModalCardBody>
+            <InfoBody>
+              Your payment method has been successfully updated. You will not be
+              charged until your next billing period end.
+            </InfoBody>
+          </ModalCardBody>
+          <ModalCardFooter>
+            <UpdateButton onClick={leave}>
+              Return to Business Profile &rarr;
+            </UpdateButton>
+          </ModalCardFooter>
+        </ModalCard>
+      </ModalContainer>
     </ProfileContainer>
   );
 }
