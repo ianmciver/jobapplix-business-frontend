@@ -72,6 +72,10 @@ function ReactivateSubscription(props) {
     }
   }, [name, emailValid, cardComplete]);
 
+  if (props.business.active) {
+    props.history.replace("/");
+  }
+
   return (
     <ProfileContainer>
       <ProfileTitle>Reactivate Subscription</ProfileTitle>
@@ -174,6 +178,6 @@ function ReactivateSubscription(props) {
 }
 
 export default connect(
-  null,
+  state => ({ business: state.business }),
   { processPaymentDetails }
 )(injectStripe(ReactivateSubscription));
