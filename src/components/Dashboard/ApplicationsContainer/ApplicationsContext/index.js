@@ -3,13 +3,17 @@ import { connect } from "react-redux";
 import axios from "axios";
 
 import { API_URL } from "../../../../constants/urls";
-import { updateApplicationGroup } from "../../../../actions/businessActions";
+import {
+  updateApplicationGroup,
+  getApplications
+} from "../../../../actions/businessActions";
 import FirebaseContext from "../../../../Firebase/context";
 
 export const ApplicationsContext = createContext({
   selectedGroupId: 1000,
   groups: [],
   applications: [],
+  archivedApplications: [],
   changeApplicationGroup: () => {}
 });
 
@@ -42,6 +46,7 @@ function ApplicationsProvider(props) {
   const [selectedGroupId, setSelectedGroupId] = useState(1000);
   const [selectedPositions, setSelectedPositions] = useState([]);
   const [applications, setApplications] = useState([]);
+  const [archivedApplications, setArchivedApplications] = useState([]);
   const [selectedApp, setSelectedApp] = useState({});
   const [selectedAppId, setSelectedAppId] = useState(-1);
   const [applicationCache, setApplicationCache] = useState({});
@@ -56,41 +61,83 @@ function ApplicationsProvider(props) {
     { id: 3, title: "In Progress" },
     { id: 5, title: "Pile" },
     { id: 4, title: "High Potential" },
-    { id: 6, title: "Not Hired" }
+    { id: 6, title: "Not Hired" },
+    { id: 7, title: "Archived" }
   ];
 
+  const getArchivedApplications = async () => {
+    let token = await firebase.doGetCurrentUserIdToken();
+    axios
+      .get(
+        `${API_URL}/applications/archivedapps?bid=${props.businessId}&token=${token}`
+      )
+      .then(res => {
+        console.log(res.data);
+        setArchivedApplications(res.data.applications);
+      })
+      .catch(err => console.log(err));
+  };
+
   const changeApplicationGroup = async (id, groupId) => {
-    props.updateApplicationGroup(id, groupId);
+    let app = applications.find(app => app.app_id === id);
+
+    if (!app && groupId !== 7) {
+      let newArchivedApps = archivedApplications.filter(
+        app => app.app_id !== id
+      );
+      props.updateApplicationGroup(id, groupId, () => {
+        props.getApplications(() => {
+          setArchivedApplications(newArchivedApps);
+        });
+      });
+    }
+
+    if (groupId === 7) {
+      let newApplications = applications.filter(app => app.app_id !== id);
+      props.updateApplicationGroup(id, groupId, () => {
+        props.getApplications(() => {
+          setApplications(newApplications);
+        });
+      });
+    }
+
+    if (app && groupId !== 7) {
+      props.updateApplicationGroup(id, groupId);
+    }
   };
 
   const setGroupSelected = id => {
-    let appsByGroup =
-      id === 1000
-        ? props.applications
-        : props.applications.filter(app => app.group === id);
-    let apps =
-      selectedPositions.length === 0
-        ? appsByGroup
-        : appsByGroup.filter(app => {
-            return selectedPositions.indexOf(app.position_id) >= 0;
-          });
-    let availabilityFilterApps = Object.values(availabilityFilter).reduce(
-      (a, b) => a | b
-    )
-      ? apps.filter(app => {
-          let match = true;
-          for (let key in availabilityFilter) {
-            if (availabilityFilter[key]) {
-              if (!app.availability || !app.availability[key]) {
-                match = false;
+    if (id === 7) {
+      getArchivedApplications();
+    } else {
+      let appsByGroup =
+        id === 1000
+          ? props.applications
+          : props.applications.filter(app => app.group === id);
+      let apps =
+        selectedPositions.length === 0
+          ? appsByGroup
+          : appsByGroup.filter(app => {
+              return selectedPositions.indexOf(app.position_id) >= 0;
+            });
+      let availabilityFilterApps = Object.values(availabilityFilter).reduce(
+        (a, b) => a | b
+      )
+        ? apps.filter(app => {
+            let match = true;
+            for (let key in availabilityFilter) {
+              if (availabilityFilter[key]) {
+                if (!app.availability || !app.availability[key]) {
+                  match = false;
+                }
               }
             }
-          }
-          return match;
-        })
-      : apps;
+            return match;
+          })
+        : apps;
+      setApplications(availabilityFilterApps);
+    }
     setSelectedGroupId(id);
-    setApplications(availabilityFilterApps);
   };
 
   const formatApplication = application => {
@@ -219,7 +266,8 @@ function ApplicationsProvider(props) {
         availabilityFilter,
         availabilityFilterOpen,
         setAvailabilityFilterOpen,
-        resetAvailability
+        resetAvailability,
+        archivedApplications
       }}
     >
       {props.children}
@@ -233,5 +281,5 @@ export default connect(
     businessId: state.business.id,
     positions: state.business.positions
   }),
-  { updateApplicationGroup }
+  { updateApplicationGroup, getApplications }
 )(ApplicationsProvider);

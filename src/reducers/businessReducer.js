@@ -52,7 +52,14 @@ export default function BusinessReducer(state = initialState, action) {
           return app;
         }
       });
-      return { ...state, applications: newApps };
+      if (action.group === 7) {
+        return {
+          ...state,
+          applications: newApps.filter(app => app.app_id !== action.appid)
+        };
+      } else {
+        return { ...state, applications: newApps };
+      }
     case CREATE_POSITION:
       return { ...state, positions: [...state.positions, action.position] };
     case UPDATE_POSITION:

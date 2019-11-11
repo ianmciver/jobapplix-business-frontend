@@ -150,17 +150,43 @@ export const getBusinessSummary = errorCallback => {
   };
 };
 
-export const updateApplicationGroup = (appid, group) => {
+export const getApplications = cb => {
+  return async (dispatch, getState, API_URL) => {
+    try {
+      const token = await firebase.doGetCurrentUserIdToken();
+      const { id } = getState().business;
+      let res = await axios.get(
+        `${API_URL}/applications/applicationsummaries?bid=${id}&token=${token}`
+      );
+      console.log(res);
+      dispatch({
+        type: UPDATE_BUSINESS,
+        payload: { applications: res.data.applications }
+      });
+      if (typeof cb === "function") {
+        cb();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const updateApplicationGroup = (appid, group, cb) => {
   return async (dispatch, getState, API_URL) => {
     const token = await firebase.doGetCurrentUserIdToken();
     const { id } = getState().business;
     dispatch({ type: UPDATE_APP_GROUP, appid, group });
     try {
-      await axios.put(`${API_URL}/applications/group?bid=${id}`, {
+      const res = await axios.put(`${API_URL}/applications/group?bid=${id}`, {
         appid,
         group,
         token
       });
+      console.log(res.data);
+      if (typeof cb === "function") {
+        cb();
+      }
     } catch (err) {
       console.log(err);
     }

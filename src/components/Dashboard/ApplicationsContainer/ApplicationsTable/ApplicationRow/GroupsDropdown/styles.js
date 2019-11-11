@@ -61,8 +61,11 @@ export const MultiOption = styled.div`
   align-items: center;
   font-size: 1.2rem;
   &:hover {
-    background-color: ${props => props.theme.textBlue};
+    background-color: ${props =>
+      props.archive ? props.theme.borderRed : props.theme.textBlue};
     color: ${props => props.theme.backgroundWhite};
   }
   cursor: pointer;
+  color: ${props =>
+    props.archive ? props.theme.borderRed : props.theme.textDark};
 `;

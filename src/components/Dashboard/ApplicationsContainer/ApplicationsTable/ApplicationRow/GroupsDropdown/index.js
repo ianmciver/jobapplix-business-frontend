@@ -45,7 +45,11 @@ export default function GroupsDropdown(props) {
             })
             .map(group => {
               return (
-                <MultiOption key={group.id} onClick={selectGroup(group.id)}>
+                <MultiOption
+                  key={group.id}
+                  onClick={selectGroup(group.id)}
+                  archive={group.id === 7}
+                >
                   {group.title}
                 </MultiOption>
               );
