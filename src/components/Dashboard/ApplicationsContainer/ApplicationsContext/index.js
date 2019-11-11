@@ -81,6 +81,7 @@ function ApplicationsProvider(props) {
   const changeApplicationGroup = async (id, groupId) => {
     let app = applications.find(app => app.app_id === id);
 
+    // Handle the change if an archived application is being un-archived
     if (!app && groupId !== 7) {
       let newArchivedApps = archivedApplications.filter(
         app => app.app_id !== id
@@ -92,6 +93,7 @@ function ApplicationsProvider(props) {
       });
     }
 
+    // Handle the change if an un-archived application is being archived
     if (groupId === 7) {
       let newApplications = applications.filter(app => app.app_id !== id);
       props.updateApplicationGroup(id, groupId, () => {
@@ -101,6 +103,7 @@ function ApplicationsProvider(props) {
       });
     }
 
+    // Handle the change if an un-archived application is remaining un-archived, but changing groups.
     if (app && groupId !== 7) {
       props.updateApplicationGroup(id, groupId);
     }

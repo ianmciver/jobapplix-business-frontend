@@ -178,12 +178,11 @@ export const updateApplicationGroup = (appid, group, cb) => {
     const { id } = getState().business;
     dispatch({ type: UPDATE_APP_GROUP, appid, group });
     try {
-      const res = await axios.put(`${API_URL}/applications/group?bid=${id}`, {
+      await axios.put(`${API_URL}/applications/group?bid=${id}`, {
         appid,
         group,
         token
       });
-      console.log(res.data);
       if (typeof cb === "function") {
         cb();
       }
