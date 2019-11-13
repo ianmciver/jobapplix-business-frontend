@@ -72,7 +72,6 @@ function ApplicationsProvider(props) {
         `${API_URL}/applications/archivedapps?bid=${props.businessId}&token=${token}`
       )
       .then(res => {
-        console.log(res.data);
         setArchivedApplications(res.data.applications);
       })
       .catch(err => console.log(err));

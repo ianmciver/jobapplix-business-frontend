@@ -49,7 +49,6 @@ export default function PaymentForm(props) {
       props.setCardComplete(true);
     }
   };
-
   return (
     <Form>
       <FormGroup>
@@ -65,7 +64,9 @@ export default function PaymentForm(props) {
           value={props.email}
           onChange={checkEmailValidationAndSetEmail}
         />
-        {!emailValid && <Error>Please Enter a Valid Email</Error>}
+        {!emailValid || !props.emailError ? (
+          <Error>Please Enter a Valid Email</Error>
+        ) : null}
       </FormGroup>
       <FormGroup>
         <Label>Card Information</Label>
@@ -88,5 +89,3 @@ export default function PaymentForm(props) {
     </Form>
   );
 }
-
-// Make sure someone has entered a valid email.

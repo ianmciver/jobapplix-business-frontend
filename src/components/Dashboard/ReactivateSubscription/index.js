@@ -41,6 +41,10 @@ function ReactivateSubscription(props) {
   const [error, setError] = useState(false);
 
   const updateCardHandler = async () => {
+    if (email.length === 0) {
+      setEmailValid(false);
+      return;
+    }
     let { token } = await props.stripe.createToken({ name, email });
     setProcessing(true);
     setModalOpen(true);
@@ -61,7 +65,6 @@ function ReactivateSubscription(props) {
 
   const leave = () => {
     props.history.push(`${dashboard}${businessProfile}`);
-    setModalOpen(false);
   };
 
   useEffect(() => {
@@ -72,70 +75,69 @@ function ReactivateSubscription(props) {
     }
   }, [name, emailValid, cardComplete]);
 
-  if (props.business.active) {
-    props.history.replace("/");
-  }
-
   return (
     <ProfileContainer>
       <ProfileTitle>Reactivate Subscription</ProfileTitle>
-      {!detailsOpen ? (
-        <>
-          <ProfileDescription>
-            😕 It looks like your business account is inactive. In order to use
-            the full set of features, please reactivate your account by
-            following the steps below. Otherwise, you may still access all of
-            your previous applications.
-          </ProfileDescription>
-          <ButtonContainer>
-            <EditButton onClick={e => setDetailsOpen(true)}>
-              <span> REACTIVATE MY ACCOUNT!</span>
-            </EditButton>
-          </ButtonContainer>
-        </>
-      ) : (
-        <>
-          <ProfileDescription>
-            Please select a subscription type:
-          </ProfileDescription>
-          <ButtonContainer>
-            <EditButton
-              onClick={() => setSubType("monthly")}
-              selected={subType === "monthly"}
-            >
-              <span>Monthly - $39.99/mo</span>
-            </EditButton>
-            <EditButton
-              onClick={() => setSubType("yearly")}
-              selected={subType === "yearly"}
-            >
-              <span>Yearly - $399.99/yr</span>
-            </EditButton>
-          </ButtonContainer>
-          {subType ? (
-            <>
-              <Form
-                name={name}
-                email={email}
-                setName={setName}
-                setEmail={setEmail}
-                emailValid={emailValid}
-                setEmailValid={setEmailValid}
-                setCardComplete={setCardComplete}
-                error={error}
-              />
-              <ButtonContainer>
-                <UpdateButton
-                  onClick={updateCardHandler}
-                  disabled={buttonDisabled}
-                >
-                  UPDATE CARD
-                </UpdateButton>
-              </ButtonContainer>
-            </>
-          ) : null}
-        </>
-      )}
+      {!props.business.active ? (
+        !detailsOpen ? (
+          <>
+            <ProfileDescription>
+              😕 It looks like your business account is inactive. In order to
+              use the full set of features, please reactivate your account by
+              following the steps below. Otherwise, you may still access all of
+              your previous applications.
+            </ProfileDescription>
+            <ButtonContainer>
+              <EditButton onClick={e => setDetailsOpen(true)}>
+                <span> REACTIVATE MY ACCOUNT!</span>
+              </EditButton>
+            </ButtonContainer>
+          </>
+        ) : (
+          <>
+            <ProfileDescription>
+              Please select a subscription type:
+            </ProfileDescription>
+            <ButtonContainer>
+              <EditButton
+                onClick={() => setSubType("monthly")}
+                selected={subType === "monthly"}
+              >
+                <span>Monthly - $39.99/mo</span>
+              </EditButton>
+              <EditButton
+                onClick={() => setSubType("yearly")}
+                selected={subType === "yearly"}
+              >
+                <span>Yearly - $399.99/yr</span>
+              </EditButton>
+            </ButtonContainer>
+            {subType ? (
+              <>
+                <Form
+                  name={name}
+                  email={email}
+                  setName={setName}
+                  setEmail={setEmail}
+                  emailValid={emailValid}
+                  setEmailValid={setEmailValid}
+                  setCardComplete={setCardComplete}
+                  error={error}
+                  emailError={emailValid}
+                />
+                <ButtonContainer>
+                  <UpdateButton
+                    onClick={updateCardHandler}
+                    disabled={buttonDisabled}
+                  >
+                    UPDATE CARD
+                  </UpdateButton>
+                </ButtonContainer>
+              </>
+            ) : null}
+          </>
+        )
+      ) : null}
 
       <ModalContainer open={modalOpen && processing}>
         <ModalCard
