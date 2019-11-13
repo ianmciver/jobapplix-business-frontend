@@ -127,6 +127,25 @@ export const OptionItemTitle = styled.h3`
   line-height: 2.4rem;
 `;
 
+export const ArchiveOptionItem = styled(OptionItem)`
+  background-color: ${props =>
+    props.selected
+      ? transparentize(0.8, props.theme.borderRed)
+      : "transparent"};
+  color: ${props =>
+    props.selected ? props.theme.textDark : props.theme.borderRed};
+  &:hover {
+    border-color: ${props =>
+      props.selected ? "transparent" : props.theme.borderRed};
+    background-color: ${props =>
+      props.selected
+        ? transparentize(0.8, props.theme.borderRed)
+        : darken(0.5, props.theme.backgroundNoteBox)};
+  }
+`;
+
+export const ArchiveOptionItemTitle = styled(OptionItemTitle)``;
+
 export const FilterGroups = styled.div`
   width: 100%;
   padding: 20px;

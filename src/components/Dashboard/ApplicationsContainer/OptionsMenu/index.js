@@ -19,7 +19,9 @@ import {
   OptionItem,
   OptionItemTitle,
   OptionGroupTitleControl,
-  Control
+  Control,
+  ArchiveOptionItem,
+  ArchiveOptionItemTitle
 } from "./styles";
 
 export default function OptionsMenu(props) {
@@ -50,17 +52,39 @@ export default function OptionsMenu(props) {
                 </OptionGroupTitleControl>
               </OptionGroupTitle>
               <OptionItemsGroup open={appGroupOpen}>
-                {applicationContext.groups.map(tab => (
-                  <OptionItem
-                    key={tab.id}
-                    selected={applicationContext.selectedGroupId === tab.id}
-                    onClick={clickHandler(tab.id)}
-                    open={appGroupOpen}
-                  >
-                    <OptionItemTitle>{tab.title}</OptionItemTitle>
-                    {applicationContext.selectedGroupId === tab.id && <Arrow />}
-                  </OptionItem>
-                ))}
+                {applicationContext.groups.map(tab => {
+                  if (tab.id !== 7) {
+                    return (
+                      <OptionItem
+                        key={tab.id}
+                        selected={applicationContext.selectedGroupId === tab.id}
+                        onClick={clickHandler(tab.id)}
+                        open={appGroupOpen}
+                      >
+                        <OptionItemTitle>{tab.title}</OptionItemTitle>
+                        {applicationContext.selectedGroupId === tab.id && (
+                          <Arrow />
+                        )}
+                      </OptionItem>
+                    );
+                  } else {
+                    return (
+                      <ArchiveOptionItem
+                        key={tab.id}
+                        selected={applicationContext.selectedGroupId === tab.id}
+                        onClick={clickHandler(tab.id)}
+                        open={appGroupOpen}
+                      >
+                        <ArchiveOptionItemTitle>
+                          {tab.title}
+                        </ArchiveOptionItemTitle>
+                        {applicationContext.selectedGroupId === tab.id && (
+                          <Arrow />
+                        )}
+                      </ArchiveOptionItem>
+                    );
+                  }
+                })}
               </OptionItemsGroup>
             </OptionGroup>
             <FiltersGroup />

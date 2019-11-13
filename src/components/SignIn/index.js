@@ -75,8 +75,6 @@ function SignIn(props) {
           {error && <ErrorText>{error}</ErrorText>}
           <Formik
             onSubmit={(values, formik) => {
-              console.log(process.env.NODE_ENV);
-              console.log(process.env.REACT_APP_FIREBASE_PROJECT_ID);
               firebase
                 .doSignInWithEmailAndPassword(values.email, values.password)
                 .then(() => {

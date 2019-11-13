@@ -16,7 +16,8 @@ import {
   FinePrint,
   FinePrintSeparator,
   Total,
-  SubTotal
+  SubTotal,
+  InfoBody
 } from "./styles";
 
 import {
@@ -28,7 +29,12 @@ import {
   Error
 } from "../../../../styles/forms2";
 
-import SubscriptionModal from "../../../Dashboard/SubscriptionDetails/SubscriptionModal";
+import ModalContainer from "../../../ModalContainer";
+import ModalCard from "../../../ModalContainer/ModalCard";
+import {
+  ModalCardHeader,
+  ModalCardBody
+} from "../../../ModalContainer/ModalCard/styles";
 
 import Form from "./Form";
 
@@ -44,12 +50,7 @@ const PaymentForm = props => {
   const [coupon, setCoupon] = useState("");
   const [couponMessage, setCouponMessage] = useState("");
   const [couponChecked, setCouponChecked] = useState(false);
-
-  useEffect(() => {
-    if (email.length > 0) {
-      isValidEmail(email, setEmailValid);
-    }
-  }, [email]);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (name.length > 1 && emailValid && cardComplete) {
@@ -60,13 +61,21 @@ const PaymentForm = props => {
   }, [name, emailValid, cardComplete]);
 
   const submitPayment = async e => {
+    if (email.lenth === 0) {
+      setEmailValid(false);
+      return;
+    }
     let { token } = await props.stripe.createToken({ name, email });
     setProcessing(true);
     props.processPaymentDetails(
       token.id,
       props.subType,
       coupon,
-      props.nextScreen
+      props.nextScreen,
+      () => {
+        setProcessing(false);
+        setError(true);
+      }
     );
   };
 
@@ -99,7 +108,10 @@ const PaymentForm = props => {
           setName={setName}
           setEmail={setEmail}
           emailValid={emailValid}
+          setEmailValid={setEmailValid}
           setCardComplete={setCardComplete}
+          error={error}
+          emailError={emailValid}
         />
         <FinePrintContainer>
           <FinePrint>terms</FinePrint>
@@ -138,12 +150,18 @@ const PaymentForm = props => {
           </NextButton>
         </ButtonContainer>
       </FormContainer>
-      {processing && (
-        <SubscriptionModal
-          title="PROCESSING"
-          message="Your card is being processed, this may take a minute."
-        />
-      )}
+
+      <ModalContainer open={processing}>
+        <ModalCard open={processing} onClick={e => e.preventDefault()}>
+          <ModalCardHeader>Processing Payment</ModalCardHeader>
+          <ModalCardBody>
+            <InfoBody>
+              Your card is being processed, this may take a minute. Please do
+              not navigate away from this screen until it has completed.
+            </InfoBody>
+          </ModalCardBody>
+        </ModalCard>
+      </ModalContainer>
     </>
   );
 };

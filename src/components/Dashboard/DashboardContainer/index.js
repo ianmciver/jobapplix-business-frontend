@@ -7,6 +7,8 @@ import PositionContext from "../Position/PositionContext";
 import ShiftTimesContext from "../Position/ShiftTimesContext";
 import { FirebaseContext } from "../../../Firebase";
 
+import IsActiveHOC from "../../../helpers/isActiveHOC";
+
 import Home from "../Home";
 import ApplicationsContainer from "../ApplicationsContainer";
 import CreatePositionContainer from "../Position/CreatePositionContainer";
@@ -21,6 +23,7 @@ import BusinessProfile from "../BusinessProfile";
 import UserProfile from "../UserProfile";
 import SubscriptionDetails from "../SubscriptionDetails";
 import UpdatePayment from "../SubscriptionDetails/UpdateCard";
+import ReinstateSubscription from "../ReactivateSubscription";
 
 import {
   dashboard,
@@ -32,7 +35,8 @@ import {
   businessProfile,
   userProfile,
   subscription,
-  updatePayment
+  updatePayment,
+  reinstateSub
 } from "../../../constants/routes";
 import isLoggedIn from "../../../helpers/isLoggedIn";
 
@@ -76,21 +80,25 @@ function DashboardContainer(props) {
             <Route
               path={`${dashboard}${createPosition}`}
               render={props => (
-                <ShiftTimesContext>
-                  <PositionContext>
-                    <CreatePositionContainer {...props} />
-                  </PositionContext>
-                </ShiftTimesContext>
+                <IsActiveHOC>
+                  <ShiftTimesContext>
+                    <PositionContext>
+                      <CreatePositionContainer {...props} />
+                    </PositionContext>
+                  </ShiftTimesContext>
+                </IsActiveHOC>
               )}
             />
             <Route
               path={`${dashboard}${updatePositionUrl}/:id`}
               render={props => (
-                <ShiftTimesContext>
-                  <PositionContext>
-                    <UpdatePositionContainer {...props} />
-                  </PositionContext>
-                </ShiftTimesContext>
+                <IsActiveHOC>
+                  <ShiftTimesContext>
+                    <PositionContext>
+                      <UpdatePositionContainer {...props} />
+                    </PositionContext>
+                  </ShiftTimesContext>
+                </IsActiveHOC>
               )}
             />
             <Route
@@ -99,12 +107,27 @@ function DashboardContainer(props) {
             />
             <Route
               path={`${dashboard}${positionsList}`}
-              component={PositionsList}
+              render={props => (
+                <IsActiveHOC>
+                  <PositionsList {...props} />
+                </IsActiveHOC>
+              )}
             />
-            <Route path={`${dashboard}${usersList}`} component={UsersList} />
+            <Route
+              path={`${dashboard}${usersList}`}
+              render={props => (
+                <IsActiveHOC>
+                  <UsersList {...props} />
+                </IsActiveHOC>
+              )}
+            />
             <Route
               path={`${dashboard}${businessProfile}`}
-              component={BusinessProfile}
+              render={props => (
+                <IsActiveHOC>
+                  <BusinessProfile {...props} />
+                </IsActiveHOC>
+              )}
             />
             <Route
               path={`${dashboard}${userProfile}`}
@@ -112,13 +135,27 @@ function DashboardContainer(props) {
             />
             <Route
               path={`${dashboard}${subscription}`}
-              component={SubscriptionDetails}
+              render={props => (
+                <IsActiveHOC>
+                  <SubscriptionDetails {...props} />
+                </IsActiveHOC>
+              )}
             />
             <Route
               path={`${dashboard}${updatePayment}`}
               render={props => (
+                <IsActiveHOC>
+                  <Elements>
+                    <UpdatePayment {...props} />
+                  </Elements>
+                </IsActiveHOC>
+              )}
+            />
+            <Route
+              path={`${dashboard}${reinstateSub}`}
+              render={props => (
                 <Elements>
-                  <UpdatePayment {...props} />
+                  <ReinstateSubscription {...props} />
                 </Elements>
               )}
             />

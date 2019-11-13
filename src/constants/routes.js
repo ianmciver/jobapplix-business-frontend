@@ -17,3 +17,4 @@ export const businessProfile = "/businessprofile";
 export const userProfile = "/userprofile";
 export const subscription = "/subscription";
 export const updatePayment = "/updatepayment";
+export const reinstateSub = "/reactivatesub";

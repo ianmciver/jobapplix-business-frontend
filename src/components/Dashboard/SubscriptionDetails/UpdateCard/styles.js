@@ -58,3 +58,8 @@ export const CancelButton = styled(NextButton)`
 `;
 
 export const UpdateButton = styled(NextButton)``;
+
+export const InfoBody = styled.span`
+  font-size: 1.6rem;
+  line-height: 3rem;
+`;

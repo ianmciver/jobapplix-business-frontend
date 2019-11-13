@@ -16,6 +16,10 @@ import {
 
 export default function ApplicationsTable() {
   const applicationsContext = useContext(ApplicationsContext);
+  const applications =
+    applicationsContext.selectedGroupId === 7
+      ? applicationsContext.archivedApplications
+      : applicationsContext.applications;
   return (
     <ApplicationsGroup>
       <ApplicationsGroupHead>
@@ -26,7 +30,7 @@ export default function ApplicationsTable() {
           colFour={"details"}
         />
       </ApplicationsGroupHead>
-      {applicationsContext.applications.map((app, index) => {
+      {applications.map((app, index) => {
         const firstName = app.questions.find(q => q.question_id === 1);
         const lastName = app.questions.find(q => q.question_id === 2);
         const groupName = applicationsContext.groups.find(
