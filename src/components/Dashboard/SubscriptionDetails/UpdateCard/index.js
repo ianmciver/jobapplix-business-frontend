@@ -54,6 +54,10 @@ function UpdateCard(props) {
   }, [name, emailValid, cardComplete]);
 
   const updateCardHandler = async () => {
+    if (email.lenth === 0) {
+      setEmailValid(false);
+      return;
+    }
     let { token } = await props.stripe.createToken({ name, email });
     setProcessing(true);
     setModalOpen(true);
@@ -90,6 +94,7 @@ function UpdateCard(props) {
         setEmailValid={setEmailValid}
         setCardComplete={setCardComplete}
         error={error}
+        emailError={emailValid}
       />
       <ButtonContainer>
         <CancelButton onClick={e => props.history.goBack()}>

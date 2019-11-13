@@ -88,6 +88,7 @@ export const processPaymentDetails = (
         next();
       })
       .catch(err => {
+        console.log(err);
         errorHandler();
       });
   };

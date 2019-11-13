@@ -61,6 +61,10 @@ const PaymentForm = props => {
   }, [name, emailValid, cardComplete]);
 
   const submitPayment = async e => {
+    if (email.lenth === 0) {
+      setEmailValid(false);
+      return;
+    }
     let { token } = await props.stripe.createToken({ name, email });
     setProcessing(true);
     props.processPaymentDetails(
@@ -107,6 +111,7 @@ const PaymentForm = props => {
           setEmailValid={setEmailValid}
           setCardComplete={setCardComplete}
           error={error}
+          emailError={emailValid}
         />
         <FinePrintContainer>
           <FinePrint>terms</FinePrint>
