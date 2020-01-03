@@ -1,24 +1,26 @@
 import styled, { css } from "styled-components";
+import { lighten } from "polished";
 
 import { media } from "../../../../styles/mediaQueries";
 
-import { TextInput } from "../../../../styles/forms";
+import { TextInput, TextArea, NextButton } from "../../../../styles/forms2";
 import { FormButton } from "../../../../styles/buttons";
 
 export const DetailsContainer = styled.div`
-  padding: 0 30px 10px;
+  padding-bottom: 10px;
 `;
 
 export const Intro = styled.p`
-  font-size: 1.3rem;
-  padding: 10px;
-  margin-bottom: 20px;
-  text-align: center;
+  font-size: 1.2rem;
+  color: ${props => props.theme.textDark};
+  line-height: 1.6rem;
+  max-width: 600px;
+  margin-bottom: 30px;
 `;
 
 export const Instructions = styled.p`
   font-size: 1.4rem;
-  margin-bottom: 5px;
+  margin: 55px 0 5px;
 `;
 
 export const SubInstructions = styled.p`
@@ -41,27 +43,12 @@ export const PositionNameInput = styled(TextInput)`
   }
 `;
 
-export const TextArea = styled.textarea`
-  padding: 7px;
-  margin-bottom: 25px;
-  height: 188px;
-  width: 100%;
-  border-width: 2px;
-  border-color: ${props => props.theme.borderMedium69};
-  background-color: transparent;
-  outline: none;
-
-  &:focus {
-    border-color: ${props => props.theme.borderMedium};
-  }
-
-  ${media.desktop`
-    width: 100%;
-  `}
+export const DescriptionArea = styled(TextArea)`
+  line-height: 2rem;
 `;
 
-export const PositionNextButton = styled(FormButton)`
-  align-self: flex-start;
+export const PositionNextButton = styled(NextButton)`
+  /* align-self: flex-start;
   font-weight: 700;
   color: ${props =>
     props.cancel ? props.theme.borderRed : props.theme.borderGrey};
@@ -85,5 +72,15 @@ export const PositionNextButton = styled(FormButton)`
     border-color: ${props => props.theme.borderLight};
     color: ${props => props.theme.borderLight};
     background-color: ${props => props.theme.backgroundLight};
+  } */
+`;
+
+export const PositionCancelButton = styled(NextButton)`
+  margin-right: 20px;
+  background-image: none;
+  background-color: ${props => props.theme.borderRed};
+  height: 40px;
+  &:hover {
+    background-color: ${props => lighten(0.1, props.theme.borderRed)};
   }
 `;
