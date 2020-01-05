@@ -1,10 +1,7 @@
 import styled, { css } from "styled-components";
 import { lighten } from "polished";
 
-import { media } from "../../../../styles/mediaQueries";
-
 import { TextInput, TextArea, NextButton } from "../../../../styles/forms2";
-import { FormButton } from "../../../../styles/buttons";
 
 export const DetailsContainer = styled.div`
   padding-bottom: 10px;
@@ -47,33 +44,7 @@ export const DescriptionArea = styled(TextArea)`
   line-height: 2rem;
 `;
 
-export const PositionNextButton = styled(NextButton)`
-  /* align-self: flex-start;
-  font-weight: 700;
-  color: ${props =>
-    props.cancel ? props.theme.borderRed : props.theme.borderGrey};
-  padding: 7px 14px;
-  border-color: ${props =>
-    props.cancel ? props.theme.borderRed : props.theme.borderGrey};
-  margin-bottom: 30px;
-  ${props =>
-    props.cancel &&
-    css`
-      margin-left: 25px;
-    `}
-  display: inline-block;
-  &:hover {
-    background-color: ${props =>
-      props.cancel ? props.theme.borderRed : props.theme.borderGrey};
-    color: ${props => props.theme.textLight};
-  }
-
-  &:disabled {
-    border-color: ${props => props.theme.borderLight};
-    color: ${props => props.theme.borderLight};
-    background-color: ${props => props.theme.backgroundLight};
-  } */
-`;
+export const PositionNextButton = styled(NextButton)``;
 
 export const PositionCancelButton = styled(NextButton)`
   margin-right: 20px;

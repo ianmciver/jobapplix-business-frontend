@@ -166,6 +166,8 @@ const Icon = styled.svg`
   fill: none;
   stroke: white;
   stroke-width: 2px;
+  height: 100%;
+  width: 100%;
 `;
 
 const StyledCheckbox = styled.div`
@@ -174,9 +176,11 @@ const StyledCheckbox = styled.div`
       ? css`0 solid transparent`
       : css`2px solid ${props => props.theme.backgroundBlue}`};
   background-color: white;
-  display: inline-block;
-  width: 18px;
-  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   background: ${props =>
     props.checked ? props.theme.backgroundBlue : "transparent"};
   border-radius: 3px;
@@ -194,6 +198,9 @@ const StyledCheckbox = styled.div`
 const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  background: ${props => props.theme.backgroundWhite};
 `;
 
 export const Checkbox = props => {

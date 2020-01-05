@@ -7,13 +7,13 @@ import { signin } from "../../../../../constants/routes";
 import { FirebaseContext } from "../../../../../Firebase";
 import { PositionQuestionContext } from "../../PositionContext";
 
+import { Checkbox, TextInput, TextArea } from "../../../../../styles/forms2";
+
 import {
   CustomQuestionBuilderContainer,
   BuilderSectionTitle,
   BuilderSection,
   BuilderSectionInstructions,
-  BuilderTextInput,
-  BuilderTextArea,
   AddChoiceButton,
   OptionContainer,
   OptionCancelContainer,
@@ -23,7 +23,6 @@ import {
 } from "./styles";
 
 import {
-  QuestionCheckBox,
   QuestionContainer,
   QuestionText
 } from "../../PositionQuestions/Question/styles";
@@ -93,10 +92,7 @@ function CustomQuestionBuilder(props) {
     <CustomQuestionBuilderContainer>
       <BuilderSection>
         <BuilderSectionTitle>Question Text:</BuilderSectionTitle>
-        <BuilderSectionInstructions>
-          This is what your applicant will see.
-        </BuilderSectionInstructions>
-        <BuilderTextArea
+        <TextArea
           onChange={e => setQuestion(e.target.value)}
           value={question}
           placeholder="Question Text"
@@ -108,22 +104,44 @@ function CustomQuestionBuilder(props) {
           What type of question is this?
         </BuilderSectionTitle>
         <QuestionContainer>
-          <QuestionCheckBox onClick={e => setType("bool")}>
-            {type === "bool" ? <CheckBoxCheck /> : null}
-          </QuestionCheckBox>
+          <Checkbox
+            checked={type === "bool"}
+            style={{
+              width: "24px",
+              height: "24px",
+              marginRight: "10px"
+            }}
+            onChange={e => setType("bool")}
+          />
           <QuestionText>Yes/No</QuestionText>
         </QuestionContainer>
         <QuestionContainer>
-          <QuestionCheckBox onClick={e => setType("text")}>
-            {type === "text" ? <CheckBoxCheck /> : null}
-          </QuestionCheckBox>
-          <QuestionText>Open Answer</QuestionText>
+          <Checkbox
+            checked={type === "text"}
+            style={{
+              width: "24px",
+              height: "24px",
+              marginRight: "10px"
+            }}
+            onChange={e => setType("text")}
+          />
+          <QuestionText>
+            Open Answer (Applicant can write whatever they choose)
+          </QuestionText>
         </QuestionContainer>
         <QuestionContainer>
-          <QuestionCheckBox onClick={e => setType("multi")}>
-            {type === "multi" ? <CheckBoxCheck /> : null}
-          </QuestionCheckBox>
-          <QuestionText>Multiple Choice</QuestionText>
+          <Checkbox
+            checked={type === "multi"}
+            style={{
+              width: "24px",
+              height: "24px",
+              marginRight: "10px"
+            }}
+            onChange={e => setType("multi")}
+          />
+          <QuestionText>
+            Multiple Choice (You provide qualified answers)
+          </QuestionText>
         </QuestionContainer>
         {type === "multi" ? (
           <>
@@ -132,7 +150,7 @@ function CustomQuestionBuilder(props) {
             </BuilderSectionInstructions>
             {options.map((option, index) => (
               <OptionContainer key={index}>
-                <BuilderTextInput
+                <TextInput
                   onChange={e => setOption(e.target.value, index)}
                   value={option}
                   placeholder="Multiple choice response"
@@ -150,43 +168,57 @@ function CustomQuestionBuilder(props) {
       </BuilderSection>
       <BuilderSection>
         <BuilderSectionTitle>
-          Is there a follow up question?
+          If There is a Follow Up Question Please Write it Here:
         </BuilderSectionTitle>
-        <BuilderSectionTitle>Follow Up Question Text:</BuilderSectionTitle>
-        <BuilderSectionInstructions>
-          This is what your applicant will see.
-        </BuilderSectionInstructions>
-        <BuilderTextArea
+        <TextArea
           onChange={e => setSubQuestion(e.target.value)}
           value={subQuestion}
           placeholder="Follow Up Question Text"
         />
       </BuilderSection>
       <BuilderSection>
-        <BuilderSectionInstructions>
-          What type of question is the subquestion?
-        </BuilderSectionInstructions>
+        <BuilderSectionTitle>
+          What type of question is the follow up?
+        </BuilderSectionTitle>
         <QuestionContainer>
-          <QuestionCheckBox onClick={e => setSubType("bool")}>
-            {subType === "bool" ? <CheckBoxCheck /> : null}
-          </QuestionCheckBox>
+          <Checkbox
+            checked={subType === "bool"}
+            style={{
+              width: "24px",
+              height: "24px",
+              marginRight: "10px"
+            }}
+            onChange={e => setSubType("bool")}
+          />
           <QuestionText>Yes or No</QuestionText>
         </QuestionContainer>
         <QuestionContainer>
-          <QuestionCheckBox onClick={e => setSubType("text")}>
-            {subType === "text" ? <CheckBoxCheck /> : null}
-          </QuestionCheckBox>
+          <Checkbox
+            checked={subType === "text"}
+            style={{
+              width: "24px",
+              height: "24px",
+              marginRight: "10px"
+            }}
+            onChange={e => setSubType("text")}
+          />
           <QuestionText>Open Text</QuestionText>
         </QuestionContainer>
       </BuilderSection>
       <BuilderSection>
-        <BuilderSectionInstructions>
+        <BuilderSectionTitle>
           Is this question required for your application?
-        </BuilderSectionInstructions>
+        </BuilderSectionTitle>
         <QuestionContainer>
-          <QuestionCheckBox onClick={e => setIsRequired(!isRequired)}>
-            {isRequired ? <CheckBoxCheck /> : null}
-          </QuestionCheckBox>
+          <Checkbox
+            checked={isRequired}
+            style={{
+              width: "24px",
+              height: "24px",
+              marginRight: "10px"
+            }}
+            onChange={e => setIsRequired(!isRequired)}
+          />
           <QuestionText>This question is required</QuestionText>
         </QuestionContainer>
       </BuilderSection>

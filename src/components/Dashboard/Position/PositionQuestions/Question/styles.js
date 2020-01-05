@@ -14,7 +14,10 @@ export const QuestionCheckBox = styled.div`
   border: ${props =>
     props.default
       ? "none"
-      : css`1px solid ${props => props.theme.borderMedium}`};
+      : props.checked
+      ? css`2px solid ${props.theme.backgroundBlue}`
+      : css`2px solid ${props => props.theme.borderMedium}`};
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,13 +33,13 @@ export const QuestionCheckBox = styled.div`
 
 export const QuestionTextContainer = styled.div``;
 export const QuestionText = styled.p`
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   line-height: 1.5rem;
   color: ${props => props.theme.textDark};
   margin-bottom: 3px;
 `;
 
 export const SubQuestionText = styled.p`
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-style: italic;
 `;

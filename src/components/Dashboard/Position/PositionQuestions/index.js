@@ -1,26 +1,24 @@
 import React, { useContext, useState } from "react";
 
+import { Checkbox } from "../../../../styles/forms2";
+
 import {
   InstructionSpan,
   PositionNextButton,
+  PositionCancelButton,
   PositionName,
   StandardAppContainer,
   ItalicsSpan,
   PositionQuestionsContainer
 } from "./styles";
 
-import {
-  QuestionContainer,
-  QuestionCheckBox,
-  QuestionText
-} from "./Question/styles";
+import { QuestionContainer, QuestionText } from "./Question/styles";
 
 import QuestionGroup from "./QuestionGroup";
 import CustomQuestions from "../CustomQuestions";
 import ShiftTimes from "../ShiftTimes";
 
 import { PositionQuestionContext } from "../PositionContext";
-import CheckBoxCheck from "../../../../assets/checkboxCheck";
 const standardAppQuestions = [
   1,
   2,
@@ -84,9 +82,11 @@ export default function PositionQuestions(props) {
       <ItalicsSpan>Follow up questions in italics</ItalicsSpan>
       <StandardAppContainer>
         <QuestionContainer>
-          <QuestionCheckBox onClick={standardAppClickHandler}>
-            {standardApp ? <CheckBoxCheck /> : null}
-          </QuestionCheckBox>
+          <Checkbox
+            checked={standardApp}
+            onChange={standardAppClickHandler}
+            style={{ marginRight: "10px" }}
+          />
           <QuestionText>Use the JobApplix standard application</QuestionText>
         </QuestionContainer>
       </StandardAppContainer>
@@ -113,14 +113,14 @@ export default function PositionQuestions(props) {
         title={"Custom Questions"}
         render={() => <CustomQuestions />}
       />
-      <PositionNextButton onClick={navigateNext}>
-        Save & Finish
-      </PositionNextButton>
       {props.cancel && (
-        <PositionNextButton onClick={navigateCancel} cancel>
-          Cancel Update
-        </PositionNextButton>
+        <PositionCancelButton onClick={navigateCancel}>
+          &#10005; Cancel Update
+        </PositionCancelButton>
       )}
+      <PositionNextButton onClick={navigateNext}>
+        Save & Finish &#10003;
+      </PositionNextButton>
     </PositionQuestionsContainer>
   );
 }

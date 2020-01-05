@@ -18,9 +18,8 @@ export const CreatePosContainer = styled.div`
 `;
 
 export const CreatePosHeader = styled.h1`
-  font-size: 2.3rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin: 20px auto 15px;
-  text-align: center;
+  font-size: 3.5rem;
+  color: ${props => props.theme.textDark};
+  margin-bottom: 20px;
+  align-self: flex-start;
 `;

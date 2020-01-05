@@ -47,7 +47,7 @@ export default function CreatePositionContainer(props) {
     <CreatePosContainer>
       {props.location.pathname !==
         `${dashboard}${createPosition}${complete}` && (
-        <CreatePosHeader>Create A Position</CreatePosHeader>
+        <CreatePosHeader>Create A New Position</CreatePosHeader>
       )}
       <Route
         path={`${dashboard}${createPosition}`}

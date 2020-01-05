@@ -1,13 +1,9 @@
 import React, { useContext } from "react";
 
-import {
-  QuestionContainer,
-  QuestionCheckBox,
-  QuestionText,
-  SubQuestionText
-} from "./styles";
+import { QuestionContainer, QuestionText, SubQuestionText } from "./styles";
 import { PositionQuestionContext } from "../../PositionContext";
-import CheckBoxCheck from "../../../../../assets/checkboxCheck";
+
+import { Checkbox } from "../../../../../styles/forms2";
 
 export default function Question(props) {
   const positionContext = useContext(PositionQuestionContext);
@@ -19,15 +15,18 @@ export default function Question(props) {
     : positionContext.addOrRemoveActiveQuestions;
   return (
     <QuestionContainer>
-      <QuestionCheckBox
-        onClick={() => {
+      <Checkbox
+        checked={isActive}
+        onChange={() => {
           if (props.question.id < 9) return;
           clickHandler(props.question.id);
         }}
-        default={props.question.id < 9}
-      >
-        {isActive ? <CheckBoxCheck /> : null}
-      </QuestionCheckBox>
+        style={{
+          width: "24px",
+          height: "24px",
+          marginRight: "10px"
+        }}
+      />
       <div>
         <QuestionText>{props.question.question}</QuestionText>
         {props.question.sub_question && (

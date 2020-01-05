@@ -5,17 +5,19 @@ export const QuestionGroupContainer = styled.div`
   background-color: ${props => props.theme.backgroundWhite};
   padding: 15px 30px;
   display: flex;
-  align-items: center;
   flex-direction: column;
 
   &:nth-of-type(even) {
     background-color: ${props => props.theme.backgroundQuestion};
   }
 
+  &:last-of-type {
+    margin-bottom: 30px;
+  }
+
   svg {
     width: 18px;
     height: 18px;
-    fill: ${props => props.theme.textMedium};
     transition: transform 300ms;
     cursor: pointer;
     flex-shrink: 0;
@@ -36,7 +38,7 @@ export const TitleContainer = styled.div`
 
 export const QuestionTitle = styled.span`
   text-transform: uppercase;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   ${props =>
     props.open &&
     css`
