@@ -25,6 +25,19 @@ export default function SignUpContainer(props) {
     props.history.push({ pathname: signup, state: newState.toString() });
   };
 
+  var queries = document.location.search
+    .substr(1)
+    .split("&")
+    .reduce((a, b) => {
+      let items = b.split("=");
+      a[items[0]] = items[1];
+      return a;
+    }, {});
+
+  if (queries.affiliate) {
+    localStorage.setItem("affiliate", queries.affiliate);
+  }
+
   return (
     <AppContainer>
       <Header />
