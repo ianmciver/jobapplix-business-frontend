@@ -66,3 +66,9 @@ export const InfoBody = styled.span`
   font-size: 1.6rem;
   line-height: 3rem;
 `;
+
+export const CouponAccepted = styled.span`
+  font-size: 1.7rem;
+  margin: 10px 0;
+  color: ${props => props.theme.borderGreen};
+`;

@@ -17,7 +17,8 @@ import {
   FinePrintSeparator,
   Total,
   SubTotal,
-  InfoBody
+  InfoBody,
+  CouponAccepted
 } from "./styles";
 
 import {
@@ -50,6 +51,7 @@ const PaymentForm = props => {
   const [coupon, setCoupon] = useState("");
   const [couponMessage, setCouponMessage] = useState("");
   const [couponChecked, setCouponChecked] = useState(false);
+  const [couponAccepted, setCouponAccepted] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -59,6 +61,14 @@ const PaymentForm = props => {
       setButtonDisabled(true);
     }
   }, [name, emailValid, cardComplete]);
+
+  useEffect(() => {
+    let referrer = localStorage.getItem("affiliate");
+    if (referrer) {
+      setCoupon(referrer);
+      checkCoupon();
+    }
+  }, []);
 
   const submitPayment = async e => {
     if (email.lenth === 0) {
@@ -81,12 +91,13 @@ const PaymentForm = props => {
 
   const checkCoupon = () => {
     axios
-      .get(`${API_URL}/businesses/checkcoupon?coupon=${coupon}`)
+      .get(`${API_URL}/businesses/checkcoupon?coupon=${coupon.toLowerCase()}`)
       .then(res => {
         if (res.data.err) {
           setCouponMessage(res.data.err);
         } else {
           setCouponMessage("");
+          setCouponAccepted(true);
         }
         setCouponChecked(true);
       });
@@ -118,17 +129,24 @@ const PaymentForm = props => {
           <FinePrintSeparator>|</FinePrintSeparator>
           <FinePrint>privacy</FinePrint>
         </FinePrintContainer>
-        <FormGroup>
-          <Label htmlFor="coupon">Coupon Code (optional):</Label>
-          <TextInput
-            value={coupon}
-            onChange={e => setCoupon(e.target.value)}
-            name="coupon"
-            onBlur={checkCoupon}
-            error={couponMessage}
-          />
-          {couponMessage && <Error>{couponMessage}</Error>}
-        </FormGroup>
+        {!couponAccepted && (
+          <FormGroup>
+            <Label htmlFor="coupon">Coupon Code (optional):</Label>
+            <TextInput
+              value={coupon}
+              onChange={e => setCoupon(e.target.value)}
+              name="coupon"
+              onBlur={checkCoupon}
+              error={couponMessage}
+            />
+            {couponMessage && <Error>{couponMessage}</Error>}
+          </FormGroup>
+        )}
+        {couponAccepted && (
+          <CouponAccepted>
+            Congratulations! Your Account Has Been Credited with a Free Month!
+          </CouponAccepted>
+        )}
         {(!coupon || couponMessage || !couponChecked) && (
           <Total>
             total charge today:{" "}
@@ -166,7 +184,6 @@ const PaymentForm = props => {
   );
 };
 
-export default connect(
-  null,
-  { processPaymentDetails }
-)(injectStripe(PaymentForm));
+export default connect(null, { processPaymentDetails })(
+  injectStripe(PaymentForm)
+);
