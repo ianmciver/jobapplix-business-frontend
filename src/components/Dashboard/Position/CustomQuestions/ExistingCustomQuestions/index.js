@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 
 import { PositionQuestionContext } from "../../PositionContext";
 
+import CheckBoxCheck from "../../../../../assets/checkboxCheck";
+
 import Question from "../../PositionQuestions/Question";
 
 import { ExistingQuestionsContainer, AddCustomButton } from "./styles";
@@ -23,7 +25,7 @@ export default function ExistingCustomQuestions(props) {
       )}
       {!props.open && (
         <AddCustomButton onClick={props.toggleModal}>
-          CREATE NEW QUESTION
+          <CheckBoxCheck /> <span>CREATE NEW QUESTION</span>
         </AddCustomButton>
       )}
     </ExistingQuestionsContainer>

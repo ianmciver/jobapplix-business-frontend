@@ -5,7 +5,6 @@ import Cleave from "cleave.js/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-// import { TextInput, TextArea } from "../../../../styles/forms";
 import {
   Form,
   FormGroup,
@@ -251,7 +250,7 @@ function EditBusinessDetails(props) {
   );
 }
 
-export default connect(
-  state => ({ business: state.business }),
-  { uploadFileToS3, updateBusinessDetails }
-)(EditBusinessDetails);
+export default connect(state => ({ business: state.business }), {
+  uploadFileToS3,
+  updateBusinessDetails
+})(EditBusinessDetails);

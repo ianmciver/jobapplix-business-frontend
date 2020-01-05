@@ -3,6 +3,8 @@ import React, { useContext } from "react";
 import CheckBoxCheck from "../../../../assets/checkboxCheck";
 import Dropdown from "../../../FormComponents/Dropdown";
 
+import { Checkbox } from "../../../../styles/forms2";
+
 import {
   ShiftTimesContainer,
   Instructions,
@@ -80,9 +82,15 @@ export default function ShiftTimes(props) {
       <DividerLine />
       <QuestionsContainer>
         <QuestionContainer>
-          <QuestionCheckBox onClick={e => setAvailability(!availability)}>
-            {availability && <CheckBoxCheck />}
-          </QuestionCheckBox>
+          <Checkbox
+            style={{
+              width: "24px",
+              height: "24px",
+              marginRight: "10px"
+            }}
+            onChange={e => setAvailability(!availability)}
+            checked={availability}
+          />
           <QuestionText>Ask applicants for availability?</QuestionText>
         </QuestionContainer>
       </QuestionsContainer>
@@ -94,15 +102,27 @@ export default function ShiftTimes(props) {
           </SecondInstructions>
           <QuestionsContainer>
             <QuestionContainer>
-              <QuestionCheckBox onClick={e => setOption("prebuilt")}>
-                {option === "prebuilt" && <CheckBoxCheck />}
-              </QuestionCheckBox>
+              <Checkbox
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  marginRight: "10px"
+                }}
+                onChange={e => setOption("prebuilt")}
+                checked={option === "prebuilt"}
+              />
               <QuestionText>Pre-Set Times</QuestionText>
             </QuestionContainer>
             <QuestionContainer>
-              <QuestionCheckBox onClick={e => setOption("custom")}>
-                {option === "custom" && <CheckBoxCheck />}
-              </QuestionCheckBox>
+              <Checkbox
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  marginRight: "10px"
+                }}
+                onChange={e => setOption("custom")}
+                checked={option === "custom"}
+              />
               <QuestionText>Create Shift Times</QuestionText>
             </QuestionContainer>
           </QuestionsContainer>
@@ -186,9 +206,15 @@ export default function ShiftTimes(props) {
           <ShiftTimeLabel>Shift 3:</ShiftTimeLabel>
           <ThirdShiftQuestion>
             <QuestionContainer>
-              <QuestionCheckBox onClick={e => setNoThirdShift(!noThirdShift)}>
-                {noThirdShift && <CheckBoxCheck />}
-              </QuestionCheckBox>
+              <Checkbox
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  marginRight: "10px"
+                }}
+                onChange={e => setNoThirdShift(!noThirdShift)}
+                checked={noThirdShift}
+              />
               <QuestionText>We don't need a third shift</QuestionText>
             </QuestionContainer>
           </ThirdShiftQuestion>

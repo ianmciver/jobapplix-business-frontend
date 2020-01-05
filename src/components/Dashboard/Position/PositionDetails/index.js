@@ -9,8 +9,9 @@ import {
   SubInstructions,
   SubInstructionsItalics,
   PositionNameInput,
-  TextArea,
-  PositionNextButton
+  DescriptionArea,
+  PositionNextButton,
+  PositionCancelButton
 } from "./styles";
 
 export default function PositionDetails(props) {
@@ -26,6 +27,7 @@ export default function PositionDetails(props) {
   return (
     <DetailsContainer>
       <Intro>{props.instructionText}</Intro>
+      <Instructions>Position Title:</Instructions>
       <PositionNameInput
         placeholder="POSITION TITLE (eg: Server - Nights)"
         value={positionContext.positionName}
@@ -39,22 +41,22 @@ export default function PositionDetails(props) {
         Give a good description of your position. You want prospective
         applicants to know exactly what they are applying for.
       </SubInstructions>
-      <TextArea
+      <DescriptionArea
         placeholder="Write your description here."
         value={positionContext.positionDesc}
         onChange={e => positionContext.setPositionDesc(e.target.value)}
       />
+      {props.cancel && (
+        <PositionCancelButton onClick={navigateCancel} cancel>
+          &#10005; CANCEL UPDATE
+        </PositionCancelButton>
+      )}
       <PositionNextButton
         disabled={positionContext.positionName === ""}
         onClick={navigateNext}
       >
-        CONTINUE
+        CONTINUE &rarr;
       </PositionNextButton>
-      {props.cancel && (
-        <PositionNextButton onClick={navigateCancel} cancel>
-          CANCEL UPDATE
-        </PositionNextButton>
-      )}
     </DetailsContainer>
   );
 }

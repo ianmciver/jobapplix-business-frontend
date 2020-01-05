@@ -5,7 +5,6 @@ import { NextButton } from "../../../../SignUp/SignUpContainer/styles";
 
 export const CustomQuestionBuilderContainer = styled.div`
   width: 100%;
-  padding: 0 30px;
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
@@ -58,13 +57,19 @@ export const BuilderTextArea = styled(TextArea)`
 `;
 
 export const AddChoiceButton = styled(NextButton)`
-  margin: 10px 0 0 20px;
+  margin-top: 10px;
   border: none;
-  padding-left: 0;
-
+  border-radius: 5px;
+  background-color: ${props => props.theme.backgroundWhite};
+  transition: transform 100ms linear;
   &:hover {
-    background-color: transparent;
-    color: ${props => props.theme.textDark};
+    background-color: ${props => props.theme.backgroundWhite};
+    color: ${props => props.theme.backgroundBlue};
+    transform: translate(0, -3px);
+    box-shadow: 1px 15px 10px -10px rgba(0, 0, 0, 0.1);
+    svg {
+      fill: ${props => props.theme.backgroundBlue};
+    }
   }
   svg {
     fill: ${props => props.theme.textMedium};
@@ -82,8 +87,7 @@ export const AddChoiceButton = styled(NextButton)`
 export const OptionContainer = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 20px 5px;
-  border-bottom: 1px solid ${props => props.theme.borderGrey};
+  margin-bottom: 5px;
 `;
 
 export const OptionCancelContainer = styled.div`
@@ -92,7 +96,7 @@ export const OptionCancelContainer = styled.div`
   transform: rotate(45deg);
   margin-left: 10px;
   svg {
-    fill: ${props => props.theme.textMedium};
+    fill: ${props => props.theme.borderRed};
   }
 `;
 
@@ -104,6 +108,7 @@ export const AddButton = styled(NextButton)`
   border-color: ${props => props.theme.borderGrey};
   color: ${props => props.theme.borderGrey};
   margin: 0 20px 30px 0;
+  border-radius: 3px;
   &:hover {
     background-color: ${props => props.theme.borderGrey};
     color: ${props => props.theme.textLight};
@@ -113,7 +118,7 @@ export const AddButton = styled(NextButton)`
 export const CancelButton = styled(NextButton)`
   border-color: ${props => props.theme.borderRed};
   color: ${props => props.theme.borderRed};
-
+  border-radius: 3px;
   &:hover {
     background-color: ${props => props.theme.borderRed};
     color: ${props => props.theme.textLight};

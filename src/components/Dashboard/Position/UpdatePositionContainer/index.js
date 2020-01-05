@@ -10,7 +10,7 @@ import {
 } from "../../../../constants/routes";
 
 import { PositionQuestionContext } from "../PositionContext";
-import { UpdatePosContainer, UpdatePosHeader } from "./styles";
+import { UpdatePosContainer, UpdateTitle } from "./styles";
 
 import PositionDetails from "../PositionDetails";
 import PositionQuestions from "../PositionQuestions";
@@ -32,16 +32,14 @@ function UpdatePositionContainer(props) {
 
   return (
     <UpdatePosContainer>
-      <UpdatePosHeader>Update Postition</UpdatePosHeader>
+      <UpdateTitle>Update Postition</UpdateTitle>
       <Route
         path={`${dashboard}${updatePositionUrl}/:id`}
         exact
         render={props => (
           <PositionDetails
             {...props}
-            nextScreen={`${dashboard}${updatePositionUrl}/${
-              props.match.params.id
-            }${questions}`}
+            nextScreen={`${dashboard}${updatePositionUrl}/${props.match.params.id}${questions}`}
             cancelUpdate={`${dashboard}${positionsList}`}
             instructionText={updatePositionTextDescription}
             cancel
