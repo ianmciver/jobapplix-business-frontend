@@ -14,43 +14,64 @@ const Selected = () => {
   );
 };
 
-export default function Availability(props) {
-  let shiftOneStart =
-    Number(props.positionShiftTimes.shift_one_begin.split(":")[0]) % 12 || 12;
-  let shiftOneStartAmPm =
-    Number(props.positionShiftTimes.shift_one_begin.split(":")[0]) / 12 > 1
+export default function Availability({ availability, positionShiftTimes }) {
+  const {
+    shift_one_begin,
+    shift_one_end,
+    shift_two_begin,
+    shift_two_end,
+    shift_three_begin,
+    shift_three_end,
+  } = positionShiftTimes;
+
+  let shiftOneStart = shift_one_begin
+    ? Number(shift_one_begin.split(":")[0]) % 12 || 12
+    : null;
+  let shiftOneStartAmPm = shift_one_begin
+    ? Number(shift_one_begin.split(":")[0]) / 12 > 1
       ? "pm"
-      : "am";
-  let shiftOneEnd =
-    Number(props.positionShiftTimes.shift_one_end.split(":")[0]) % 12 || 12;
-  let shiftOneEndAmPm =
-    Number(props.positionShiftTimes.shift_one_end.split(":")[0]) / 12 > 1
+      : "am"
+    : "am";
+  let shiftOneEnd = shift_one_end
+    ? Number(shift_one_end.split(":")[0]) % 12 || 12
+    : null;
+  let shiftOneEndAmPm = shift_one_end
+    ? Number(shift_one_end.split(":")[0]) / 12 > 1
       ? "pm"
-      : "am";
-  let shiftTwoStart =
-    Number(props.positionShiftTimes.shift_two_begin.split(":")[0]) % 12 || 12;
-  let shiftTwoStartAmPm =
-    Number(props.positionShiftTimes.shift_two_begin.split(":")[0]) / 12 > 1
+      : "am"
+    : "am";
+  let shiftTwoStart = shift_two_begin
+    ? Number(shift_two_begin.split(":")[0]) % 12 || 12
+    : null;
+  let shiftTwoStartAmPm = shift_two_begin
+    ? Number(shift_two_begin.split(":")[0]) / 12 > 1
       ? "pm"
-      : "am";
-  let shiftTwoEnd =
-    Number(props.positionShiftTimes.shift_two_end.split(":")[0]) % 12 || 12;
-  let shiftTwoEndAmPm =
-    Number(props.positionShiftTimes.shift_two_end.split(":")[0]) / 12 > 1
+      : "am"
+    : "am";
+  let shiftTwoEnd = shift_two_end
+    ? Number(shift_two_end.split(":")[0]) % 12 || 12
+    : null;
+  let shiftTwoEndAmPm = shift_two_end
+    ? Number(shift_two_end.split(":")[0]) / 12 > 1
       ? "pm"
-      : "am";
-  let shiftThreeStart =
-    Number(props.positionShiftTimes.shift_three_begin.split(":")[0]) % 12 || 12;
-  let shiftThreeStartAmPm =
-    Number(props.positionShiftTimes.shift_three_begin.split(":")[0]) / 12 > 1
+      : "am"
+    : "am";
+  let shiftThreeStart = shift_three_begin
+    ? Number(shift_three_begin.split(":")[0]) % 12 || 12
+    : null;
+  let shiftThreeStartAmPm = shift_three_begin
+    ? Number(shift_three_begin.split(":")[0]) / 12 > 1
       ? "pm"
-      : "am";
-  let shiftThreeEnd =
-    Number(props.positionShiftTimes.shift_three_end.split(":")[0]) % 12 || 12;
-  let shiftThreeEndAmPm =
-    Number(props.positionShiftTimes.shift_three_end.split(":")[0]) / 12 > 1
+      : "am"
+    : "am";
+  let shiftThreeEnd = shift_three_end
+    ? Number(shift_three_end.split(":")[0]) % 12 || 12
+    : null;
+  let shiftThreeEndAmPm = shift_three_end
+    ? Number(shift_three_end.split(":")[0]) / 12 > 1
       ? "pm"
-      : "am";
+      : "am"
+    : "am";
 
   return (
     <ExtendedAppGroup>
@@ -77,13 +98,13 @@ export default function Availability(props) {
           Monday:
         </GridItem>
         <GridItem align={"center"} column={2} row={2} line>
-          {props.availability.mon_first ? <Selected /> : null}
+          {availability.mon_first ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={3} row={2} line>
-          {props.availability.mon_second ? <Selected /> : null}
+          {availability.mon_second ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={4} row={2} line>
-          {props.availability.mon_third ? <Selected /> : null}
+          {availability.mon_third ? <Selected /> : null}
         </GridItem>
 
         {/* Tuesday Row */}
@@ -91,13 +112,13 @@ export default function Availability(props) {
           Tuesday:
         </GridItem>
         <GridItem align={"center"} column={2} row={3} line>
-          {props.availability.tues_first ? <Selected /> : null}
+          {availability.tues_first ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={3} row={3} line>
-          {props.availability.tues_second ? <Selected /> : null}
+          {availability.tues_second ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={4} row={3} line>
-          {props.availability.tues_third ? <Selected /> : null}
+          {availability.tues_third ? <Selected /> : null}
         </GridItem>
 
         {/* Wednesday Row */}
@@ -105,13 +126,13 @@ export default function Availability(props) {
           Wednesday:
         </GridItem>
         <GridItem align={"center"} column={2} row={4} line>
-          {props.availability.wed_first ? <Selected /> : null}
+          {availability.wed_first ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={3} row={4} line>
-          {props.availability.wed_second ? <Selected /> : null}
+          {availability.wed_second ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={4} row={4} line>
-          {props.availability.wed_third ? <Selected /> : null}
+          {availability.wed_third ? <Selected /> : null}
         </GridItem>
 
         {/* Thursday Row */}
@@ -119,13 +140,13 @@ export default function Availability(props) {
           Thursday:
         </GridItem>
         <GridItem align={"center"} column={2} row={5} line>
-          {props.availability.thurs_first ? <Selected /> : null}
+          {availability.thurs_first ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={3} row={5} line>
-          {props.availability.thurs_second ? <Selected /> : null}
+          {availability.thurs_second ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={4} row={5} line>
-          {props.availability.thurs_third ? <Selected /> : null}
+          {availability.thurs_third ? <Selected /> : null}
         </GridItem>
 
         {/* Friday Row*/}
@@ -133,13 +154,13 @@ export default function Availability(props) {
           Friday:
         </GridItem>
         <GridItem align={"center"} column={2} row={6} line>
-          {props.availability.fri_first ? <Selected /> : null}
+          {availability.fri_first ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={3} row={6} line>
-          {props.availability.fri_second ? <Selected /> : null}
+          {availability.fri_second ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={4} row={6} line>
-          {props.availability.fri_third ? <Selected /> : null}
+          {availability.fri_third ? <Selected /> : null}
         </GridItem>
 
         {/* Saturday Row */}
@@ -147,13 +168,13 @@ export default function Availability(props) {
           Saturday:
         </GridItem>
         <GridItem align={"center"} column={2} row={7} line>
-          {props.availability.sat_first ? <Selected /> : null}
+          {availability.sat_first ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={3} row={7} line>
-          {props.availability.sat_second ? <Selected /> : null}
+          {availability.sat_second ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={4} row={7} line>
-          {props.availability.sat_third ? <Selected /> : null}
+          {availability.sat_third ? <Selected /> : null}
         </GridItem>
 
         {/* Sunday Row */}
@@ -161,13 +182,13 @@ export default function Availability(props) {
           Sunday:
         </GridItem>
         <GridItem align={"center"} column={2} row={8}>
-          {props.availability.sun_first ? <Selected /> : null}
+          {availability.sun_first ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={3} row={8}>
-          {props.availability.sun_second ? <Selected /> : null}
+          {availability.sun_second ? <Selected /> : null}
         </GridItem>
         <GridItem align={"center"} column={4} row={8}>
-          {props.availability.sun_third ? <Selected /> : null}
+          {availability.sun_third ? <Selected /> : null}
         </GridItem>
       </AvailabilityChart>
     </ExtendedAppGroup>
